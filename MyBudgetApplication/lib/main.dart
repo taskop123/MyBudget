@@ -1,68 +1,63 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:my_budget_application/screen/login_screen.dart';
+import 'package:my_budget_application/screen/main_screen.dart';
+import 'package:my_budget_application/screen/registration_screen.dart';
+import 'package:my_budget_application/screen/splash_screen.dart';
+import 'package:my_budget_application/service/authentication_service.dart';
+import 'package:my_budget_application/service/database_service.dart';
+import 'package:my_budget_application/util/constants.dart';
+import 'package:my_budget_application/widget/main_theme.dart';
+import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  RealtimeDatabaseService.init();
+
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      title: Constants.applicationTitle,
+      theme: MainTheme.getMainTheme(),
     );
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<StatefulWidget> createState() => MyHomePage();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+class MyHomePage extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+    return MultiProvider(
+      providers: [
+        Provider<AuthenticationService>(
+          create: (_) => AuthenticationService(FirebaseAuth.instance),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        StreamProvider(
+          create: (context) =>
+              context.read<AuthenticationService>().authStateChanges,
+          initialData: null,
+        )
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: Constants.applicationTitle,
+          theme: MainTheme.getMainTheme(),
+          routes: {
+            MainScreen.routeName: (ctx) => const MainScreen(null),
+            RegistrationScreen.routeName: (ctx) => const RegistrationScreen(),
+            LoginScreen.routeName: (ctx) => const LoginScreen(null),
+          },
+          home: const SplashScreen()),
     );
   }
 }

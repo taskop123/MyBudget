@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "309674406515",
+    "firebase_url": "https://my-budget-6f1a1-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "my-budget-6f1a1",
+    "storage_bucket": "my-budget-6f1a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309674406515:android:38cbb635d8c9d876847006",
+        "android_client_info": {
+          "package_name": "mk.ukim.finki.my_budget_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309674406515-o4qvu9isu6k76nubmtage9m4o94opu91.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mk.ukim.finki.my_budget_application",
+            "certificate_hash": "c22fc1c5b06e6ad4e2609386232ab57a484b7264"
+          }
+        },
+        {
+          "client_id": "309674406515-coencf9euqla8rppj0jg40ujc99rspae.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPXCFH_H8bFyS2fYWTETU9_z6OwZrRuoU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309674406515-coencf9euqla8rppj0jg40ujc99rspae.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "309674406515-i8m5ojmscmntt2qnh92qcd4vgvekm0d9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "mk.ukim.finki.myBudgetApplication"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
