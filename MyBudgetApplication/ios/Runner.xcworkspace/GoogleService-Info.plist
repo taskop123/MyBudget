@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>309674406515-i8m5ojmscmntt2qnh92qcd4vgvekm0d9.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.309674406515-i8m5ojmscmntt2qnh92qcd4vgvekm0d9</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>309674406515-o4qvu9isu6k76nubmtage9m4o94opu91.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCkLpGbN5TCf2NNhEzCIqARQ_vlGNnqQSU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>309674406515</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>mk.ukim.finki.myBudgetApplication</string>
+	<key>PROJECT_ID</key>
+	<string>my-budget-6f1a1</string>
+	<key>STORAGE_BUCKET</key>
+	<string>my-budget-6f1a1.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:309674406515:ios:3af52ab32d3f8e19847006</string>
+</dict>
+</plist>
