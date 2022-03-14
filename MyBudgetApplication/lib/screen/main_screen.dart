@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../service/notification_service.dart';
+
 class MainScreen extends StatelessWidget {
   static const routeName = '/home';
 
@@ -10,6 +12,8 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    NotificationService.init();
+
     return Container();
   }
 }
