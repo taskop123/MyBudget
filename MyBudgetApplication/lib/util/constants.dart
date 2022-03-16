@@ -7,6 +7,7 @@ class Constants {
   static const settingsTitle = "Settings";
   static const privacyPolicyTitle = "Privacy Policy";
   static const contactTitle = "Contact";
+  static const notificationTitle = 'my.budget';
 
   // Routes
   static const loginRoute = '/login';
@@ -25,6 +26,7 @@ class Constants {
 
   // Images
   static const logoUrl = 'assets/images/logo.jpg';
+  static const launcherUrl = '@mipmap/ic_launcher';
 
   // Buttons
   static const loginButtonPlaceholder = "Already have an account?";
@@ -39,5 +41,10 @@ class Constants {
   static RegExp emailRegex = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   static RegExp passwordRegex = RegExp(r'^[a-zA-Z0-9_\-=@,\.;]+$');
+
+  // notifications
+  static const channelId = 'channel id';
+  static const channelName = 'channel name';
+  static const channelDescription = 'channel description';
 
 }

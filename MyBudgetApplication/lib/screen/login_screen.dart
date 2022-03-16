@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/screen/registration_screen.dart';
+import 'package:my_budget_application/service/database_service.dart';
 import 'package:my_budget_application/util/validation_utils.dart';
 import 'package:my_budget_application/widget/form/button_form_field.dart';
 import 'package:my_budget_application/widget/form/form_field.dart';
@@ -11,7 +12,7 @@ import 'package:provider/provider.dart';
 import '../service/authentication_service.dart';
 import '../util/constants.dart';
 import '../widget/image_banner.dart';
-import '../widget/popup_menu.dart';
+import '../widget/menu/popup_menu.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = Constants.loginRoute;
@@ -67,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     var currentUser = context.watch<User?>();
     if (currentUser != null) {
+      RealtimeDatabaseService.setUser(currentUser.uid);
       widget._loginFunction!();
     }
   }

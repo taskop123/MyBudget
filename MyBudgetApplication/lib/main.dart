@@ -8,7 +8,7 @@ import 'package:my_budget_application/screen/splash_screen.dart';
 import 'package:my_budget_application/service/authentication_service.dart';
 import 'package:my_budget_application/service/database_service.dart';
 import 'package:my_budget_application/util/constants.dart';
-import 'package:my_budget_application/widget/main_theme.dart';
+import 'package:my_budget_application/util/main_theme.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
