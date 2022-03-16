@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import '../service/authentication_service.dart';
 import '../util/constants.dart';
 import '../widget/image_banner.dart';
-import '../widget/popup_menu.dart';
+import '../widget/menu/popup_menu.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = Constants.loginRoute;
