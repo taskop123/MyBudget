@@ -32,7 +32,7 @@ class AuthenticationService {
     try {
       var userCredentials = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      CustomUser customUser = CustomUser(userCredentials.user!.uid, username);
+      CustomUser customUser = CustomUser(userCredentials.user!.uid, username, null);
       RealtimeDatabaseService.addUser(customUser);
       CustomUser.current = customUser;
       return Constants.registerSuccessMessage;

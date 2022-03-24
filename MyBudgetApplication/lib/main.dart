@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:my_budget_application/screen/login_screen.dart';
+import 'package:my_budget_application/screen/auth/login_screen.dart';
+import 'package:my_budget_application/screen/auth/profile_screen.dart';
+import 'package:my_budget_application/screen/auth/registration_screen.dart';
+import 'package:my_budget_application/screen/info/contact_screen.dart';
+import 'package:my_budget_application/screen/info/location_screen.dart';
 import 'package:my_budget_application/screen/main_screen.dart';
-import 'package:my_budget_application/screen/registration_screen.dart';
 import 'package:my_budget_application/screen/splash_screen.dart';
 import 'package:my_budget_application/service/authentication_service.dart';
 import 'package:my_budget_application/service/database_service.dart';
@@ -56,6 +59,10 @@ class MyHomePage extends State<MyApp> {
             MainScreen.routeName: (ctx) => const MainScreen(null),
             RegistrationScreen.routeName: (ctx) => const RegistrationScreen(),
             LoginScreen.routeName: (ctx) => const LoginScreen(null),
+
+            ProfileScreen.routeName: (ctx) => const ProfileScreen(),
+            ContactScreen.routeName: (ctx) => const ContactScreen(),
+            LocationScreen.routeName: (ctx) => const LocationScreen(),
           },
           home: const SplashScreen()),
     );
