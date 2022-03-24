@@ -19,10 +19,18 @@ class RealtimeDatabaseService {
       return null;
     }
     _usersReference.orderByChild('id').equalTo(id).onValue.listen((event) {
-      var fetchedUser = event.snapshot.value as CustomUser?;
-      if (fetchedUser != null) {
-        CustomUser.current = fetchedUser;
-      }
+      var result = (event.snapshot.value as Map<Object?, Object?>).values.first
+          as Map<Object?, Object?>;
+      var fetchedUser = CustomUser.fromJson(result);
+      CustomUser.current = fetchedUser;
     });
+  }
+
+  static void updateUser(String? id, String? profileImage) {
+    if (profileImage != null) {
+      _usersReference.orderByChild('id').equalTo(id).onValue.listen((event) {
+        event.snapshot.ref.update({'profilePicture': profileImage});
+      });
+    }
   }
 }

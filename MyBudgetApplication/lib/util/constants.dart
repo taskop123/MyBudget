@@ -1,20 +1,32 @@
 class Constants {
+  static const blankString = '';
+  static const keyString = 'key';
+  static const statusString = 'status';
+  static const okStatus = 'OK';
 
   // Titles
   static const applicationTitle = "MyBudget";
   static const loginTitle = "Sign In";
   static const registrationTitle = "Sign up";
+  static const profileTitle = "Profile";
   static const settingsTitle = "Settings";
   static const privacyPolicyTitle = "Privacy Policy";
   static const contactTitle = "Contact";
+  static const aboutTitle = "About";
+  static const locationTitle = 'Our Location';
   static const notificationTitle = 'my.budget';
 
   // Routes
-  static const loginRoute = '/login';
-  static const registerRoute = '/register';
+  static const loginRoute = '/auth/login';
+  static const registerRoute = '/auth/register';
+  static const profileRoute = '/home/profile';
+  static const contactRoute = '/home/contact';
+  static const contactLocationRoute = '/home/contact/location';
 
   // Config
-  static const databaseUrl = 'https://my-budget-6f1a1-default-rtdb.europe-west1.firebasedatabase.app/';
+  static const databaseUrl =
+      'https://my-budget-6f1a1-default-rtdb.europe-west1.firebasedatabase.app/';
+  static const storageProfilePicturesUrl = 'profile-pictures/';
 
   // Form
   static const usernamePlaceholder = 'Enter your username';
@@ -26,6 +38,7 @@ class Constants {
 
   // Images
   static const logoUrl = 'assets/images/logo.jpg';
+  static const avatarUrl = 'assets/images/profile-avatar.jpg';
   static const launcherUrl = '@mipmap/ic_launcher';
 
   // Buttons
@@ -35,16 +48,48 @@ class Constants {
   // Validation
   static const loginSuccessMessage = "Login has been successful";
   static const registerSuccessMessage = "Registration has been successful";
-  static const loginErrorMessage = "Error happened when trying to sign in the user:";
-  static const registerErrorMessage = "Error happened when trying to sign up the user:";
+  static const loginErrorMessage =
+      "Error happened when trying to sign in the user:";
+  static const registerErrorMessage =
+      "Error happened when trying to sign up the user:";
   static RegExp usernameRegex = RegExp(r'^[a-zA-Z0-9_.-]*$');
   static RegExp emailRegex = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   static RegExp passwordRegex = RegExp(r'^[a-zA-Z0-9_\-=@,\.;]+$');
 
-  // notifications
+  // Notifications
   static const channelId = 'channel id';
   static const channelName = 'channel name';
   static const channelDescription = 'channel description';
 
+  // Location and Maps
+  static const googleAPIKey = 'AIzaSyBGXGVfNRITc74ApP-elhp9gPj9GasUBjI';
+  static const googleAPIError =
+      'Error occurred when trying to access the Google Maps API';
+  static const googleAPIUrl =
+      'https://maps.googleapis.com/maps/api/directions/json?';
+  static const routesPlaceholder = 'routes';
+  static const boundsPlaceholder = 'bounds';
+  static const northeastPlaceholder = 'northeast';
+  static const southwestPlaceholder = 'southwest';
+  static const latitudePlaceholder = 'lat';
+  static const longitudePlaceholder = 'lng';
+  static const distancePlaceholder = 'distance';
+  static const durationPlaceholder = 'duration';
+  static const textPlaceholder = 'text';
+  static const legsPlaceholder = 'legs';
+  static const overviewPolylinePlaceholder = 'overview_polyline';
+  static const pointsPlaceholder = 'points';
+  static const originPlaceholder = 'origin';
+  static const destinationPlaceholder = 'destination';
+  static const locationPlaceholder = 'Directions to our location';
+
+  // Contact
+  static const contactTextPlaceholder =
+      'Get in touch with us:';
+  static const contactEmail = 'mybudget@info.com';
+  static const contactFacebook = 'https://www.facebook.com/MyBudget';
+  static const contactInstagram = 'https://www.instagram.com/MyBudget';
+  static const contactLinkedIn = 'https://www.linkedin.com/in/MyBudget';
+  static const profileContentPlaceholder = 'MyBudget User Profile';
 }

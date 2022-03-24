@@ -1,60 +1,72 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_budget_application/model/user.dart';
+import 'package:my_budget_application/screen/auth/profile_screen.dart';
 import 'package:my_budget_application/widget/menu/list_menu_notification.dart';
 import 'package:my_budget_application/widget/menu/list_menu_tile.dart';
+import 'package:provider/provider.dart';
 
-class SideBar extends StatelessWidget {
-  const SideBar({Key? key}) : super(key: key);
+import '../util/constants.dart';
+import 'info/contact_screen.dart';
+
+class SideBar extends StatefulWidget {
+  final Function()? _logout;
+
+  const SideBar(this._logout, {Key? key}) : super(key: key);
+
+  @override
+  State<SideBar> createState() => _SideBarState();
+}
+
+class _SideBarState extends State<SideBar> {
+  late BuildContext _buildContext;
+
+  void _navigateToContactScreen() {
+    Navigator.of(_buildContext).pushNamed(ContactScreen.routeName);
+  }
+
+  void _navigateToProfileScreen() {
+    Navigator.of(_buildContext).pushNamed(ProfileScreen.routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
+    _buildContext = context;
+    var user = context.watch<User?>();
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: const Text('Example.com'),
-            accountEmail: const Text('example@gmail.com'),
+            accountName: Text(CustomUser.current!.username!),
+            accountEmail: Text(user!.email!),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
-                child: Image.network(
-                  'https://media.istockphoto.com/photos/concept-image-of-a-magnifying-glass-on-blue-background-with-a-word-picture-id1316134499?b=1&k=20&m=1316134499&s=170667a&w=0&h=DsKKZ2Sc6k7bZQpxZTcHyV7AJqyy-haTXYZlrA2Jy-c=',
-                  width: 90,
-                  height: 90,
-                  fit: BoxFit.cover,
-                ),
+                child: Image.asset(Constants.avatarUrl)
               ),
             ),
             decoration: const BoxDecoration(
               color: Colors.blue,
-              image: DecorationImage(
-                  image: NetworkImage(
-                      'https://farm3.static.flickr.com/2098/2260149771_00cb406fd6_o.jpg'),),
             ),
           ),
-          const ListMenuTile(
+          ListMenuTile(
             Icons.picture_as_pdf,
             'Export a report',
             null,
             null,
           ),
-          const ListMenuTile(
+          ListMenuTile(
             Icons.notifications,
-            'Request',
+            'Notifications',
             null,
-            ListMenuNotification(8),
+            const ListMenuNotification(8),
           ),
-          const ListMenuTile(
-            Icons.share,
-            'Share',
-            null,
-            null,
-          ),
-
           const Divider(),
-          const ListMenuTile(
+          ListMenuTile(
             Icons.people,
-            'About Us',
-            null,
+            'Contact',
+            _navigateToContactScreen,
             null,
           ),
           const ListMenuTile(
@@ -69,23 +81,17 @@ class SideBar extends StatelessWidget {
             null,
             null,
           ),
-          const ListMenuTile(
-            Icons.description,
-            'Policies',
-            null,
-            null,
-          ),
           const Divider(),
-          const ListMenuTile(
+          ListMenuTile(
             Icons.account_circle,
             'Profile',
-            null,
+            _navigateToProfileScreen,
             null,
           ),
-          const ListMenuTile(
+          ListMenuTile(
             Icons.logout,
             'Logout',
-            null,
+            widget._logout,
             null,
           ),
         ],
