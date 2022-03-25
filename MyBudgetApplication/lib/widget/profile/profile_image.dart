@@ -51,7 +51,7 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
     return GestureDetector(
       onTap: () => uploadImage(),
       child: CircleAvatar(
-        radius: widget.profileHeight / 2,
+        radius: widget.profileHeight / 1.9,
         backgroundColor: Colors.grey.shade700,
         backgroundImage: (profilePicture == null)
             ? Image.asset(Constants.avatarUrl).image

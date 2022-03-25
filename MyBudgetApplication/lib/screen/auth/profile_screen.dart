@@ -8,7 +8,7 @@ import '../../widget/profile/profile_content.dart';
 class ProfileScreen extends StatelessWidget {
   static const routeName = Constants.profileRoute;
 
-  final double coverHeight = 190;
+  final double coverHeight = 160;
   final double profileHeight = 144;
 
   const ProfileScreen({Key? key}) : super(key: key);

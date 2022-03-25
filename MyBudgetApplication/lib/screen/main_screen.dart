@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_budget_application/screen/side_bar.dart';
+import 'package:my_budget_application/widget/menu/bottom_bar.dart';
+import 'package:my_budget_application/widget/menu/side_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../service/database_service.dart';
@@ -34,6 +35,7 @@ class MainScreen extends StatelessWidget {
         actions: _actionButtons(context),
       ),
       body: Container(),
+      bottomNavigationBar: const BottomBar(),
     );
   }
 
