@@ -11,7 +11,7 @@ class ProfileContentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 8),
+        const SizedBox(height: 20),
         Text(
           CustomUser.current!.username!,
           style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),

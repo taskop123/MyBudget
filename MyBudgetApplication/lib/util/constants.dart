@@ -15,6 +15,9 @@ class Constants {
   static const aboutTitle = "About";
   static const locationTitle = 'Our Location';
   static const notificationTitle = 'my.budget';
+  static const homeTitle = 'Home';
+  static const statisticsTitle = 'Statistics';
+  static const visualisationsTitle = 'Visualisations';
 
   // Routes
   static const loginRoute = '/auth/login';
@@ -55,7 +58,7 @@ class Constants {
   static RegExp usernameRegex = RegExp(r'^[a-zA-Z0-9_.-]*$');
   static RegExp emailRegex = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-  static RegExp passwordRegex = RegExp(r'^[a-zA-Z0-9_\-=@,\.;]+$');
+  static RegExp passwordRegex = RegExp(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$");
 
   // Notifications
   static const channelId = 'channel id';
@@ -91,5 +94,5 @@ class Constants {
   static const contactFacebook = 'https://www.facebook.com/MyBudget';
   static const contactInstagram = 'https://www.instagram.com/MyBudget';
   static const contactLinkedIn = 'https://www.linkedin.com/in/MyBudget';
-  static const profileContentPlaceholder = 'MyBudget User Profile';
+  static const profileContentPlaceholder = 'MyBudget User';
 }
