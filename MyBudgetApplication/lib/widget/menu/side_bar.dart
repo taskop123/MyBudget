@@ -1,98 +1,91 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_budget_application/model/user.dart';
-import 'package:my_budget_application/screen/auth/profile_screen.dart';
+import 'package:my_budget_application/widget/menu/list_menu_notification.dart';
 import 'package:my_budget_application/widget/menu/list_menu_tile.dart';
-import 'package:provider/provider.dart';
 
-import '../../util/constants.dart';
-import '../../screen/info/contact_screen.dart';
-
-class SideBar extends StatefulWidget {
-  final Function()? _logout;
-
-  const SideBar(this._logout, {Key? key}) : super(key: key);
-
-  @override
-  State<SideBar> createState() => _SideBarState();
-}
-
-class _SideBarState extends State<SideBar> {
-  late BuildContext _buildContext;
-
-  void _navigateToContactScreen() {
-    Navigator.of(_buildContext).pushNamed(ContactScreen.routeName);
-  }
-
-  void _navigateToProfileScreen() {
-    Navigator.of(_buildContext).pushNamed(ProfileScreen.routeName);
-  }
+class SideBar extends StatelessWidget {
+  const SideBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    _buildContext = context;
-    var user = context.watch<User?>();
-
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text(CustomUser.current!.username!),
-            accountEmail: Text(user!.email!),
+            accountName: const Text('Example.com'),
+            accountEmail: const Text('example@gmail.com'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
-                child: (CustomUser.current!.profilePicture != null)
-                    ? Image.network(CustomUser.current!.profilePicture!)
-                    : Image.asset(Constants.avatarUrl),
+                child: Image.network(
+                  'https://media.istockphoto.com/photos/concept-image-of-a-magnifying-glass-on-blue-background-with-a-word-picture-id1316134499?b=1&k=20&m=1316134499&s=170667a&w=0&h=DsKKZ2Sc6k7bZQpxZTcHyV7AJqyy-haTXYZlrA2Jy-c=',
+                  width: 90,
+                  height: 90,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             decoration: const BoxDecoration(
               color: Colors.blue,
+              image: DecorationImage(
+                  image: NetworkImage(
+                      'https://farm3.static.flickr.com/2098/2260149771_00cb406fd6_o.jpg'),),
             ),
           ),
-          // ListMenuTile(
-          //   Icons.picture_as_pdf,
-          //   'Export a report',
-          //   null,
-          //   null,
-          // ),
-          // ListMenuTile(
-          //   Icons.notifications,
-          //   'Notifications',
-          //   null,
-          //   const ListMenuNotification(8),
-          // ),
-          const Divider(),
-          ListMenuTile(
-            Icons.people,
-            'Contact',
-            _navigateToContactScreen,
+          const ListMenuTile(
+            Icons.picture_as_pdf,
+            'Export a report',
+            null,
             null,
           ),
-          // const ListMenuTile(
-          //   Icons.settings,
-          //   'Settings',
-          //   null,
-          //   null,
-          // ),
+          const ListMenuTile(
+            Icons.notifications,
+            'Request',
+            null,
+            ListMenuNotification(8),
+          ),
+          const ListMenuTile(
+            Icons.share,
+            'Share',
+            null,
+            null,
+          ),
+
+          const Divider(),
+          const ListMenuTile(
+            Icons.people,
+            'About Us',
+            null,
+            null,
+          ),
+          const ListMenuTile(
+            Icons.settings,
+            'Settings',
+            null,
+            null,
+          ),
           const ListMenuTile(
             Icons.help,
             'Help',
             null,
             null,
           ),
-          const Divider(),
-          ListMenuTile(
-            Icons.account_circle,
-            'Profile',
-            _navigateToProfileScreen,
+          const ListMenuTile(
+            Icons.description,
+            'Policies',
+            null,
             null,
           ),
-          ListMenuTile(
+          const Divider(),
+          const ListMenuTile(
+            Icons.account_circle,
+            'Profile',
+            null,
+            null,
+          ),
+          const ListMenuTile(
             Icons.logout,
             'Logout',
-            widget._logout,
+            null,
             null,
           ),
         ],

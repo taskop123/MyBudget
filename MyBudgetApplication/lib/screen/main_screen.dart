@@ -16,13 +16,6 @@ class MainScreen extends StatelessWidget {
 
   const MainScreen(this._logoutFunction, {Key? key}) : super(key: key);
 
-  List<Widget>? _actionButtons(BuildContext context) {
-    List<Widget>? buttons = [];
-    buttons.add(ActionButton(Icons.logout, _logoutFunction!));
-
-    return buttons;
-  }
-
   @override
   Widget build(BuildContext context) {
     NotificationService.init();
@@ -32,7 +25,9 @@ class MainScreen extends StatelessWidget {
       drawer: SideBar(_logoutFunction),
       appBar: AppBar(
         title: const Text(Constants.applicationTitle),
-        actions: _actionButtons(context),
+        actions: [
+          ActionButton(Icons.logout, _logoutFunction!)
+        ],
       ),
       body: Container(),
       bottomNavigationBar: const BottomBar(),

@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:my_budget_application/widget/profile/profile_top_widget.dart';
 
 import '../../util/constants.dart';
+<<<<<<< HEAD
+=======
+import '../../widget/action_button.dart';
+>>>>>>> origin/develop
 import '../../widget/menu/popup_menu.dart';
 import '../../widget/profile/profile_content.dart';
 
@@ -15,6 +19,10 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/develop
     return Scaffold(
       appBar: AppBar(
         title: const Text(Constants.profileTitle),
