@@ -2,11 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/screen/auth/profile_screen.dart';
+import 'package:my_budget_application/screen/info/help_screen.dart';
 import 'package:my_budget_application/widget/menu/list_menu_tile.dart';
 import 'package:provider/provider.dart';
 
-import '../../util/constants.dart';
 import '../../screen/info/contact_screen.dart';
+import '../../util/constants.dart';
 
 class SideBar extends StatefulWidget {
   final Function()? _logout;
@@ -19,6 +20,10 @@ class SideBar extends StatefulWidget {
 
 class _SideBarState extends State<SideBar> {
   late BuildContext _buildContext;
+
+  void _navigateToHelpScreen() {
+    Navigator.of(_buildContext).pushNamed(HelpScreen.routeName);
+  }
 
   void _navigateToContactScreen() {
     Navigator.of(_buildContext).pushNamed(ContactScreen.routeName);
@@ -40,11 +45,14 @@ class _SideBarState extends State<SideBar> {
           UserAccountsDrawerHeader(
             accountName: Text(CustomUser.current!.username!),
             accountEmail: Text(user!.email!),
-            currentAccountPicture: CircleAvatar(
-              child: ClipOval(
-                child: (CustomUser.current!.profilePicture != null)
-                    ? Image.network(CustomUser.current!.profilePicture!)
-                    : Image.asset(Constants.avatarUrl),
+            currentAccountPicture: GestureDetector(
+              onTap: () => _navigateToProfileScreen(),
+              child: CircleAvatar(
+                child: ClipOval(
+                  child: (CustomUser.current!.profilePicture != null)
+                      ? Image.network(CustomUser.current!.profilePicture!)
+                      : Image.asset(Constants.avatarUrl),
+                ),
               ),
             ),
             decoration: const BoxDecoration(
@@ -63,7 +71,7 @@ class _SideBarState extends State<SideBar> {
           //   null,
           //   const ListMenuNotification(8),
           // ),
-          const Divider(),
+          // const Divider(),
           ListMenuTile(
             Icons.people,
             'Contact',
@@ -76,10 +84,10 @@ class _SideBarState extends State<SideBar> {
           //   null,
           //   null,
           // ),
-          const ListMenuTile(
+          ListMenuTile(
             Icons.help,
             'Help',
-            null,
+            _navigateToHelpScreen,
             null,
           ),
           const Divider(),
