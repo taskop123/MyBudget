@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_budget_application/screen/expenses/expenses_form_screen.dart';
 import 'package:my_budget_application/widget/menu/bottom_bar.dart';
 import 'package:my_budget_application/widget/menu/side_bar.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +9,7 @@ import '../service/database_service.dart';
 import '../service/notification_service.dart';
 import '../util/constants.dart';
 import '../widget/action_button.dart';
+import '../widget/menu/side_bar.dart';
 
 class MainScreen extends StatelessWidget {
   static const routeName = '/home';
@@ -25,11 +27,14 @@ class MainScreen extends StatelessWidget {
       drawer: SideBar(_logoutFunction),
       appBar: AppBar(
         title: const Text(Constants.applicationTitle),
-        actions: [
-          ActionButton(Icons.logout, _logoutFunction!)
-        ],
+        actions: [ActionButton(Icons.logout, _logoutFunction!)],
       ),
       body: Container(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.of(context)
+            .pushNamed(ExpensesScreen.routeName), //CameraScreen.routeName
+        child: const Icon(Icons.add),
+      ),
       bottomNavigationBar: const BottomBar(),
     );
   }

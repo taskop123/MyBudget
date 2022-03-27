@@ -35,8 +35,33 @@ class RealtimeDatabaseService {
 
         var fetchedUser = CustomUser.fromJson(resultValue);
         fetchedUser.profilePicture = profileImage;
-        _usersReference.child(resultKey).child('profilePicture').set(profileImage);
-        var i =  10;
+        _usersReference
+            .child(resultKey)
+            .child('profilePicture')
+            .set(profileImage);
+        var i = 10;
+      });
+    }
+  }
+
+  static void addNewExpenseToUser(String? id, Expense newExpense) {
+    if (newExpense != null) {
+      _usersReference.orderByChild('id').equalTo(id).onValue.listen((event) {
+        var resultMap = (event.snapshot.value as Map<Object?, Object?>);
+        var resultValue = resultMap.values.first as Map<Object?, Object?>;
+        var resultKey = resultMap.keys.first as String;
+
+        var fetchedUser = CustomUser.fromJson(resultValue);
+
+        List<Expense> currentUserExpenses = fetchedUser.expenses;
+        currentUserExpenses.add(newExpense); // Add the new expense to the user!
+
+        List<Map<dynamic, dynamic>> mapped = [];
+        for (var i = 0; i < currentUserExpenses.length; i++) {
+          mapped.add(currentUserExpenses[i].toJson());
+        }
+
+        _usersReference.child(resultKey).child('expenses').set(mapped);
       });
     }
   }

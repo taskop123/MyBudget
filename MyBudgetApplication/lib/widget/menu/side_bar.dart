@@ -3,7 +3,7 @@ import 'package:my_budget_application/widget/menu/list_menu_notification.dart';
 import 'package:my_budget_application/widget/menu/list_menu_tile.dart';
 
 class SideBar extends StatelessWidget {
-  const SideBar({Key? key}) : super(key: key);
+  const SideBar(Function()? logoutFunction, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

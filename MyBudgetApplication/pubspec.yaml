@@ -35,14 +35,40 @@ dependencies:
   firebase_auth: ^3.3.10
   provider: ^6.0.2
   firebase_database: ^9.0.8
+  firebase_storage: ^10.2.9
 
   # Notifications
   flutter_local_notifications: ^9.3.2
   timezone: ^0.8.0
 
+  # Maps
+  dio: ^4.0.4
+  flutter_polyline_points: ^1.0.0
+  google_maps_flutter: ^2.1.2
+  location: ^4.3.0
+  geocode: ^1.0.1
+
+  # Pictures
+  file_picker: ^4.5.1
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  introduction_screen: ^3.0.0
+
+  # Date time picker
+  intl: ^0.17.0
+  datetime_picker_formfield: ^2.0.0
+
+  # Currency form field
+  currency_text_input_formatter: ^2.1.5
+
+  # Camera dependencies
+  camera: any
+  path_provider: any
+  path: any
+
+
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +94,7 @@ flutter:
 
   assets:
     - assets/images/logo.jpg
+    - assets/images/profile-avatar.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
@@ -99,3 +126,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+dependency_overrides:
+  intl: ^0.17.0
