@@ -19,11 +19,12 @@ class ContactScreen extends StatefulWidget {
 
 class _ContactScreenState extends State<ContactScreen> {
   late BuildContext _buildContext;
+  late Function()? _logoutFunction;
 
   void _navigateToLocationScreen() async {
     LatLng? currentUserLocation = await MapsService.getCurrentLocation();
-    Navigator.of(_buildContext)
-        .pushNamed(LocationScreen.routeName, arguments: currentUserLocation);
+    Navigator.of(_buildContext).pushNamed(LocationScreen.routeName,
+        arguments: [currentUserLocation, _logoutFunction]);
   }
 
   @override
@@ -42,7 +43,7 @@ class _ContactScreenState extends State<ContactScreen> {
         child: Center(
           child: Column(children: [
             const ImageBanner(Constants.logoUrl),
-            const Padding(padding: EdgeInsets.fromLTRB(0, 20.0, 0, 5.0)),
+            const Padding(padding: EdgeInsets.fromLTRB(0, 40.0, 0, 2.0)),
             const Text(
               Constants.contactTextPlaceholder,
               style: TextStyle(fontSize: 24),
@@ -52,8 +53,7 @@ class _ContactScreenState extends State<ContactScreen> {
               Constants.contactEmail,
               style: TextStyle(
                   fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.underline),
+                  fontWeight: FontWeight.bold),
             ),
             const Padding(padding: EdgeInsets.fromLTRB(0, 20.0, 0, 20.0)),
             const Text(

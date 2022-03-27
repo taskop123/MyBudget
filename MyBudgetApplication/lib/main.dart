@@ -5,6 +5,7 @@ import 'package:my_budget_application/screen/auth/login_screen.dart';
 import 'package:my_budget_application/screen/auth/profile_screen.dart';
 import 'package:my_budget_application/screen/auth/registration_screen.dart';
 import 'package:my_budget_application/screen/info/contact_screen.dart';
+import 'package:my_budget_application/screen/info/help_screen.dart';
 import 'package:my_budget_application/screen/info/location_screen.dart';
 import 'package:my_budget_application/screen/main_screen.dart';
 import 'package:my_budget_application/screen/splash_screen.dart';
@@ -57,12 +58,14 @@ class MyHomePage extends State<MyApp> {
           theme: MainTheme.getMainTheme(),
           routes: {
             MainScreen.routeName: (ctx) => const MainScreen(null),
+
             RegistrationScreen.routeName: (ctx) => const RegistrationScreen(),
             LoginScreen.routeName: (ctx) => const LoginScreen(null),
-
             ProfileScreen.routeName: (ctx) => const ProfileScreen(),
+
             ContactScreen.routeName: (ctx) => const ContactScreen(),
             LocationScreen.routeName: (ctx) => const LocationScreen(),
+            HelpScreen.routeName: (ctx) => const HelpScreen(),
           },
           home: const SplashScreen()),
     );

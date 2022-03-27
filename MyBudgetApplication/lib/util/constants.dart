@@ -16,6 +16,7 @@ class Constants {
   static const locationTitle = 'Our Location';
   static const notificationTitle = 'my.budget';
   static const homeTitle = 'Home';
+  static const helpTitle = 'Help';
   static const statisticsTitle = 'Statistics';
   static const visualisationsTitle = 'Visualisations';
 
@@ -25,6 +26,7 @@ class Constants {
   static const profileRoute = '/home/profile';
   static const contactRoute = '/home/contact';
   static const contactLocationRoute = '/home/contact/location';
+  static const helpRoute = '/home/help';
 
   // Config
   static const databaseUrl =
@@ -95,4 +97,24 @@ class Constants {
   static const contactInstagram = 'https://www.instagram.com/MyBudget';
   static const contactLinkedIn = 'https://www.linkedin.com/in/MyBudget';
   static const profileContentPlaceholder = 'MyBudget User';
+
+  // Help
+  static const stepOneTitle = 'Step 1: Authentication';
+  static const stepTwoTitle = 'Step 2: Register your bill';
+  static const stepThreeTitle = 'Step 3: Confirm the product listing';
+  static const stepFourTitle = 'Step 4: View visualisations and statistics';
+  static const stepFiveTitle = 'Thank you!';
+  static const stepOneBody = 'Register into the application and sign in.';
+  static const stepTwoBody = 'Click on the bottom right `Add` icon and take a picture of your bill.';
+  static const stepThreeBody = 'Review the products of your bill and make changes if you need to. Then, confirm the bill registration.';
+  static const stepFourBody = 'Review the visualisations and statistics we are making from your bill tracking to get a better understanding of your spendings.';
+  static const stepFiveBody = 'We hope you find this application useful and it helps you not spend as much time thinking about everyday things.';
+  static const stepOneImage = 'assets/images/step-1-authentication.png';
+  static const stepTwoImage = 'assets/images/step-2-register-a-bill.png';
+  static const stepThreeImage = 'assets/images/step-3-confirm-product-listing.png';
+  static const stepFourImage = 'assets/images/step-4-visualisations-statistics.png';
+  static const stepFiveImage = 'assets/images/step-5-thank-you.png';
+  static const finishButton = 'Finish';
+  static const nextButton = 'Next';
+  static const backButton = 'Back';
 }
