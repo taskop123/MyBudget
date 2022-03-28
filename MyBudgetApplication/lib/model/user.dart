@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Expense {
   String? id;
   String? price;
@@ -18,16 +20,29 @@ class Expense {
       this.dateAndTime,
       this.expenseNotes);
 
-  Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id.toString(),
         'price': price,
-        'latitude': latitude,
-        'longitude': longitude,
+        'latitude': latitude.toString(),
+        'longitude': longitude.toString(),
         'expenseAddress': expenseAddress,
         'expenseCategory': expenseCategory,
-        'dateAndTime': dateAndTime,
+        'dateAndTime': dateAndTime?.toLocal().toString(),
         'expenseNotes': expenseNotes,
       };
+
+  factory Expense.fromJson(var data) {
+    return Expense(
+      data['id'],
+      data['price'],
+      double.parse(data['latitude'] == "null" ? "0.0" : data['latitude']),
+      double.parse(data['longitude'] == "null" ? "0.0" : data['longitude']),
+      data['expenseAddress'],
+      data['expenseCategory'],
+      DateTime.parse(data['dateAndTime']),
+      data['expenseNotes'],
+    );
+  }
 }
 
 class CustomUser {
@@ -42,16 +57,28 @@ class CustomUser {
     var id = map['id'];
     var username = map['username'];
     var profilePicture = map['profilePicture'];
-    var expenses = map['expenses'];
+    var expenses = map['expenses'] ?? [];
+    List<Expense> listExpenses = <Expense>[];
 
-    return CustomUser(id, username, profilePicture, expenses);
+    for (var i = 0; i < expenses.length; i++) {
+      var test = expenses[i];
+      Expense ex = Expense.fromJson(test);
+      listExpenses.add(ex);
+    }
+
+    // List<Expense> listExpenses =
+    //     expenses.map((e) => Expense.fromJson(e)).toList().cast<Expense>();
+
+    CustomUser user = CustomUser(id, username, profilePicture, listExpenses);
+
+    return user;
   }
 
-  Map<dynamic, dynamic> toJson() => <dynamic, dynamic>{
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id.toString(),
         'username': username,
         'profilePicture': profilePicture,
-        'expenses': expenses,
+        'expenses': expenses.map((e) => e.toJson()).toList(),
       };
 
   static CustomUser? current;

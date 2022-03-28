@@ -7,7 +7,7 @@ class LocationUtils {
   static GeoCode geoCode = GeoCode();
   static const CameraPosition initialCameraPosition = CameraPosition(
     target: LatLng(42.0, 21.5),
-    zoom: 7.5,
+    zoom: 10.5,
   );
 
   static Future<Address> getLocationAddress(LatLng latLng) async {

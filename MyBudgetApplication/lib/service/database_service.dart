@@ -56,10 +56,11 @@ class RealtimeDatabaseService {
         List<Expense> currentUserExpenses = fetchedUser.expenses;
         currentUserExpenses.add(newExpense); // Add the new expense to the user!
 
-        List<Map<dynamic, dynamic>> mapped = [];
-        for (var i = 0; i < currentUserExpenses.length; i++) {
-          mapped.add(currentUserExpenses[i].toJson());
-        }
+        List<Map<String, dynamic>> mapped = currentUserExpenses.map((e) => e.toJson()).toList();
+
+        // for (var i = 0; i < currentUserExpenses.length; i++) {
+        //   mapped.add(currentUserExpenses[i].toJson());
+        // }
 
         _usersReference.child(resultKey).child('expenses').set(mapped);
       });

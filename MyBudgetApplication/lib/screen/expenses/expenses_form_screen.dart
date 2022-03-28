@@ -43,11 +43,15 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
     return TextFormField(
       decoration: const InputDecoration(labelText: 'Notes'),
       onChanged: (val) {
-        _expenseNotes = val;
+        setState(() {
+          _expenseNotes = val;
+        });
       },
-      onSaved: (val) {
-        _expenseNotes = val!;
-      },
+      // onSaved: (val) {
+      //    setState(() {
+      //     _expenseNotes = val!;
+      //   });
+      // },
     );
   }
 
@@ -75,7 +79,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
             }
           },
           onChanged: (val) => setState(() {
-            _dateAndTime = DateTime.now();
+            _dateAndTime = val!;
           }),
           validator: (val) {
             if (val == DateTime.now()) {
@@ -184,7 +188,9 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
       _dateAndTime,
       _expenseNotes,
     );
-    RealtimeDatabaseService.addNewExpenseToUser(_currentUser.uid, newExpense);
+
+    String userId = _currentUser.uid;
+    RealtimeDatabaseService.addNewExpenseToUser(userId, newExpense);
 
     Navigator.of(_buildContext).pop();
   }
