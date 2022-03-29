@@ -5,6 +5,7 @@ import 'package:my_budget_application/screen/auth/login_screen.dart';
 import 'package:my_budget_application/screen/auth/profile_screen.dart';
 import 'package:my_budget_application/screen/auth/registration_screen.dart';
 import 'package:my_budget_application/screen/expenses/expenses_form_screen.dart';
+import 'package:my_budget_application/screen/expenses/list_expenses_screen.dart';
 import 'package:my_budget_application/screen/info/contact_screen.dart';
 import 'package:my_budget_application/screen/info/location_screen.dart';
 import 'package:my_budget_application/screen/main_screen.dart';
@@ -64,6 +65,7 @@ class MyHomePage extends State<MyApp> {
             ContactScreen.routeName: (ctx) => const ContactScreen(),
             LocationScreen.routeName: (ctx) => const LocationScreen(),
             ExpensesScreen.routeName: (ctx) => const ExpensesScreen(),
+            ListExpenseScreen.routeName: (ctx) => const ListExpenseScreen(),
           },
           home: const SplashScreen()),
     );

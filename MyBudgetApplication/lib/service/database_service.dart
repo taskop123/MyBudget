@@ -1,6 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/util/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RealtimeDatabaseService {
   static final _firebaseDatabase = FirebaseDatabase.instance;
@@ -45,25 +47,89 @@ class RealtimeDatabaseService {
   }
 
   static void addNewExpenseToUser(String? id, Expense newExpense) {
-    if (newExpense != null) {
-      _usersReference.orderByChild('id').equalTo(id).onValue.listen((event) {
-        var resultMap = (event.snapshot.value as Map<Object?, Object?>);
-        var resultValue = resultMap.values.first as Map<Object?, Object?>;
-        var resultKey = resultMap.keys.first as String;
+    // _usersReference.child(id!).get().then((docSnapshot) {
+    //   var test = docSnapshot.value as Map<Object?, Object?>;
+    //   List<Map<String, dynamic>> mappedExpenses = [];
+    //   for (var i = 0; i < test.length; i++) {
+    //     var temp = Expense.fromJson(test[i]);
+    //     mappedExpenses.add(temp.toJson());
+    //   }
+    //
+    //   print(mappedExpenses);
+    //
+    //   // print(docSnapshot.data()["email"]); // print data to test
+    // });
+    // getUser.once("child_added", function(snapshot){
+    //   snapshot.re
+    // });
+    // var fetchedUser = CustomUser.fromJson(getUser);
+    // List<Expense> currentUserExpenses = fetchedUser.expenses;
+    // currentUserExpenses.add(newExpense); // Add the new expense to the user!
+    //
+    // List<Map<String, dynamic>> mappedExpenses = [];
+    // for (var i = 0; i < currentUserExpenses.length; i++) {
+    //   mappedExpenses.add(currentUserExpenses[i].toJson());
+    // }
+    //
+    // _firebaseDatabase.ref("users/" + id).update({"expenses": mappedExpenses});
 
-        var fetchedUser = CustomUser.fromJson(resultValue);
+    _usersReference
+        .orderByChild('id')
+        .equalTo(id)
+        .onValue
+        .listen((event) {
+      var resultMap = (event.snapshot.value as Map<Object?, Object?>);
+      var resultValue = resultMap.values.first as Map<Object?, Object?>;
+      var resultKey = resultMap.keys.first as String;
 
-        List<Expense> currentUserExpenses = fetchedUser.expenses;
-        currentUserExpenses.add(newExpense); // Add the new expense to the user!
+      var fetchedUser = CustomUser.fromJson(resultValue);
 
-        List<Map<String, dynamic>> mapped = currentUserExpenses.map((e) => e.toJson()).toList();
+      List<Expense> currentUserExpenses = fetchedUser.expenses;
+      currentUserExpenses.add(newExpense); // Add the new expense to the user!
 
-        // for (var i = 0; i < currentUserExpenses.length; i++) {
-        //   mapped.add(currentUserExpenses[i].toJson());
-        // }
+      List<Map<String, dynamic>> mapped = [];
+      for (var i = 0; i < currentUserExpenses.length; i++) {
+        _usersReference
+            .child(resultKey)
+            .child('expenses')
+            .update(currentUserExpenses[i].toJson());
+        // mapped.add();
+      }
+    });
+  }
 
-        _usersReference.child(resultKey).child('expenses').set(mapped);
-      });
-    }
+  // addUser(CustomUser userData) async {
+  //   await _db.collection("users").add(userData.toJson());
+  // }
+
+  static void updateUser_(String id, Expense newExpense) async {
+    _usersReference
+        .orderByChild('id')
+        .equalTo(id)
+        .onValue
+        .listen((event) async {
+      var resultMap = (event.snapshot.value as Map<Object?, Object?>);
+      var resultValue = resultMap.values.first as Map<Object?, Object?>;
+      var resultKey = resultMap.keys.first as String;
+      var fetchedUser = CustomUser.fromJson(resultValue);
+      List<Expense> currentUserExpenses = fetchedUser.expenses;
+      currentUserExpenses.add(newExpense);
+
+      final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+      await _db.collection("users").doc(resultKey).update(fetchedUser.toJson());
+    });
   }
 }
+
+  // Future<void> deleteEmployee(String documentId) async {
+  //   await _db.collection("users").doc(documentId).delete();
+  // }
+
+  // Future<List<Expense>> retrieveEmployees() async {
+  //   QuerySnapshot<Map<String, dynamic>> snapshot =
+  //   await _db.collection("users").get();
+  //   return snapshot.docs
+  //       .map((docSnapshot) => CustomUser.fromJson(docSnapshot).expenses)
+  //       .toList();
+  // }

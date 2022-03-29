@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Expense {
   String? id;
   String? price;
@@ -32,11 +30,13 @@ class Expense {
       };
 
   factory Expense.fromJson(var data) {
+    var latitude = data['latitude'] == "null" ? "0.0" : data['latitude'];
+    var longitude = data['longitude'] == "null" ? "0.0" : data['longitude'];
     return Expense(
       data['id'],
       data['price'],
-      double.parse(data['latitude'] == "null" ? "0.0" : data['latitude']),
-      double.parse(data['longitude'] == "null" ? "0.0" : data['longitude']),
+      double.parse(latitude),
+      double.parse(longitude),
       data['expenseAddress'],
       data['expenseCategory'],
       DateTime.parse(data['dateAndTime']),
@@ -58,20 +58,14 @@ class CustomUser {
     var username = map['username'];
     var profilePicture = map['profilePicture'];
     var expenses = map['expenses'] ?? [];
+
     List<Expense> listExpenses = <Expense>[];
 
     for (var i = 0; i < expenses.length; i++) {
-      var test = expenses[i];
-      Expense ex = Expense.fromJson(test);
-      listExpenses.add(ex);
+      listExpenses.add(Expense.fromJson(expenses[i]));
     }
 
-    // List<Expense> listExpenses =
-    //     expenses.map((e) => Expense.fromJson(e)).toList().cast<Expense>();
-
-    CustomUser user = CustomUser(id, username, profilePicture, listExpenses);
-
-    return user;
+    return CustomUser(id, username, profilePicture, listExpenses);
   }
 
   Map<String, dynamic> toJson() => <String, dynamic>{

@@ -1,5 +1,8 @@
 import 'dart:math';
 
+import 'package:intl/intl.dart';
+import 'package:my_budget_application/model/user.dart';
+
 class Constants {
   static const blankString = '';
   static const keyString = 'key';
@@ -163,4 +166,7 @@ class Constants {
   static String getRandomString(int length) =>
       String.fromCharCodes(Iterable.generate(
           length, (_) => _chars.codeUnitAt(Random().nextInt(_chars.length))));
+
+  static final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  static final DateFormat formatWithMonthName = DateFormat("MMMM dd, yyyy");
 }

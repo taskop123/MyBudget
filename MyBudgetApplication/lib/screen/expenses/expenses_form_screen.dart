@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:geocode/geocode.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:introduction_screen/introduction_screen.dart';
 import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/util/location_utils.dart';
 import 'package:my_budget_application/widget/form/button_form_field.dart';
@@ -25,7 +26,7 @@ class ExpensesScreen extends StatefulWidget {
 }
 
 class _ExpensesScreenState extends State<ExpensesScreen> {
-  final CurrencyTextInputFormatter formatter = CurrencyTextInputFormatter();
+  late CurrencyTextInputFormatter formatter;
 
   String _expenseNotes = "";
   String? _price = "0.0";
@@ -47,11 +48,6 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
           _expenseNotes = val;
         });
       },
-      // onSaved: (val) {
-      //    setState(() {
-      //     _expenseNotes = val!;
-      //   });
-      // },
     );
   }
 
@@ -85,6 +81,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
             if (val == DateTime.now()) {
               return 'Date and time field is Required';
             }
+            return null;
           },
           onSaved: (val) {
             _dateAndTime = val as DateTime;
@@ -188,10 +185,8 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
       _dateAndTime,
       _expenseNotes,
     );
-
     String userId = _currentUser.uid;
     RealtimeDatabaseService.addNewExpenseToUser(userId, newExpense);
-
     Navigator.of(_buildContext).pop();
   }
 
@@ -199,6 +194,8 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   Widget build(BuildContext context) {
     _buildContext = context;
     _currentUser = context.watch<User?>()!;
+    Locale locale = Localizations.localeOf(context);
+    formatter = CurrencyTextInputFormatter(locale: locale.toString());
 
     return Scaffold(
       appBar: AppBar(
@@ -218,14 +215,13 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
               _buildNotes(),
               _buildDropDownList(),
               _buildChooseLocation(),
-              RaisedButton(
-                onPressed: _createNewExpense,
-                child: Text(
-                  "Submit",
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColorDark, fontSize: 16),
-                ),
-              )
+              ButtonFormField(
+                const EdgeInsets.all(24),
+                _createNewExpense,
+                "Submit",
+                Theme.of(_buildContext).primaryColorDark,
+                Colors.white,
+              ),
             ],
           ),
         ),
