@@ -5,10 +5,9 @@ import 'package:my_budget_application/screen/expenses/list_expenses_screen.dart'
 import 'package:my_budget_application/service/expenses_service.dart';
 import 'package:my_budget_application/widget/menu/bottom_bar.dart';
 import 'package:my_budget_application/widget/menu/side_bar.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
-import '../service/database_service.dart';
+import '../service/firebase/users_repository.dart';
 import '../service/notification_service.dart';
 import '../util/constants.dart';
 import '../widget/action_button.dart';
@@ -91,7 +90,7 @@ class MainScreen extends StatelessWidget {
   void setCurrentUser(BuildContext context) {
     var currentUser = context.watch<User?>();
     if (currentUser != null) {
-      RealtimeDatabaseService.setUser(currentUser.uid);
+      UserRepository.setUser(currentUser.uid);
     }
   }
 }

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/user.dart';
-import 'package:my_budget_application/service/database_service.dart';
+import 'package:my_budget_application/service/firebase/users_repository.dart';
 
 import '../../service/storage_service.dart';
 import '../../util/constants.dart';
@@ -40,7 +40,7 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
     final snapshot = await task.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
 
-    RealtimeDatabaseService.updateUser(CustomUser.current!.id, urlDownload);
+    UserRepository.updateUserProfile(CustomUser.current!.id, urlDownload);
     setState(() {
       profilePicture = urlDownload;
     });

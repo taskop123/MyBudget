@@ -9,7 +9,7 @@ import 'package:my_budget_application/widget/menu/popup_menu.dart';
 import 'package:my_budget_application/widget/text_button.dart';
 import 'package:provider/provider.dart';
 
-import '../../service/authentication_service.dart';
+import '../../service/firebase/authentication_service.dart';
 import '../../widget/image_banner.dart';
 
 class RegistrationScreen extends StatefulWidget {

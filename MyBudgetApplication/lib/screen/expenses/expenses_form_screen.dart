@@ -1,20 +1,20 @@
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geocode/geocode.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:introduction_screen/introduction_screen.dart';
-import 'package:my_budget_application/model/user.dart';
+import 'package:my_budget_application/service/firebase/database_service.dart';
+import 'package:my_budget_application/service/firebase/expenses_repository.dart';
+import 'package:my_budget_application/util/constants.dart';
 import 'package:my_budget_application/util/location_utils.dart';
 import 'package:my_budget_application/widget/form/button_form_field.dart';
-import 'package:my_budget_application/util/constants.dart';
 import 'package:my_budget_application/widget/map/map_dialog.dart';
-import 'package:my_budget_application/service/database_service.dart';
-
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../model/expense.dart';
 
 class ExpensesScreen extends StatefulWidget {
   static const routeName = '/expensesScreen';
@@ -175,8 +175,10 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   }
 
   void _createNewExpense() {
+    String userId = _currentUser.uid;
     Expense newExpense = Expense(
       Constants.getRandomString(10),
+      userId,
       _price,
       _locationController?.latitude,
       _locationController?.longitude,
@@ -185,8 +187,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
       _dateAndTime,
       _expenseNotes,
     );
-    String userId = _currentUser.uid;
-    RealtimeDatabaseService.addNewExpenseToUser(userId, newExpense);
+    ExpenseRepository.addExpense(newExpense);
     Navigator.of(_buildContext).pop();
   }
 
