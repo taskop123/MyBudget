@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:my_budget_application/screen/expenses/expenses_form_screen.dart';
 import 'package:my_budget_application/screen/expenses/list_expenses_screen.dart';
 import 'package:my_budget_application/service/expenses_service.dart';
-import 'package:my_budget_application/service/firebase/expenses_repository.dart';
 import 'package:my_budget_application/widget/menu/bottom_bar.dart';
 import 'package:my_budget_application/widget/menu/side_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../model/expense.dart';
+import '../service/firebase/expenses_repository.dart';
 import '../service/notification_service.dart';
 import '../util/constants.dart';
 import '../widget/action_button.dart';
@@ -26,7 +26,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List<Expense> fetchedExpenses = [];
+  final List<Expense> _expenses = [];
 
   void fetchExpenses(BuildContext buildContext) async {
     var currentUser = buildContext.watch<User?>();
@@ -38,7 +38,7 @@ class _MainScreenState extends State<MainScreen> {
           var item = resultList.elementAt(i) as Map<Object?, Object?>;
           var expense = Expense.fromJson(item);
           setState(() {
-            fetchedExpenses.add(expense);
+            _expenses.add(expense);
           });
         }
       });
@@ -86,7 +86,7 @@ class _MainScreenState extends State<MainScreen> {
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     Text(
-                      ExpenseService().todaySpend().toString(),
+                      ExpenseService(_expenses).todaySpend().toString(),
                       style: const TextStyle(
                           color: Colors.white,
                           fontSize: 30,
@@ -97,8 +97,8 @@ class _MainScreenState extends State<MainScreen> {
               ],
             ),
           ),
-          const Expanded(
-            child: ListExpenseScreen(),
+          Expanded(
+            child: ListExpenseScreen(_expenses),
           )
         ],
       ),

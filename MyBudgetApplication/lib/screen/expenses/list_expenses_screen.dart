@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:my_budget_application/service/expenses_service.dart';
 import 'package:my_budget_application/util/constants.dart';
 
-class ListExpenseScreen extends StatefulWidget {
+import '../../model/expense.dart';
+
+class ListExpenseScreen extends StatelessWidget {
   static const routeName = "/expense/list";
+  final List<Expense> _expenses;
 
-  const ListExpenseScreen({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _ListExpenseScreenState();
-}
-
-class _ListExpenseScreenState extends State<ListExpenseScreen> {
-  // Expense data
-  final List _expenses = ExpenseService().getExpenses;
+  const ListExpenseScreen(this._expenses, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -82,4 +76,11 @@ class _ListExpenseScreenState extends State<ListExpenseScreen> {
       },
     );
   }
+
+// @override
+// State<StatefulWidget> createState() => _ListExpenseScreenState();
 }
+//
+// class _ListExpenseScreenState extends State<ListExpenseScreen> {
+//
+// }
