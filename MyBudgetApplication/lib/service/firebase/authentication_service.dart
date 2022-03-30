@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_budget_application/service/firebase/users_repository.dart';
 import 'package:my_budget_application/util/constants.dart';
 
-import '../model/user.dart';
-import 'database_service.dart';
+import '../../model/user.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
@@ -32,8 +32,9 @@ class AuthenticationService {
     try {
       var userCredentials = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      CustomUser customUser = CustomUser(userCredentials.user!.uid, username);
-      RealtimeDatabaseService.addUser(customUser);
+      CustomUser customUser =
+          CustomUser(userCredentials.user!.uid, username, null);
+      UserRepository.addUser(customUser);
       CustomUser.current = customUser;
       return Constants.registerSuccessMessage;
     } on FirebaseAuthException catch (e) {

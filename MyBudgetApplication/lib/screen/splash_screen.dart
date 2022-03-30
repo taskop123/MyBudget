@@ -1,12 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_budget_application/screen/login_screen.dart';
 import 'package:my_budget_application/screen/main_screen.dart';
-import 'package:my_budget_application/util/constants.dart';
-import 'package:my_budget_application/widget/action_button.dart';
 import 'package:provider/provider.dart';
 
-import '../service/authentication_service.dart';
+import '../service/firebase/authentication_service.dart';
+import 'auth/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -25,26 +23,9 @@ class _SplashScreenState extends State<SplashScreen> {
     setState(() {});
   }
 
-  List<Widget>? _actionButtons(BuildContext context) {
-    List<Widget>? buttons = [];
-    buttons.add(ActionButton(Icons.logout, _logout));
-
-    return buttons;
-  }
-
-  Widget _getHomeScreen() {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(Constants.applicationTitle),
-        actions: _actionButtons(context),
-      ),
-      body: MainScreen(_logout),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
-    return (firebaseUser != null) ? _getHomeScreen() : LoginScreen(_login);
+    return (firebaseUser != null) ? MainScreen(_logout) : LoginScreen(_login);
   }
 }

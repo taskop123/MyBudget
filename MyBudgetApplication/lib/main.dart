@@ -1,14 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:my_budget_application/screen/login_screen.dart';
+import 'package:my_budget_application/screen/auth/login_screen.dart';
+import 'package:my_budget_application/screen/auth/profile_screen.dart';
+import 'package:my_budget_application/screen/auth/registration_screen.dart';
+import 'package:my_budget_application/screen/camera/camera_screen.dart';
+import 'package:my_budget_application/screen/expenses/expenses_form_screen.dart';
+import 'package:my_budget_application/screen/expenses/list_expenses_screen.dart';
+import 'package:my_budget_application/screen/info/contact_screen.dart';
+import 'package:my_budget_application/screen/info/location_screen.dart';
 import 'package:my_budget_application/screen/main_screen.dart';
-import 'package:my_budget_application/screen/registration_screen.dart';
 import 'package:my_budget_application/screen/splash_screen.dart';
-import 'package:my_budget_application/service/authentication_service.dart';
-import 'package:my_budget_application/service/database_service.dart';
+import 'package:my_budget_application/screen/visualizations/pie_chart_screen.dart';
+import 'package:my_budget_application/screen/visualizations/statistics_screen.dart';
+import 'package:my_budget_application/service/firebase/authentication_service.dart';
+import 'package:my_budget_application/service/firebase/database_service.dart';
 import 'package:my_budget_application/util/constants.dart';
-import 'package:my_budget_application/widget/main_theme.dart';
+import 'package:my_budget_application/util/main_theme.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -56,6 +64,14 @@ class MyHomePage extends State<MyApp> {
             MainScreen.routeName: (ctx) => const MainScreen(null),
             RegistrationScreen.routeName: (ctx) => const RegistrationScreen(),
             LoginScreen.routeName: (ctx) => const LoginScreen(null),
+            ProfileScreen.routeName: (ctx) => const ProfileScreen(),
+            ContactScreen.routeName: (ctx) => const ContactScreen(),
+            LocationScreen.routeName: (ctx) => const LocationScreen(),
+            ExpensesScreen.routeName: (ctx) => const ExpensesScreen(),
+            ListExpenseScreen.routeName: (ctx) => const ListExpenseScreen([]),
+            PieChartScreen.routeName: (ctx) => const PieChartScreen(),
+            StatisticsScreen.routeName: (ctx) => const StatisticsScreen(),
+            CameraScreen.routeName: (ctx) => const CameraScreen(),
           },
           home: const SplashScreen()),
     );
