@@ -1,3 +1,5 @@
+import 'package:firebase_database/firebase_database.dart';
+
 import '../../model/user.dart';
 import 'database_service.dart';
 
@@ -9,6 +11,14 @@ class UserRepository {
     await _usersReference.push().set(customUser.toJson());
   }
 
+  static Stream<DatabaseEvent>? getUser(String? userId) {
+    if (userId == null || userId.isEmpty) {
+      return null;
+    }
+
+    return _usersReference.orderByChild('id').equalTo(userId).onValue;
+  }
+
   static void setUser(String? id) async {
     if (id == null || id.isEmpty) {
       return null;
@@ -17,7 +27,6 @@ class UserRepository {
       var result = (event.snapshot.value as Map<Object?, Object?>).values.first
           as Map<Object?, Object?>;
       var fetchedUser = CustomUser.fromJson(result);
-      CustomUser.current = fetchedUser;
     });
   }
 

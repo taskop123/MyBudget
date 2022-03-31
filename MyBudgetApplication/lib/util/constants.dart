@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:intl/intl.dart';
-import 'package:my_budget_application/model/user.dart';
 
 class Constants {
   static const blankString = '';

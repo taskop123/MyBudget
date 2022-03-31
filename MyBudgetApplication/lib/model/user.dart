@@ -18,6 +18,4 @@ class CustomUser {
         'username': username,
         'profilePicture': profilePicture
       };
-
-  static CustomUser? current;
 }

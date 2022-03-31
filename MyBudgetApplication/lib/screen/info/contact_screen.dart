@@ -24,12 +24,13 @@ class _ContactScreenState extends State<ContactScreen> {
   void _navigateToLocationScreen() async {
     LatLng? currentUserLocation = await MapsService.getCurrentLocation();
     Navigator.of(_buildContext).pushNamed(LocationScreen.routeName,
-        arguments: [currentUserLocation, _logoutFunction]);
+        arguments: currentUserLocation);
   }
 
   @override
   Widget build(BuildContext context) {
     _buildContext = context;
+    _logoutFunction = ModalRoute.of(context)!.settings.arguments as Function()?;
 
     return Scaffold(
       appBar: AppBar(

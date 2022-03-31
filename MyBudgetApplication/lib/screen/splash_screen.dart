@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/screen/main_screen.dart';
+import 'package:my_budget_application/service/firebase/users_repository.dart';
 import 'package:provider/provider.dart';
 
 import '../service/firebase/authentication_service.dart';
@@ -14,6 +16,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  late User? _user;
+
   void _login() {
     setState(() {});
   }

@@ -10,15 +10,17 @@ import '../../util/constants.dart';
 
 class ProfileImageWidget extends StatefulWidget {
   final double profileHeight;
+  final CustomUser currentUser;
 
-  const ProfileImageWidget(this.profileHeight, {Key? key}) : super(key: key);
+  const ProfileImageWidget(this.currentUser, this.profileHeight, {Key? key})
+      : super(key: key);
 
   @override
   State<ProfileImageWidget> createState() => _ProfileImageWidgetState();
 }
 
 class _ProfileImageWidgetState extends State<ProfileImageWidget> {
-  String? profilePicture = CustomUser.current!.profilePicture;
+  late String? profilePicture;
 
   Future uploadImage() async {
     final result = await FilePicker.platform
@@ -32,7 +34,7 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
     }
     final file = File(path);
     final destination =
-        '${Constants.storageProfilePicturesUrl}${CustomUser.current!.id}';
+        '${Constants.storageProfilePicturesUrl}${widget.currentUser.id}';
 
     var task = StorageService.uploadFile(destination, file);
     if (task == null) return;
@@ -40,7 +42,7 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
     final snapshot = await task.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
 
-    UserRepository.updateUserProfile(CustomUser.current!.id, urlDownload);
+    UserRepository.updateUserProfile(widget.currentUser.id, urlDownload);
     setState(() {
       profilePicture = urlDownload;
     });
@@ -48,6 +50,7 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    profilePicture = widget.currentUser.profilePicture;
     return GestureDetector(
       onTap: () => uploadImage(),
       child: CircleAvatar(

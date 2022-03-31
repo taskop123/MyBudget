@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
+import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/widget/profile/profile_cover_image.dart';
 import 'package:my_budget_application/widget/profile/profile_image.dart';
 
 class ProfileTopWidget extends StatelessWidget {
   final double coverHeight;
   final double profileHeight;
+  final CustomUser currentUser;
 
-  const ProfileTopWidget(this.coverHeight, this.profileHeight, {Key? key})
+  const ProfileTopWidget(this.currentUser, this.coverHeight, this.profileHeight, {Key? key})
       : super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class ProfileTopWidget extends StatelessWidget {
         ),
         Positioned(
           top: (coverHeight - profileHeight / 2),
-          child: ProfileImageWidget(profileHeight),
+          child: ProfileImageWidget(currentUser, profileHeight),
         ),
       ],
     );

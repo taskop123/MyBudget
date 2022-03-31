@@ -5,7 +5,9 @@ import 'package:my_budget_application/widget/profile/profile_numbers_widget.dart
 import 'package:provider/provider.dart';
 
 class ProfileContentWidget extends StatelessWidget {
-  const ProfileContentWidget({Key? key}) : super(key: key);
+  final CustomUser? _currentUser;
+
+  const ProfileContentWidget(this._currentUser, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class ProfileContentWidget extends StatelessWidget {
       children: [
         const SizedBox(height: 20),
         Text(
-          CustomUser.current!.username!,
+          _currentUser!.username!,
           style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),

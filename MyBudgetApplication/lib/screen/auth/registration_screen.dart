@@ -1,5 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/util/constants.dart';
 import 'package:my_budget_application/util/validation_utils.dart';
 import 'package:my_budget_application/widget/form/button_form_field.dart';
@@ -71,7 +71,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       duration: const Duration(seconds: 3),
     ));
 
-    if (CustomUser.current != null) {
+    var currentUser = context.watch<User?>();
+    if (currentUser != null) {
       await _buildContext.read<AuthenticationService>().signOut();
       _navigateLoginUser();
     }

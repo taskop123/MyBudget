@@ -35,7 +35,6 @@ class AuthenticationService {
       CustomUser customUser =
           CustomUser(userCredentials.user!.uid, username, null);
       UserRepository.addUser(customUser);
-      CustomUser.current = customUser;
       return Constants.registerSuccessMessage;
     } on FirebaseAuthException catch (e) {
       String? errorMessage = e.message;

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/screen/expenses/expenses_form_screen.dart';
 import 'package:my_budget_application/screen/expenses/list_expenses_screen.dart';
 import 'package:my_budget_application/service/expenses_service.dart';
@@ -9,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../model/expense.dart';
 import '../service/firebase/expenses_repository.dart';
+import '../service/firebase/users_repository.dart';
 import '../service/notification_service.dart';
 import '../util/constants.dart';
 import '../widget/action_button.dart';
@@ -27,6 +29,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final List<Expense> _expenses = [];
+  CustomUser? _currentUser;
 
   bool checkIfExpenseExists(List<Expense> expenses, Expense ex) {
     for (var element in expenses) {
@@ -43,7 +46,7 @@ class _MainScreenState extends State<MainScreen> {
 
     if (_eventInstance != null) {
       _eventInstance.listen((event) {
-        if(event.snapshot.value == Null) {
+        if (event.snapshot.value == Null) {
           return;
         }
         var resultList = (event.snapshot.value as Map<Object?, Object?>).values;
@@ -58,7 +61,6 @@ class _MainScreenState extends State<MainScreen> {
         }
       });
     }
-
   }
 
   @override
@@ -67,12 +69,30 @@ class _MainScreenState extends State<MainScreen> {
     super.didChangeDependencies();
   }
 
+  void _setCurrentUser(String? userId) async {
+    if (userId != null) {
+      UserRepository.getUser(userId)!.listen((event) {
+        if (event.snapshot.value == Null) {
+          return;
+        }
+        var result = (event.snapshot.value as Map<Object?, Object?>)
+            .values
+            .first as Map<Object?, Object?>;
+        setState(() {
+          _currentUser = CustomUser.fromJson(result);
+        });
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     NotificationService.init();
+    var currentUser = context.watch<User?>();
+    _setCurrentUser(currentUser!.uid);
 
     return Scaffold(
-      drawer: SideBar(widget._logoutFunction),
+      drawer: SideBar(_currentUser, widget._logoutFunction),
       appBar: AppBar(
         title: const Text(Constants.applicationTitle),
         actions: [ActionButton(Icons.logout, widget._logoutFunction!)],
