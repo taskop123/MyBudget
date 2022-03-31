@@ -58,29 +58,5 @@ class NotificationService {
     }
   }
 
-  static scheduleNotification() {
-    // TODO: Implement logic for scheduling notifications.
-
-    // _showScheduledNotification(
-    //     id: notificationCounter++,
-    //     title: notificationTitle,
-    //     body:
-    //     'An exam is starting in 30 minutes for the subject ${exam.subjectName}, which will last ${exam.time}',
-    //     payload: notificationPayload,
-    //     scheduledDate: examDate.subtract(const Duration(minutes: 30)));
-  }
-
-  static Future showNotification() async {
-    // TODO: Implement logic for showing notifications.
-
-    // _notifications.show(
-    //   notificationCounter++,
-    //   notificationTitle,
-    //   notificationBody,
-    //   await _notificationDetails(),
-    //   payload: notificationPayload,
-    // );
-  }
-
   static void cancelNotifications() => _notifications.cancelAll();
 }

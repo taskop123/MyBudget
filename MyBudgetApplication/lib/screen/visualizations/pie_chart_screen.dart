@@ -30,7 +30,7 @@ class _PieChartScreenState extends State<PieChartScreen> {
       ),
       body: Card(
         child: Column(
-          children: <Widget>[
+          children: data.isNotEmpty ? <Widget>[
             Expanded(
               child: PieChart(
                 PieChartData(
@@ -48,6 +48,14 @@ class _PieChartScreenState extends State<PieChartScreen> {
                   padding: const EdgeInsets.all(16),
                   child: IndicatorsWidget(data),
                 ),
+              ],
+            )
+          ]: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Text("You do not have data yet!")
               ],
             )
           ],

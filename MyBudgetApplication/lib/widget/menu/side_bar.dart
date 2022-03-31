@@ -62,31 +62,12 @@ class _SideBarState extends State<SideBar> {
               color: Colors.blue,
             ),
           ),
-          // ListMenuTile(
-          //   Icons.picture_as_pdf,
-          //   'Export a report',
-          //   null,
-          //   null,
-          // ),
-          // ListMenuTile(
-          //   Icons.notifications,
-          //   'Notifications',
-          //   null,
-          //   const ListMenuNotification(8),
-          // ),
-          // const Divider(),
           ListMenuTile(
             Icons.people,
             'Contact',
             _navigateToContactScreen,
             null,
           ),
-          // const ListMenuTile(
-          //   Icons.settings,
-          //   'Settings',
-          //   null,
-          //   null,
-          // ),
           ListMenuTile(
             Icons.help,
             'Help',

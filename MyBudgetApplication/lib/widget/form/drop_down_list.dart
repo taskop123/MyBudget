@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_budget_application/util/constants.dart';
 
 class CustomDropDownList extends StatefulWidget {
   final Function()? _onClicked;
@@ -12,37 +13,6 @@ class CustomDropDownList extends StatefulWidget {
 class _CustomDropDownListState extends State<CustomDropDownList> {
   
   late String expensesCategory;
-  List<String> categories = [
-    'Food',
-    'Clothing',
-    'Fruits',
-    'Shopping',
-    'Transportation',
-    'Home',
-    'Shopping',
-    'Travel',
-    'Wine',
-    'Bills',
-    'Gift',
-    'Education',
-    'Vegetables',
-    'Snacks',
-    'Telephone',
-    'Baby',
-    'Sport',
-    'Tax',
-    'Electronics',
-    'Health',
-    'Entertainment',
-    'Car',
-    'Social',
-    'Insurance',
-    'Office',
-    'Book',
-    'Cigarette',
-    'Pet',
-    'Beauty'
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +31,7 @@ class _CustomDropDownListState extends State<CustomDropDownList> {
           expensesCategory = newValue!;
         });
       },
-      items: categories.map<DropdownMenuItem<String>>((String value) {
+      items: Constants.categories.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(value: value, child: Text(value));
       }).toList(),
     );

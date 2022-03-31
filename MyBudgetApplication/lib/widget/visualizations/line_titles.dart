@@ -13,11 +13,9 @@ class LineTitles {
       case 3:
         text = 'Mar';
         break;
-
       case 6:
         text = 'Jun';
         break;
-
       case 9:
         text = 'Sep';
         break;

@@ -7,7 +7,6 @@ import 'package:geocode/geocode.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:my_budget_application/screen/camera/camera_screen.dart';
-import 'package:my_budget_application/service/firebase/database_service.dart';
 import 'package:my_budget_application/service/firebase/expenses_repository.dart';
 import 'package:my_budget_application/util/constants.dart';
 import 'package:my_budget_application/util/location_utils.dart';

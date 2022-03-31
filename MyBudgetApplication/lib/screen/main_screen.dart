@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/screen/expenses/expenses_form_screen.dart';
 import 'package:my_budget_application/screen/expenses/list_expenses_screen.dart';
@@ -140,7 +141,13 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
           Expanded(
-            child: ListExpenseScreen(_expenses),
+            child: _expenses.isNotEmpty ? ListExpenseScreen(_expenses) : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                 Text("No expenses currently!"),
+              ],
+            ),
           )
         ],
       ),
