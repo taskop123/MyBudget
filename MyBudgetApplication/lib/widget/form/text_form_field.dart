@@ -19,6 +19,7 @@ class FormTextField extends StatelessWidget {
       child: TextFormField(
         controller: _controller,
         style: const TextStyle(color: Colors.white, fontSize: 18),
+        keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
             hintText: _textHint,
             hintStyle: const TextStyle(color: Colors.white70),

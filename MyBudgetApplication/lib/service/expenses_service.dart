@@ -17,8 +17,6 @@ class ExpenseService {
       }
     }
 
-
-
     return total;
   }
 }

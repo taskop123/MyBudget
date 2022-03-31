@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/widget/menu/bottom_bar.dart';
+import 'package:my_budget_application/widget/visualizations/line_chart_widget.dart';
 
 import '../../model/expense.dart';
 
-class StatisticsScreen extends StatefulWidget{
+class StatisticsScreen extends StatefulWidget {
   static const routeName = '/statistics';
   const StatisticsScreen({Key? key}) : super(key: key);
 
@@ -22,15 +23,18 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
       appBar: AppBar(
         title: const Text("Statistics"),
       ),
-      body: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Text("Coming soon!", style: TextStyle(fontWeight: FontWeight.bold),)
-        ],
+      body: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(32),
+        ),
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 16),
+          child: LineChartWidget(_expenses),
+        ),
       ),
       bottomNavigationBar: BottomBar(1, _expenses),
     );
   }
-
 }

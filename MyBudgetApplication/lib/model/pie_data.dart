@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/expense.dart';
 import 'dart:math' as math;
 
-
 class PieData {
   List<Expense> expenses;
   PieData({required this.expenses});
@@ -19,7 +18,11 @@ class PieData {
       var lengthOfCategory = groups[name]?.length;
       double percentage = ((lengthOfCategory! / expenses.length) * 100);
 
-      var newData = Data(name: name, percent: percentage, color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0));
+      var newData = Data(
+          name: name,
+          percent: percentage,
+          color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+              .withOpacity(1.0));
 
       dataForPieChart.add(newData);
     }
