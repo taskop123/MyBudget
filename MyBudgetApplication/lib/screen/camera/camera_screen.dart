@@ -6,6 +6,7 @@ class CameraScreen extends StatefulWidget {
   static const routeName = 'cameraScreen';
 
   const CameraScreen({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _CameraScreenState();
 }
@@ -34,8 +35,7 @@ class _CameraScreenState extends State<CameraScreen>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      _initController =
-          (_controller != null ? _controller.initialize() : null)!;
+      _initController = _controller.initialize();
     }
     if (!mounted) return;
     setState(() {
@@ -58,8 +58,8 @@ class _CameraScreenState extends State<CameraScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: const Text('Take picture'),
-      ),
+          // title: const Text('Take picture'),
+          ),
       body: FutureBuilder(
         future: _initController,
         builder: (context, snapshot) {

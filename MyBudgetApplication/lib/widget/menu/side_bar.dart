@@ -27,8 +27,7 @@ class _SideBarState extends State<SideBar> {
   }
 
   void _navigateToContactScreen() {
-    Navigator.of(_buildContext)
-        .pushNamed(ContactScreen.routeName, arguments: widget._logout);
+    Navigator.of(_buildContext).pushNamed(ContactScreen.routeName);
   }
 
   void _navigateToProfileScreen() {

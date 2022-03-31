@@ -17,5 +17,4 @@ class ImageBanner extends StatelessWidget {
       ),
     );
   }
-
 }

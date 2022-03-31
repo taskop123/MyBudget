@@ -20,11 +20,13 @@ class MapsService {
       LatLng origin, LatLng destination) async {
     final response = await Dio().get(_baseUrl, queryParameters: {
       Constants.originPlaceholder: '${origin.latitude}, ${origin.longitude}',
-      Constants.destinationPlaceholder: '${destination.latitude}, ${destination.longitude}',
+      Constants.destinationPlaceholder:
+          '${destination.latitude}, ${destination.longitude}',
       Constants.keyString: Constants.googleAPIKey,
     });
 
-    if (response.statusCode == 200 && response.data[Constants.statusString] == Constants.okStatus) {
+    if (response.statusCode == 200 &&
+        response.data[Constants.statusString] == Constants.okStatus) {
       return Directions.fromMap(response.data);
     }
     return null;

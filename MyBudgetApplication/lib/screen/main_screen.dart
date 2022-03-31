@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/screen/expenses/expenses_form_screen.dart';
 import 'package:my_budget_application/screen/expenses/list_expenses_screen.dart';
@@ -12,7 +11,6 @@ import 'package:provider/provider.dart';
 import '../model/expense.dart';
 import '../service/firebase/expenses_repository.dart';
 import '../service/firebase/users_repository.dart';
-import '../service/notification_service.dart';
 import '../util/constants.dart';
 import '../widget/action_button.dart';
 import '../widget/menu/side_bar.dart';
@@ -88,7 +86,6 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    NotificationService.init();
     var currentUser = context.watch<User?>();
     _setCurrentUser(currentUser!.uid);
 
@@ -141,13 +138,15 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
           Expanded(
-            child: _expenses.isNotEmpty ? ListExpenseScreen(_expenses) : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                 Text("No expenses currently!"),
-              ],
-            ),
+            child: _expenses.isNotEmpty
+                ? ListExpenseScreen(_expenses)
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: const [
+                      Text("No expenses currently!"),
+                    ],
+                  ),
           )
         ],
       ),

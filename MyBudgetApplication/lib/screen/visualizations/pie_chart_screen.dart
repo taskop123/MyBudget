@@ -30,35 +30,35 @@ class _PieChartScreenState extends State<PieChartScreen> {
       ),
       body: Card(
         child: Column(
-          children: data.isNotEmpty ? <Widget>[
-            Expanded(
-              child: PieChart(
-                PieChartData(
-                  borderData: FlBorderData(show: false),
-                  sectionsSpace: 0,
-                  centerSpaceRadius: 40,
-                  sections: getSections(data),
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: IndicatorsWidget(data),
-                ),
-              ],
-            )
-          ]: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                Text("You do not have data yet!")
-              ],
-            )
-          ],
+          children: data.isNotEmpty
+              ? <Widget>[
+                  Expanded(
+                    child: PieChart(
+                      PieChartData(
+                        borderData: FlBorderData(show: false),
+                        sectionsSpace: 0,
+                        centerSpaceRadius: 40,
+                        sections: getSections(data),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: IndicatorsWidget(data),
+                      ),
+                    ],
+                  )
+                ]
+              : <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: const [Text("You do not have data yet!")],
+                  )
+                ],
         ),
       ),
       bottomNavigationBar: BottomBar(2, _expenses),

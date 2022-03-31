@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 import '../../service/firebase/authentication_service.dart';
 import '../../util/constants.dart';
 import '../../widget/image_banner.dart';
-import '../../widget/menu/popup_menu.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = Constants.loginRoute;
@@ -75,9 +74,6 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: const Text(Constants.loginTitle),
         backgroundColor: Colors.lightBlue,
-        actions: const [
-          PopupMenu(),
-        ],
       ),
       backgroundColor: Colors.blue,
       body: Padding(

@@ -8,7 +8,8 @@ class ProfileTopWidget extends StatelessWidget {
   final double profileHeight;
   final CustomUser currentUser;
 
-  const ProfileTopWidget(this.currentUser, this.coverHeight, this.profileHeight, {Key? key})
+  const ProfileTopWidget(this.currentUser, this.coverHeight, this.profileHeight,
+      {Key? key})
       : super(key: key);
 
   @override

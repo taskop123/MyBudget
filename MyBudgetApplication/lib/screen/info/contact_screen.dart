@@ -5,7 +5,6 @@ import '../../service/maps_service.dart';
 import '../../util/constants.dart';
 import '../../widget/form/button_form_field.dart';
 import '../../widget/image_banner.dart';
-import '../../widget/menu/popup_menu.dart';
 import 'location_screen.dart';
 
 class ContactScreen extends StatefulWidget {
@@ -19,25 +18,20 @@ class ContactScreen extends StatefulWidget {
 
 class _ContactScreenState extends State<ContactScreen> {
   late BuildContext _buildContext;
-  late Function()? _logoutFunction;
 
   void _navigateToLocationScreen() async {
     LatLng? currentUserLocation = await MapsService.getCurrentLocation();
-    Navigator.of(_buildContext).pushNamed(LocationScreen.routeName,
-        arguments: currentUserLocation);
+    Navigator.of(_buildContext)
+        .pushNamed(LocationScreen.routeName, arguments: currentUserLocation);
   }
 
   @override
   Widget build(BuildContext context) {
     _buildContext = context;
-    _logoutFunction = ModalRoute.of(context)!.settings.arguments as Function()?;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text(Constants.contactTitle),
-        actions: const [
-          PopupMenu(),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(40, 10, 40, 30),
@@ -52,9 +46,7 @@ class _ContactScreenState extends State<ContactScreen> {
             const Padding(padding: EdgeInsets.fromLTRB(0, 20.0, 0, 20.0)),
             const Text(
               Constants.contactEmail,
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const Padding(padding: EdgeInsets.fromLTRB(0, 20.0, 0, 20.0)),
             const Text(

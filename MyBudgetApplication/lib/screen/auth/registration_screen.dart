@@ -5,7 +5,6 @@ import 'package:my_budget_application/util/validation_utils.dart';
 import 'package:my_budget_application/widget/form/button_form_field.dart';
 import 'package:my_budget_application/widget/form/form_field.dart';
 import 'package:my_budget_application/widget/form/text_form_field.dart';
-import 'package:my_budget_application/widget/menu/popup_menu.dart';
 import 'package:my_budget_application/widget/text_button.dart';
 import 'package:provider/provider.dart';
 
@@ -86,9 +85,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       appBar: AppBar(
         title: const Text(Constants.registrationTitle),
         backgroundColor: Colors.lightBlue,
-        actions: const [
-          PopupMenu(),
-        ],
       ),
       backgroundColor: Colors.blue,
       body: Padding(

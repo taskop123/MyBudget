@@ -2,14 +2,11 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import 'package:async/async.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class DisplayPictureScreen extends StatelessWidget {
   static const routeName = 'displayImage';
   final XFile image;
+
   const DisplayPictureScreen({Key? key, required this.image}) : super(key: key);
 
   @override

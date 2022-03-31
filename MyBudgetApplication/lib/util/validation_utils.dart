@@ -1,7 +1,6 @@
 import 'package:my_budget_application/util/constants.dart';
 
 class ValidationUtils {
-
   static bool validateUsername(String? username) {
     if (username == null || username.isEmpty) {
       return false;

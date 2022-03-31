@@ -66,13 +66,6 @@ class ListExpenseScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      // ElevatedButton(
-                      //   onPressed: () {
-                      //     // Navigator.pushNamed(context, EventLocationScreen.routeName,
-                      //     //     arguments: {"location": _exams[index].location});
-                      //   },
-                      //   child: const Text("Details"),
-                      // ),
                     ],
                   ),
                 ),

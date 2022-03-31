@@ -19,17 +19,6 @@ class UserRepository {
     return _usersReference.orderByChild('id').equalTo(userId).onValue;
   }
 
-  static void setUser(String? id) async {
-    if (id == null || id.isEmpty) {
-      return null;
-    }
-    _usersReference.orderByChild('id').equalTo(id).onValue.listen((event) {
-      var result = (event.snapshot.value as Map<Object?, Object?>).values.first
-          as Map<Object?, Object?>;
-      var fetchedUser = CustomUser.fromJson(result);
-    });
-  }
-
   static void updateUserProfile(String? id, String? profileImage) {
     if (profileImage != null) {
       _usersReference.orderByChild('id').equalTo(id).onValue.listen((event) {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:my_budget_application/widget/help/help_page_button.dart';
 import 'package:my_budget_application/widget/help/help_view_page.dart';
-import 'package:my_budget_application/widget/menu/popup_menu.dart';
 
 import '../../util/constants.dart';
 
@@ -16,7 +15,6 @@ class HelpScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(Constants.helpTitle),
-        actions: const [PopupMenu()],
       ),
       body: SafeArea(
         child: IntroductionScreen(

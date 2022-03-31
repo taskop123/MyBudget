@@ -6,6 +6,7 @@ import '../../model/expense.dart';
 
 class StatisticsScreen extends StatefulWidget {
   static const routeName = '/statistics';
+
   const StatisticsScreen({Key? key}) : super(key: key);
 
   @override

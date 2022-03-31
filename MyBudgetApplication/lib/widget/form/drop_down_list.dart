@@ -11,7 +11,6 @@ class CustomDropDownList extends StatefulWidget {
 }
 
 class _CustomDropDownListState extends State<CustomDropDownList> {
-  
   late String expensesCategory;
 
   @override

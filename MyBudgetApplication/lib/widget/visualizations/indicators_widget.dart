@@ -4,6 +4,7 @@ import 'package:my_budget_application/model/pie_data.dart';
 
 class IndicatorsWidget extends StatelessWidget {
   final List<Data> _data;
+
   const IndicatorsWidget(this._data, {Key? key}) : super(key: key);
 
   @override

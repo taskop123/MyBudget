@@ -4,9 +4,10 @@ import 'package:my_budget_application/model/expense.dart';
 
 class CustomLineChartData {
   List<Expense> expenses;
+
   CustomLineChartData({required this.expenses});
 
-   bool checkIfCurrentMonth(var currMonth, List<int?> otherMonths) {
+  bool checkIfCurrentMonth(var currMonth, List<int?> otherMonths) {
     for (var i = 0; i < otherMonths.length; i++) {
       if (otherMonths[i] == currMonth) {
         return true;
@@ -16,12 +17,12 @@ class CustomLineChartData {
   }
 
   int getIndexOfMonth(var currMonth, List<int?> otherMonths) {
-     for(var i = 0; i < otherMonths.length; i++){
-       if(otherMonths[i] == currMonth) {
-         return i;
-        }
-     }
-     return 0;
+    for (var i = 0; i < otherMonths.length; i++) {
+      if (otherMonths[i] == currMonth) {
+        return i;
+      }
+    }
+    return 0;
   }
 
   List<FlSpot> getDotData() {
@@ -46,11 +47,11 @@ class CustomLineChartData {
         if (totalSpent > 6) {
           totalSpent = 6;
         }
-        dataSpots.add(FlSpot(currMonth.toDouble(), double.parse(totalSpent.toStringAsFixed(2))));
-        // break;
+        dataSpots.add(FlSpot(
+            currMonth.toDouble(), double.parse(totalSpent.toStringAsFixed(2))));
       } else {
         dataSpots
-            .add(FlSpot(currMonth.toDouble(), 0)); // 0 dollars spent that month
+            .add(FlSpot(currMonth.toDouble(), 0));
       }
     }
 

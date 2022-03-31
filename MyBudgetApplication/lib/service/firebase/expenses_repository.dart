@@ -16,9 +16,6 @@ class ExpenseRepository {
       return null;
     }
 
-    return _expensesReference
-        .orderByChild('userId')
-        .equalTo(userId)
-        .onValue;
+    return _expensesReference.orderByChild('userId').equalTo(userId).onValue;
   }
 }

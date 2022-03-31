@@ -8,7 +8,6 @@ import 'package:my_budget_application/util/string_utils.dart';
 import '../../model/directions.dart';
 import '../../widget/map/map_field.dart';
 import '../../widget/map/map_info.dart';
-import '../../widget/menu/popup_menu.dart';
 
 class LocationScreen extends StatefulWidget {
   static const routeName = Constants.contactLocationRoute;
@@ -114,9 +113,6 @@ class _LocationScreenState extends State<LocationScreen> {
           message: Constants.locationTitle,
           child: Text(Constants.locationPlaceholder),
         ),
-        actions: const [
-          PopupMenu(),
-        ],
       ),
       body: Stack(
         alignment: Alignment.center,

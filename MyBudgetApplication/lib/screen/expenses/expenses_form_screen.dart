@@ -32,7 +32,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   String? _price = "0.0";
   LatLng? _locationController;
   String? _expenseAddress;
-  var _expenseCategory = null;
+  var _expenseCategory;
   DateTime _dateAndTime = DateTime.now();
   final _format = DateFormat("yyyy-MM-dd HH:mm");
 
@@ -173,12 +173,10 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
       _expenseCategory = value;
     });
   }
-  
+
   void takePhoto() {
     Navigator.of(context).pushNamed(CameraScreen.routeName);
   }
-  
-  
 
   void _createNewExpense() {
     String userId = _currentUser.uid;

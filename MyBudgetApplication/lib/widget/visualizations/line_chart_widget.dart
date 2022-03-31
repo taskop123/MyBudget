@@ -4,17 +4,23 @@ import 'package:my_budget_application/model/expense.dart';
 import 'package:my_budget_application/model/line_chart_data.dart';
 import 'package:my_budget_application/widget/visualizations/line_titles.dart';
 
-class LineChartWidget extends StatelessWidget {
-  List<Expense> expenses = [];
+class LineChartWidget extends StatefulWidget {
+  final List<Expense> expenses;
   late final List<FlSpot> _spots;
-  final List<Color> gradientColors = [
-    const Color(0xff23b6e6),
-    const Color(0xff02d39a),
-  ];
 
   LineChartWidget(this.expenses, {Key? key}) : super(key: key) {
     _spots = CustomLineChartData(expenses: expenses).getDotData();
   }
+
+  @override
+  State<LineChartWidget> createState() => _LineChartWidgetState();
+}
+
+class _LineChartWidgetState extends State<LineChartWidget> {
+  final List<Color> gradientColors = [
+    const Color(0xff23b6e6),
+    const Color(0xff02d39a),
+  ];
 
   @override
   Widget build(BuildContext context) => LineChart(
@@ -46,7 +52,7 @@ class LineChartWidget extends StatelessWidget {
           ),
           lineBarsData: [
             LineChartBarData(
-              spots: _spots,
+              spots: widget._spots,
               isCurved: false,
               gradient: LinearGradient(colors: gradientColors),
               barWidth: 5,
