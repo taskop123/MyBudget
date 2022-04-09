@@ -1,10 +1,12 @@
+import 'dart:math' as math;
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/expense.dart';
-import 'dart:math' as math;
 
 class PieData {
   List<Expense> expenses;
+
   PieData({required this.expenses});
 
   List<Data> getData() {
@@ -35,5 +37,6 @@ class Data {
   final String name;
   final double percent;
   final Color color;
+
   Data({required this.name, required this.percent, required this.color});
 }

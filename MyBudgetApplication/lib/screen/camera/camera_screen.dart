@@ -1,9 +1,12 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/screen/camera/display_picture_screen.dart';
+import 'package:my_budget_application/widget/camera/camera_button.dart';
+
+import '../../util/constants.dart';
 
 class CameraScreen extends StatefulWidget {
-  static const routeName = 'cameraScreen';
+  static const routeName = Constants.cameraRoute;
 
   const CameraScreen({Key? key}) : super(key: key);
 
@@ -37,10 +40,11 @@ class _CameraScreenState extends State<CameraScreen>
     if (state == AppLifecycleState.resumed) {
       _initController = _controller.initialize();
     }
-    if (!mounted) return;
-    setState(() {
-      isCameraReady = true;
-    });
+    if (mounted) {
+      setState(() {
+        isCameraReady = true;
+      });
+    }
   }
 
   Widget cameraWidget(context) {
@@ -58,38 +62,21 @@ class _CameraScreenState extends State<CameraScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          // title: const Text('Take picture'),
-          ),
+        title: const Text(Constants.cameraTitle),
+      ),
       body: FutureBuilder(
         future: _initController,
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return Stack(
-              children: [
-                cameraWidget(context),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                      color: const Color(0xAA333639),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            IconButton(
-                              iconSize: 40,
-                              onPressed: () => captureImage(context),
-                              icon: const Icon(Icons.camera_alt,
-                                  color: Colors.white),
-                            )
-                          ])),
+          return (snapshot.connectionState == ConnectionState.done)
+              ? Stack(
+                  children: [
+                    cameraWidget(context),
+                    CameraButton(captureImage, context),
+                  ],
                 )
-              ],
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+              : const Center(
+                  child: CircularProgressIndicator(),
+                );
         },
       ),
     );
@@ -115,11 +102,13 @@ class _CameraScreenState extends State<CameraScreen>
       });
       if (mounted) {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DisplayPictureScreen(
-                      image: imageFile,
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (context) => DisplayPictureScreen(
+              image: imageFile,
+            ),
+          ),
+        );
       }
     });
   }

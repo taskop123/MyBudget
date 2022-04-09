@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/user.dart';
-import 'package:my_budget_application/screen/expenses/expenses_form_screen.dart';
-import 'package:my_budget_application/screen/expenses/list_expenses_screen.dart';
+import 'package:my_budget_application/screen/expenses/expenses_add_screen.dart';
+import 'package:my_budget_application/screen/expenses/expenses_list_screen.dart';
 import 'package:my_budget_application/service/expenses_service.dart';
 import 'package:my_budget_application/widget/menu/bottom_bar.dart';
 import 'package:my_budget_application/widget/menu/side_bar.dart';
@@ -152,7 +152,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () =>
-            Navigator.of(context).pushNamed(ExpensesScreen.routeName),
+            Navigator.of(context).pushNamed(ExpenseAddScreen.routeName),
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomBar(0, _expenses),

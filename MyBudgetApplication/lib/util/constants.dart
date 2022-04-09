@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 class Constants {
   static const blankString = '';
   static const keyString = 'key';
+  static const zero = '0.0';
   static const statusString = 'status';
   static const okStatus = 'OK';
 
@@ -23,6 +24,8 @@ class Constants {
   static const helpTitle = 'Help';
   static const statisticsTitle = 'Statistics';
   static const visualisationsTitle = 'Visualisations';
+  static const cameraTitle = 'Take a picture';
+  static const displayImageTitle = 'Display Image';
 
   // Routes
   static const loginRoute = '/auth/login';
@@ -31,6 +34,10 @@ class Constants {
   static const contactRoute = '/home/contact';
   static const contactLocationRoute = '/home/contact/location';
   static const helpRoute = '/home/help';
+  static const expensesListRoute = '/home/expenses/list';
+  static const expensesAddRoute = '/home/expenses/add';
+  static const cameraRoute = '/home/camera';
+  static const displayImageRoute = '/home/camera/display';
 
   // Config
   static const databaseUrl =
@@ -44,6 +51,7 @@ class Constants {
   static const emailValidation = 'Please enter a valid email address.';
   static const usernameValidation = 'Please enter a valid username.';
   static const passwordValidation = 'Please enter a valid password.';
+  static const submitButtonPlaceholder = 'Submit';
 
   // Images
   static const logoUrl = 'assets/images/logo.jpg';
@@ -61,11 +69,13 @@ class Constants {
       "Error happened when trying to sign in the user:";
   static const registerErrorMessage =
       "Error happened when trying to sign up the user:";
+  static const dateTimeErrorMessage = 'Date and time field is Required';
   static RegExp usernameRegex = RegExp(r'^[a-zA-Z0-9_.-]*$');
   static RegExp emailRegex = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   static RegExp passwordRegex =
       RegExp(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$");
+  static RegExp numbersRegex = RegExp('[^0-9.]+');
 
   // Notifications
   static const channelId = 'channel id';
@@ -92,7 +102,7 @@ class Constants {
   static const pointsPlaceholder = 'points';
   static const originPlaceholder = 'origin';
   static const destinationPlaceholder = 'destination';
-  static const locationPlaceholder = 'Directions to our location';
+  static const directionsPlaceholder = 'Directions to our location';
 
   // Contact
   static const contactTextPlaceholder = 'Get in touch with us:';
@@ -127,6 +137,16 @@ class Constants {
   static const finishButton = 'Finish';
   static const nextButton = 'Next';
   static const backButton = 'Back';
+
+  // Expenses
+  static const notesPlaceholder = 'Notes';
+  static const dateTimePlaceholder = 'Date and Time';
+  static const categoryPlaceholder = 'Choose category';
+  static const pricePlaceholder = 'Enter price in';
+  static const locationSelectorPlaceholder = 'Select Location';
+  static const unknownPlaceholder = 'Unknown';
+  static const newExpensePlaceholder = 'New expense';
+  static const expensesSpentPlaceholder = 'Spent: ';
 
   static const List<String> categories = [
     'Food',
@@ -166,6 +186,7 @@ class Constants {
       String.fromCharCodes(Iterable.generate(
           length, (_) => _chars.codeUnitAt(Random().nextInt(_chars.length))));
 
+  static final DateFormat mainDateFormat = DateFormat("yyyy-MM-dd HH:mm");
   static final DateFormat formatter = DateFormat('yyyy-MM-dd');
   static final DateFormat formatWithMonthName = DateFormat("MMMM dd, yyyy");
 }

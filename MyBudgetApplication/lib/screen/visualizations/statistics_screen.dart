@@ -4,6 +4,7 @@ import 'package:my_budget_application/widget/visualizations/line_chart_widget.da
 
 import '../../model/expense.dart';
 
+
 class StatisticsScreen extends StatefulWidget {
   static const routeName = '/statistics';
 

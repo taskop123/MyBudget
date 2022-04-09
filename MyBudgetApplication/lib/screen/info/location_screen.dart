@@ -111,7 +111,7 @@ class _LocationScreenState extends State<LocationScreen> {
       appBar: AppBar(
         title: const Tooltip(
           message: Constants.locationTitle,
-          child: Text(Constants.locationPlaceholder),
+          child: Text(Constants.directionsPlaceholder),
         ),
       ),
       body: Stack(
