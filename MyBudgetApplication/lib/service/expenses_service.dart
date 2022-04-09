@@ -1,11 +1,12 @@
 import '../model/expense.dart';
 
+/// Service consisting of business logic for the [Expense] entity.
 class ExpenseService {
-  final List<Expense> _expenses;
-
-  ExpenseService(this._expenses);
-
-  double todaySpend() {
+  /// Calculates the total amount of today's spending,
+  /// from the list of [Expense] objects in dollars.
+  ///
+  /// Returns 0.0 dollars, if the [List<Expense>] is empty.
+  static double todaySpend(List<Expense> _expenses) {
     double total = 0.0;
 
     for (var element in _expenses) {

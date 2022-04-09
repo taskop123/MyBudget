@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/service/firebase/users_repository.dart';
 
-import '../../service/storage_service.dart';
+import '../../service/firebase/storage_service.dart';
 import '../../util/constants.dart';
 
 class ProfileImageWidget extends StatefulWidget {

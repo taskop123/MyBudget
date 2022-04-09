@@ -126,7 +126,7 @@ class _MainScreenState extends State<MainScreen> {
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     Text(
-                      "${ExpenseService(_expenses).todaySpend().toStringAsFixed(2)}\$",
+                      "${ExpenseService.todaySpend(_expenses).toStringAsFixed(2)}\$",
                       style: const TextStyle(
                           color: Colors.white,
                           fontSize: 30,
