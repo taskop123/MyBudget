@@ -4,11 +4,18 @@ import 'package:my_budget_application/model/expense.dart';
 
 import '../util/constants.dart';
 
+/// State class used for keeping line chart data information about [Expense] objects.
 class CustomLineChartData {
+  /// The list of the expenses from which the line chart data is derived.
   List<Expense> expenses;
 
+  /// Creates an line chart data object for specific [expenses].
+  ///
   CustomLineChartData({required this.expenses});
 
+  /// Checks whether the [currMonth] is included in the list of [otherMonths],
+  /// which consists of all the months in the year.
+  ///
   bool checkIfCurrentMonth(var currMonth, List<int?> otherMonths) {
     for (var month in otherMonths) {
       if (month == currMonth) {
@@ -18,6 +25,8 @@ class CustomLineChartData {
     return false;
   }
 
+  /// Returns the [int] index/number of [currMonth] from the list of [otherMonths].
+  ///
   int getIndexOfMonth(var currMonth, List<int?> otherMonths) {
     for (var i = 0; i < otherMonths.length; i++) {
       if (otherMonths[i] == currMonth) {
@@ -27,6 +36,9 @@ class CustomLineChartData {
     return 0;
   }
 
+  /// Creates a list of [FlSpot] cartesian space points
+  /// used for creation of the statistics line graph.
+  ///
   List<FlSpot> getDotData() {
     List<FlSpot> dataSpots = [];
     final groups = groupBy(expenses, (Expense e) {

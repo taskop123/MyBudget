@@ -27,7 +27,7 @@ class UserRepository {
         var resultKey = resultMap.keys.first as String;
 
         var fetchedUser = CustomUser.fromJson(resultValue);
-        fetchedUser.profilePicture = profileImage;
+        fetchedUser!.profilePicture = profileImage;
         _usersReference
             .child(resultKey)
             .child('profilePicture')
