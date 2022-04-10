@@ -4,9 +4,12 @@ import 'package:my_budget_application/service/expenses_service.dart';
 
 import '../../util/constants.dart';
 
+/// Defines the spent price widget for the expenses in the banner.
 class MainSpentBanner extends StatelessWidget {
+  /// The list of [Expense] objects to the spent price amount for.
   final List<Expense> _expenses;
 
+  /// Creates an instance for the [MainSpentBanner] with [_expenses].
   const MainSpentBanner(this._expenses, {Key? key}) : super(key: key);
 
   @override

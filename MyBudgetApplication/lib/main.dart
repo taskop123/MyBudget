@@ -20,15 +20,20 @@ import 'package:my_budget_application/util/constants.dart';
 import 'package:my_budget_application/util/main_theme.dart';
 import 'package:provider/provider.dart';
 
+/// The initialization of listeners and services for the application,
+/// as well as the application itself.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   RealtimeDatabaseService.init();
 
+  /// Initializes the application.
   runApp(const MyApp());
 }
 
+/// The main application widget.
 class MyApp extends StatefulWidget {
+  /// Creates instance of the [MyApp] widget.
   const MyApp({Key? key}) : super(key: key);
 
   Widget build(BuildContext context) {
@@ -39,10 +44,14 @@ class MyApp extends StatefulWidget {
     );
   }
 
+  /// Creates the state object for the [MyApp] widget.
   @override
   State<StatefulWidget> createState() => MyHomePage();
 }
 
+/// State object for the [MyApp] widget that
+/// creates the authentication providers,
+/// as well as routing throughout the application.
 class MyHomePage extends State<MyApp> {
   @override
   Widget build(BuildContext context) {

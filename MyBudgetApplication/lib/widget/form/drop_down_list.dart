@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/util/constants.dart';
 
+/// Defines the custom drop down list for selecting the category of a given expense,
+/// when new expense is added.
 class CustomDropDownList extends StatefulWidget {
+  /// Defines the callback function which is called whenever new item is selected
+  /// from the drop down list.
   final Function()? _onClicked;
 
+  /// Creates new custom drop down list widget with a given callback function.
   const CustomDropDownList(this._onClicked, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _CustomDropDownListState();
 }
 
+/// Defines the state of the custom drop down list widget.
 class _CustomDropDownListState extends State<CustomDropDownList> {
+  /// Defines the current category that is selected.
   late String expensesCategory;
 
   @override

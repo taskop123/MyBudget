@@ -3,9 +3,13 @@ import 'package:my_budget_application/model/expense.dart';
 
 import '../../util/constants.dart';
 
+/// Defines the listing of an expense widget.
+/// It displays the date and time and the price of given expense.
 class ExpenseListBanner extends StatelessWidget {
+  /// Defines the expense that the widget is showing.
   final Expense _expense;
 
+  /// Creates the listing expense widget.
   const ExpenseListBanner(this._expense, {Key? key}) : super(key: key);
 
   @override

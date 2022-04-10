@@ -4,10 +4,14 @@ import 'package:my_budget_application/model/expense.dart';
 import 'package:my_budget_application/model/line_chart_data.dart';
 import 'package:my_budget_application/widget/visualizations/line_titles.dart';
 
+/// Defines the line chart widget for displaying the expenses for a given month.
 class LineChartWidget extends StatefulWidget {
+  /// Defines the expenses for the current user.
   final List<Expense> expenses;
+  /// Defines the spots on the line chart that is going to be drawn.
   late final List<FlSpot> _spots;
 
+  /// Creates new line chart widget for the given expenses.
   LineChartWidget(this.expenses, {Key? key}) : super(key: key) {
     _spots = CustomLineChartData(expenses: expenses).getDotData();
   }
@@ -16,7 +20,9 @@ class LineChartWidget extends StatefulWidget {
   State<LineChartWidget> createState() => _LineChartWidgetState();
 }
 
+/// Defines the state of the line chart widget.
 class _LineChartWidgetState extends State<LineChartWidget> {
+  /// Defines the gradient colors used to visualize the line chart.
   final List<Color> gradientColors = [
     const Color(0xff23b6e6),
     const Color(0xff02d39a),
