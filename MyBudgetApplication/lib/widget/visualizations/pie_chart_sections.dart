@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/pie_data.dart';
 
+/// Defines the data that is displayed on the pie chart screen.
 List<PieChartSectionData> getSections(List<Data> data) {
   return data
       .asMap()

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+/// Defines the map info widget for displaying the information about the map.
 class MapInfo extends StatelessWidget {
+  /// Defines the text that should be displayed on the map.
   final String _text;
 
+  /// Creates a map info widget with a given text to be displayed.
   const MapInfo(this._text, {Key? key}) : super(key: key);
 
   @override

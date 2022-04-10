@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/user.dart';
 import 'package:provider/provider.dart';
 
+
+/// Defines the profile content widget for displaying information 
+/// about the current user's profile.
 class ProfileContentWidget extends StatelessWidget {
+  /// Defines the current user.
   final CustomUser? _currentUser;
 
+  /// Creates new profile content widget for the current user.
   const ProfileContentWidget(this._currentUser, {Key? key}) : super(key: key);
 
   @override

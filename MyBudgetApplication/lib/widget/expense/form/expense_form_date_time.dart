@@ -4,10 +4,14 @@ import 'package:intl/intl.dart';
 
 import '../../../util/constants.dart';
 
+/// Defines the Date and Time widget used in the form when adding a new Expense.
 class ExpenseFormDateTime extends StatelessWidget {
+  /// Callback function called each time the date and time is changed by the user.
   final Function(DateTime?) _setDateTimeFunction;
+  /// Defines the format used to format the Date and Time input of the user.
   final DateFormat _format;
 
+  /// Creates the dropdown list widget.
   const ExpenseFormDateTime(this._format, this._setDateTimeFunction, {Key? key}) : super(key: key);
 
   @override

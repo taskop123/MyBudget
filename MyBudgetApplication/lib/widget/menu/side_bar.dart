@@ -9,27 +9,39 @@ import 'package:provider/provider.dart';
 import '../../screen/info/contact_screen.dart';
 import '../../util/constants.dart';
 
+
+/// Defines the side bar widget used to help the user quickly 
+/// access key actions in our application.
 class SideBar extends StatefulWidget {
+  /// Defines the logout function. 
   final Function()? _logout;
+  /// Defines the current user.
   final CustomUser? _customUser;
 
+  /// Creates the side bar widget with the given logout function
+  /// and the current user.
   const SideBar(this._customUser, this._logout, {Key? key}) : super(key: key);
 
   @override
   State<SideBar> createState() => _SideBarState();
 }
 
+/// Defines the state of the side bar widget.
 class _SideBarState extends State<SideBar> {
+  /// Defines the current build context.
   late BuildContext _buildContext;
 
+  /// Navigates to the help screen in our application.
   void _navigateToHelpScreen() {
     Navigator.of(_buildContext).pushNamed(HelpScreen.routeName);
   }
 
+  /// Navigates to the contact screen in our application.
   void _navigateToContactScreen() {
     Navigator.of(_buildContext).pushNamed(ContactScreen.routeName);
   }
-
+  
+  /// Navigates to the profile screen in our application.
   void _navigateToProfileScreen() {
     Navigator.of(_buildContext)
         .pushNamed(ProfileScreen.routeName, arguments: widget._customUser);

@@ -8,10 +8,16 @@ import 'package:my_budget_application/service/firebase/users_repository.dart';
 import '../../service/firebase/storage_service.dart';
 import '../../util/constants.dart';
 
+/// Defines the profile image widget for displaying 
+/// the current user's profile image.
 class ProfileImageWidget extends StatefulWidget {
+  /// Defines the height of the image.
   final double profileHeight;
+  /// Defines the current user.
   final CustomUser currentUser;
 
+  /// Creates new profile image widget with the given current user 
+  /// and height of the image.
   const ProfileImageWidget(this.currentUser, this.profileHeight, {Key? key})
       : super(key: key);
 
@@ -19,9 +25,13 @@ class ProfileImageWidget extends StatefulWidget {
   State<ProfileImageWidget> createState() => _ProfileImageWidgetState();
 }
 
+/// Defines the state of the profile image widget.
 class _ProfileImageWidgetState extends State<ProfileImageWidget> {
+  /// Defines the path to the profile image.
   late String? profilePicture;
 
+  /// Uploads image selected from the device that the user is using
+  /// to the FireBase cloud database.
   Future uploadImage() async {
     final result = await FilePicker.platform
         .pickFiles(allowMultiple: false, type: FileType.image);
