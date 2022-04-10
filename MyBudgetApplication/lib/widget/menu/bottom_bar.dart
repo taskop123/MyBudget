@@ -5,10 +5,16 @@ import 'package:my_budget_application/screen/visualizations/statistics_screen.da
 
 import '../../util/constants.dart';
 
+/// Defines the bottom navigation bar widget in our application.
 class BottomBar extends StatelessWidget {
+  /// Defines the expenses of the user that need to be displayed.
   final List<Expense> _expenses;
+  /// Defines the current index of the selected screen in the bottom bar.
   final int _currentIndex;
 
+  /// Creates a bottom navigation bar widget
+  /// with the given current selected index of the navigation bar 
+  /// and the expenses of the current user.
   const BottomBar(this._currentIndex, this._expenses, {Key? key})
       : super(key: key);
 

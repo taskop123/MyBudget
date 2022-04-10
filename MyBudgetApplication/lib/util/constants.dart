@@ -1,15 +1,18 @@
 import 'dart:math';
-
 import 'package:intl/intl.dart';
 
+/// Class for all constant variables used in our application.
+/// Each of the variable names are descriptive for their purpose.
 class Constants {
+
+  /// Default values placeholders.
   static const blankString = '';
   static const keyString = 'key';
   static const zero = '0.0';
   static const statusString = 'status';
   static const okStatus = 'OK';
 
-  // Titles
+  /// Titles for the screens in our app.
   static const applicationTitle = "MyBudget";
   static const loginTitle = "Sign In";
   static const registrationTitle = "Sign up";
@@ -27,7 +30,7 @@ class Constants {
   static const cameraTitle = 'Take a picture';
   static const displayImageTitle = 'Display Image';
 
-  // Routes
+  /// Routes for the navigation through the screens in our app.
   static const loginRoute = '/auth/login';
   static const registerRoute = '/auth/register';
   static const profileRoute = '/home/profile';
@@ -39,12 +42,12 @@ class Constants {
   static const cameraRoute = '/home/camera';
   static const displayImageRoute = '/home/camera/display';
 
-  // Config
+  /// Config variables.
   static const databaseUrl =
       'https://my-budget-6f1a1-default-rtdb.europe-west1.firebasedatabase.app/';
   static const storageProfilePicturesUrl = 'profile-pictures/';
 
-  // Form
+  /// Form text input placeholders
   static const usernamePlaceholder = 'Enter your username';
   static const emailPlaceholder = 'Enter your email address';
   static const passwordPlaceholder = 'Enter your password';
@@ -53,16 +56,16 @@ class Constants {
   static const passwordValidation = 'Please enter a valid password.';
   static const submitButtonPlaceholder = 'Submit';
 
-  // Images
+  /// Image paths that are used in our application.
   static const logoUrl = 'assets/images/logo.jpg';
   static const avatarUrl = 'assets/images/profile-avatar.jpg';
   static const launcherUrl = '@mipmap/ic_launcher';
 
-  // Buttons
+  /// Buttons text placeholders.
   static const loginButtonPlaceholder = "Already have an account?";
   static const registerButtonPlaceholder = "Don't have an account?";
 
-  // Validation
+  /// Validation text placeholders and regular expressions.
   static const loginSuccessMessage = "Login has been successful";
   static const registerSuccessMessage = "Registration has been successful";
   static const loginErrorMessage =
@@ -77,12 +80,12 @@ class Constants {
       RegExp(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$");
   static RegExp numbersRegex = RegExp('[^0-9.]+');
 
-  // Notifications
+  /// Notifications placeholders.
   static const channelId = 'channel id';
   static const channelName = 'channel name';
   static const channelDescription = 'channel description';
 
-  // Location and Maps
+  /// Location and Maps variables for the Google Maps API
   static const googleAPIKey = 'AIzaSyBGXGVfNRITc74ApP-elhp9gPj9GasUBjI';
   static const googleAPIError =
       'Error occurred when trying to access the Google Maps API';
@@ -104,7 +107,7 @@ class Constants {
   static const destinationPlaceholder = 'destination';
   static const directionsPlaceholder = 'Directions to our location';
 
-  // Contact
+  /// Contact variables used as placeholders.
   static const contactTextPlaceholder = 'Get in touch with us:';
   static const contactEmail = 'mybudget@info.com';
   static const contactFacebook = 'https://www.facebook.com/MyBudget';
@@ -112,7 +115,7 @@ class Constants {
   static const contactLinkedIn = 'https://www.linkedin.com/in/MyBudget';
   static const profileContentPlaceholder = 'MyBudget User';
 
-  // Help
+  /// Help variables used as placeholders.
   static const stepOneTitle = 'Step 1: Authentication';
   static const stepTwoTitle = 'Step 2: Register your bill';
   static const stepThreeTitle = 'Step 3: Confirm the product listing';
@@ -138,7 +141,7 @@ class Constants {
   static const nextButton = 'Next';
   static const backButton = 'Back';
 
-  // Expenses
+  /// Expenses variables used as placeholders.
   static const notesPlaceholder = 'Notes';
   static const dateTimePlaceholder = 'Date and Time';
   static const categoryPlaceholder = 'Choose category';
@@ -148,6 +151,7 @@ class Constants {
   static const newExpensePlaceholder = 'New expense';
   static const expensesSpentPlaceholder = 'Spent: ';
 
+  /// Categories used to categorize each expense a user has made.
   static const List<String> categories = [
     'Food',
     'Clothing',
@@ -179,13 +183,16 @@ class Constants {
     'Beauty',
   ];
 
+  /// Constant list of letters and numbers used to randomly generate an id.
   static const _chars =
       'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 
+  /// Generates a random id string with the specified [length].
   static String getRandomString(int length) =>
       String.fromCharCodes(Iterable.generate(
           length, (_) => _chars.codeUnitAt(Random().nextInt(_chars.length))));
 
+  /// Date Time Formats used to format the dates in our application.
   static final DateFormat mainDateFormat = DateFormat("yyyy-MM-dd HH:mm");
   static final DateFormat formatter = DateFormat('yyyy-MM-dd');
   static final DateFormat formatWithMonthName = DateFormat("MMMM dd, yyyy");
