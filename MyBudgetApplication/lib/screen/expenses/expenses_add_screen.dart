@@ -17,54 +17,93 @@ import '../../model/expense.dart';
 import '../../widget/expense/form/expense_form_currency_formatter.dart';
 import '../../widget/expense/form/expense_form_location.dart';
 
+/// Defines the screen of adding a new expense.
 class ExpenseAddScreen extends StatefulWidget {
+  /// The route name of the add expense screen.
   static const routeName = Constants.expensesAddRoute;
 
+  /// Creates new add expense screen.
   const ExpenseAddScreen({Key? key}) : super(key: key);
 
+  /// Creates the state object for the [ExpenseAddScreen].
   @override
   State<StatefulWidget> createState() => _ExpenseAddScreenState();
 }
 
+/// State class used to display the adding of a new expense screen.
 class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
+  /// Handles the formatting of the price input field.
   late CurrencyTextInputFormatter formatter;
 
+  /// The notes assigned to the new expense.
   String _expenseNotes = Constants.blankString;
+
+  /// The price assigned to the new expense.
   String? _price = Constants.zero;
+
+  /// The location controller which handles the user interaction with the map.
   LatLng? _locationController;
+
+  /// The address of the selected location by the user.
   String? _expenseAddress;
+
+  /// The category of the new expense.
   String? _expenseCategory;
+
+  /// The date and time when the expense happened.
   DateTime _dateAndTime = DateTime.now();
+
+  /// The date and time formatter which formats the date and time in a better form.
   final _format = Constants.mainDateFormat;
 
+  /// The build context of the widget.
   late BuildContext _buildContext;
+
+  /// The global key used in the form to identify the form.
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  /// The current logged in user.
   late User _currentUser;
 
+  /// This method handles the change of the [_expenseNotes] input field.
+  /// 
+  /// It sets the new [value] of the [_expenseNotes].
   void _setExpenseNotesFunction(value) {
     setState(() {
       _expenseNotes = value;
     });
   }
 
+  /// This method handles the change of the [_expenseCategory] drop down list field.
+  /// 
+  /// It sets the new [value] of the [_expenseCategory].
   void _setExpenseCategory(value) {
     setState(() {
       _expenseCategory = value;
     });
   }
 
+  /// This method handles the change of the [_dateAndTime] input field.
+  /// 
+  /// It sets the new [value] of the [_dateAndTime].
   void _setDateTimeFunction(value) {
     setState(() {
       _dateAndTime = value as DateTime;
     });
   }
 
+  /// This method handles the change of the [_price] input field.
+  /// 
+  /// It sets the new [newPrice] of the [_price].
   void _changePrice(newPrice) {
     setState(() {
       _price = newPrice;
     });
   }
 
+  /// This method handles the change of the [_locationController] field.
+  /// 
+  /// It sets the new [location] of the [_locationController].
   void _validateLocation(LatLng? location) {
     setState(() {
       if (location != null) {
@@ -74,12 +113,18 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
     });
   }
 
+  /// This method handles the change of the [_expenseCategory] input field.
+  /// 
+  /// It sets the new [value] of the [_expenseNotes].
   void changeExpensesCategory(value) {
     setState(() {
       _expenseCategory = value;
     });
   }
 
+  /// This method handles the change of the user picked location from the location picker dialog.
+  /// 
+  /// It sets the newly selected location of the [_expenseAddress].
   Future<void> _getLocationAddress() async {
     Address address =
         await LocationUtils.getLocationAddress(_locationController!);
@@ -89,10 +134,17 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
     });
   }
 
+  /// This method is called whenever the user captures a new photo of the receipt for the corresponding expense.
+  /// 
+  /// It navigates to the screen where it can take a new photo.
   void takePhoto() {
     Navigator.of(context).pushNamed(CameraScreen.routeName);
   }
 
+  /// Builds the UI elements for the adding of a new expense form screen,
+  /// including the [appBar] and [body] with a [context],
+  /// with the adequate form elements.
+  ///
   @override
   Widget build(BuildContext context) {
     _buildContext = context;
@@ -141,6 +193,11 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
     );
   }
 
+  /// This method is called whenever a new expense is created.
+  /// 
+  /// It creates new expense with the corresponding user input
+  /// and navigates back to the main screen where 
+  /// the user can see the newly added expense.
   void _createNewExpense() {
     String userId = _currentUser.uid;
 

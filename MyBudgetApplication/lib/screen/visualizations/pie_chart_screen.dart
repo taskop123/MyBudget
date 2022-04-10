@@ -8,16 +8,27 @@ import 'package:my_budget_application/widget/visualizations/pie_chart_sections.d
 
 import '../../util/constants.dart';
 
+/// Defines the pie chart screen for displaying the expenses sorted by category.
 class PieChartScreen extends StatefulWidget {
+  /// The route name of the pie chart screen.
   static const routeName = Constants.pieChartRoute;
 
+  /// Creates new pie chart screen.
   const PieChartScreen({Key? key}) : super(key: key);
 
+  /// Creates the state object for the [PieChartScreen].
   @override
   State<StatefulWidget> createState() => _PieChartScreenState();
 }
 
+/// State class used to display the pie chart screen.
 class _PieChartScreenState extends State<PieChartScreen> {
+
+  /// Builds the UI elements for pie chart screen,
+  /// including the [appBar] and [body] with a [context],
+  /// with the adequate pie chart which depicts the expenses 
+  /// grouped by the expense category.
+  ///
   @override
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
