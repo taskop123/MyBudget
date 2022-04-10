@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_budget_application/util/constants.dart';
 import 'package:my_budget_application/widget/menu/bottom_bar.dart';
 import 'package:my_budget_application/widget/visualizations/line_chart_widget.dart';
 
@@ -6,7 +7,7 @@ import '../../model/expense.dart';
 
 
 class StatisticsScreen extends StatefulWidget {
-  static const routeName = '/statistics';
+  static const routeName = Constants.statisticsRoute;
 
   const StatisticsScreen({Key? key}) : super(key: key);
 
@@ -23,7 +24,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Statistics"),
+        title: const Text(Constants.statisticsTitle),
       ),
       body: Card(
         // elevation: 10,

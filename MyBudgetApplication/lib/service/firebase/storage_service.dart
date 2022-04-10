@@ -10,7 +10,7 @@ class StorageService {
   /// Creates and uploads a new file to the [FirebaseStorage],
   /// given the specific [file] and [destination].
   ///
-  /// Returns null, if the upload was not sucesful.
+  /// Returns null, if the upload was not successful.
   static UploadTask? uploadFile(String destination, File file) {
     try {
       final ref = _firebaseStorage.ref(destination);

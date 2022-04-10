@@ -6,8 +6,10 @@ import 'package:my_budget_application/widget/menu/bottom_bar.dart';
 import 'package:my_budget_application/widget/visualizations/indicators_widget.dart';
 import 'package:my_budget_application/widget/visualizations/pie_chart_sections.dart';
 
+import '../../util/constants.dart';
+
 class PieChartScreen extends StatefulWidget {
-  static const routeName = '/pie-chart';
+  static const routeName = Constants.pieChartRoute;
 
   const PieChartScreen({Key? key}) : super(key: key);
 
@@ -26,7 +28,7 @@ class _PieChartScreenState extends State<PieChartScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pie chart'),
+        title: const Text(Constants.pieChartTitle),
       ),
       body: Card(
         child: data.isNotEmpty
@@ -54,7 +56,7 @@ class _PieChartScreenState extends State<PieChartScreen> {
                 ],
               )
             : const Center(
-                child: Text("You do not have data yet!"),
+                child: Text(Constants.expensesPieChartPlaceholder),
               ),
       ),
       bottomNavigationBar: BottomBar(2, _expenses),

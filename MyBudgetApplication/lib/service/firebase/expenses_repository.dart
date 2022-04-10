@@ -18,6 +18,7 @@ class ExpenseRepository {
   /// Returns a listener stream of [DatabaseEvent],
   /// consisting of [Expense] objects filtered by a [userId].
   ///
+  /// If the user id is null or empty, null is returned.
   static Stream<DatabaseEvent>? getExpensesByUser(String? userId) {
     if (userId == null || userId.isEmpty) {
       return null;

@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:my_budget_application/screen/camera/display_picture_screen.dart';
+import 'package:my_budget_application/screen/camera/camera_picture_screen.dart';
 import 'package:my_budget_application/widget/camera/camera_button.dart';
 
 import '../../util/constants.dart';

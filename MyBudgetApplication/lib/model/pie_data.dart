@@ -4,7 +4,8 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/expense.dart';
 
-/// State class used for keeping pie chart data information about [Expense] objects.
+/// State class used for keeping
+/// pie chart data information about [Expense] objects.
 class PieData {
   /// The list of the expenses from which the pie chart data is derived.
   List<Expense> expenses;
@@ -16,6 +17,7 @@ class PieData {
   /// Creates a list of [Data] pie chart group
   /// used for creation of the statistics pie chart graph.
   ///
+  /// Returns an empty [Data] list, if there is not dot data.
   List<Data> getData() {
     List<Data> dataForPieChart = [];
     final groups = groupBy(expenses, (Expense e) {

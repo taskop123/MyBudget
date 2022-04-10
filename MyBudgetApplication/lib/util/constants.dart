@@ -23,6 +23,7 @@ class Constants {
   static const homeTitle = 'Home';
   static const helpTitle = 'Help';
   static const statisticsTitle = 'Statistics';
+  static const pieChartTitle = 'Pie chart';
   static const visualisationsTitle = 'Visualisations';
   static const cameraTitle = 'Take a picture';
   static const displayImageTitle = 'Display Image';
@@ -30,6 +31,7 @@ class Constants {
   // Routes
   static const loginRoute = '/auth/login';
   static const registerRoute = '/auth/register';
+  static const mainRoute = '/home';
   static const profileRoute = '/home/profile';
   static const contactRoute = '/home/contact';
   static const contactLocationRoute = '/home/contact/location';
@@ -38,6 +40,8 @@ class Constants {
   static const expensesAddRoute = '/home/expenses/add';
   static const cameraRoute = '/home/camera';
   static const displayImageRoute = '/home/camera/display';
+  static const statisticsRoute = '/home/statistics';
+  static const pieChartRoute = '/home/pie-chart';
 
   // Config
   static const databaseUrl =
@@ -147,6 +151,9 @@ class Constants {
   static const unknownPlaceholder = 'Unknown';
   static const newExpensePlaceholder = 'New expense';
   static const expensesSpentPlaceholder = 'Spent: ';
+  static const expensesTodaySpentPlaceholder = 'Today Spent: ';
+  static const expensesEmptySpentPlaceholder = 'No expenses have still been stored';
+  static const expensesPieChartPlaceholder = 'There is still no fetched data about expenses';
 
   static const List<String> categories = [
     'Food',
