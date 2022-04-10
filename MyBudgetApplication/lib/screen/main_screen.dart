@@ -102,8 +102,7 @@ class _MainScreenState extends State<MainScreen> {
   ///
   List<Widget> _buildActionButtons() {
     List<Widget> _actionButtons = [];
-    _actionButtons.add(ActionButton(Icons.add,
-        () => Navigator.of(context).pushNamed(ExpenseAddScreen.routeName)));
+    _actionButtons.add(ActionButton(Icons.logout, widget._logoutFunction!));
 
     return _actionButtons;
   }
@@ -128,6 +127,11 @@ class _MainScreenState extends State<MainScreen> {
           MainBanner(_expenses),
           MainExpandedList(_expenses),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () =>
+            Navigator.of(context).pushNamed(ExpenseAddScreen.routeName),
+        child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomBar(0, _expenses),
     );
