@@ -124,14 +124,14 @@
         <entry key="dbus">
           <value>
             <list>
-              <option value="$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/dbus-0.7.3/lib" />
+              <option value="$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/dbus-0.7.1/lib" />
             </list>
           </value>
         </entry>
         <entry key="dio">
           <value>
             <list>
-              <option value="$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/dio-4.0.5/lib" />
+              <option value="$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/dio-4.0.4/lib" />
             </list>
           </value>
         </entry>
@@ -376,7 +376,7 @@
         <entry key="introduction_screen">
           <value>
             <list>
-              <option value="$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/introduction_screen-3.0.2/lib" />
+              <option value="$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/introduction_screen-3.0.0/lib" />
             </list>
           </value>
         </entry>
@@ -659,8 +659,8 @@
       <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.4/lib" />
       <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/currency_text_input_formatter-2.1.5/lib" />
       <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/datetime_picker_formfield-2.0.0/lib" />
-      <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/dbus-0.7.3/lib" />
-      <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/dio-4.0.5/lib" />
+      <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/dbus-0.7.1/lib" />
+      <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/dio-4.0.4/lib" />
       <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/dots_indicator-2.1.0/lib" />
       <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/equatable-2.0.3/lib" />
       <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/fake_async-1.2.0/lib" />
@@ -692,7 +692,7 @@
       <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.4/lib" />
       <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.0/lib" />
       <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0/lib" />
-      <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/introduction_screen-3.0.2/lib" />
+      <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/introduction_screen-3.0.0/lib" />
       <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.3/lib" />
       <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/lints-1.0.1/lib" />
       <root url="file://$USER_HOME$/.flutter_install/flutter/.pub-cache/hosted/pub.dartlang.org/location-4.3.0/lib" />

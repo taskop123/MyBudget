@@ -1,48 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:my_budget_application/util/constants.dart';
 
+/// Defines the custom drop down list for selecting the category of a given expense,
+/// when new expense is added.
 class CustomDropDownList extends StatefulWidget {
+  /// Defines the callback function which is called whenever new item is selected
+  /// from the drop down list.
   final Function()? _onClicked;
 
+  /// Creates new custom drop down list widget with a given callback function.
   const CustomDropDownList(this._onClicked, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _CustomDropDownListState();
 }
 
+/// Defines the state of the custom drop down list widget.
 class _CustomDropDownListState extends State<CustomDropDownList> {
-  
+  /// Defines the current category that is selected.
   late String expensesCategory;
-  List<String> categories = [
-    'Food',
-    'Clothing',
-    'Fruits',
-    'Shopping',
-    'Transportation',
-    'Home',
-    'Shopping',
-    'Travel',
-    'Wine',
-    'Bills',
-    'Gift',
-    'Education',
-    'Vegetables',
-    'Snacks',
-    'Telephone',
-    'Baby',
-    'Sport',
-    'Tax',
-    'Electronics',
-    'Health',
-    'Entertainment',
-    'Car',
-    'Social',
-    'Insurance',
-    'Office',
-    'Book',
-    'Cigarette',
-    'Pet',
-    'Beauty'
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +37,7 @@ class _CustomDropDownListState extends State<CustomDropDownList> {
           expensesCategory = newValue!;
         });
       },
-      items: categories.map<DropdownMenuItem<String>>((String value) {
+      items: Constants.categories.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(value: value, child: Text(value));
       }).toList(),
     );
