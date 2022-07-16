@@ -7,7 +7,6 @@ import 'package:geocode/geocode.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:my_budget_application/screen/camera/camera_screen.dart';
-import 'package:my_budget_application/service/firebase/database_service.dart';
 import 'package:my_budget_application/service/firebase/expenses_repository.dart';
 import 'package:my_budget_application/util/constants.dart';
 import 'package:my_budget_application/util/location_utils.dart';
@@ -115,6 +114,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
     return TextField(
       decoration: const InputDecoration(
         hintText: 'Enter price in \$',
+        contentPadding: EdgeInsets.fromLTRB(5, 10, 5, 20)
       ),
       onChanged: (val) => _changePrice(val),
       inputFormatters: <TextInputFormatter>[
@@ -174,12 +174,6 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
       _expenseCategory = value;
     });
   }
-  
-  void takePhoto() {
-    Navigator.of(context).pushNamed(CameraScreen.routeName);
-  }
-  
-  
 
   void _createNewExpense() {
     String userId = _currentUser.uid;
@@ -215,7 +209,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
       body: Form(
         key: _formKey,
         child: Container(
-          margin: const EdgeInsets.all(24),
+          margin: const EdgeInsets.fromLTRB(35, 50, 35, 50),
           alignment: Alignment.center,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -226,13 +220,6 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
               _buildNotes(),
               _buildDropDownList(),
               _buildChooseLocation(),
-              FloatingActionButton(
-                onPressed: () {
-                  takePhoto();
-                },
-                child: const Icon(Icons.camera_alt),
-                backgroundColor: Theme.of(_buildContext).primaryColorDark,
-              ),
               ButtonFormField(
                 const EdgeInsets.all(24),
                 _createNewExpense,

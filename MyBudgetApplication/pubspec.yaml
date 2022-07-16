@@ -74,6 +74,9 @@ dependencies:
   # Collections
   collection: ^1.14.13
 
+  # Action buttons
+  flutter_speed_dial: ^6.0.0
+
 
 dev_dependencies:
   flutter_test:

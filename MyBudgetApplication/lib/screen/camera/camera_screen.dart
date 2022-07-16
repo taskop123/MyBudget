@@ -84,9 +84,6 @@ class _CameraScreenState extends State<CameraScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(Constants.cameraTitle),
-      ),
       body: FutureBuilder(
         future: _initController,
         builder: (context, snapshot) {

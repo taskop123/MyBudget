@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:my_budget_application/model/user.dart';
+import 'package:my_budget_application/screen/camera/camera_screen.dart';
 import 'package:my_budget_application/screen/expenses/expenses_add_screen.dart';
 import 'package:my_budget_application/service/expenses_service.dart';
 import 'package:my_budget_application/widget/main/main_banner.dart';
@@ -128,10 +130,20 @@ class _MainScreenState extends State<MainScreen> {
           MainExpandedList(_expenses),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () =>
-            Navigator.of(context).pushNamed(ExpenseAddScreen.routeName),
-        child: const Icon(Icons.add),
+      floatingActionButton: SpeedDial(
+        animatedIcon: AnimatedIcons.add_event,
+        children: [
+          SpeedDialChild(
+            child: const Icon(Icons.edit),
+            onTap: () =>
+                Navigator.of(context).pushNamed(ExpenseAddScreen.routeName),
+          ),
+          SpeedDialChild(
+            child: const Icon(Icons.camera_alt),
+            onTap: () =>
+                Navigator.of(context).pushNamed(CameraScreen.routeName),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomBar(0, _expenses),
     );

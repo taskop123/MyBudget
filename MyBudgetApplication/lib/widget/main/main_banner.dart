@@ -17,12 +17,15 @@ class MainBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.topCenter,
-      color: Theme.of(context).colorScheme.primary,
+      color: Colors.lightBlue,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const ImageBanner(Constants.logoUrl),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(0, 30, 0, 30),
+            child: ImageBanner(Constants.logoUrl),
+          ),
           MainSpentBanner(_expenses),
         ],
       ),
