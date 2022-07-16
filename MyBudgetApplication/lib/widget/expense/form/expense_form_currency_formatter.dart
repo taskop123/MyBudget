@@ -4,11 +4,11 @@ import 'package:flutter/services.dart';
 
 import '../../../util/constants.dart';
 
-
 /// Defines the price input field widget used in the form when adding a new Expense.
 class ExpenseFormCurrencyFormatter extends StatelessWidget {
   /// Callback function when input is changed.
   final Function(String?) _changePriceFunction;
+
   /// Defines the format used for formatting the user input.
   final CurrencyTextInputFormatter _formatter;
 
@@ -20,15 +20,18 @@ class ExpenseFormCurrencyFormatter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      decoration: const InputDecoration(
-        hintText: '${Constants.pricePlaceholder} \$',
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 30, 0, 20),
+      child: TextField(
+        decoration: const InputDecoration(
+          hintText: '${Constants.pricePlaceholder} \$',
+        ),
+        onChanged: (val) => _changePriceFunction(val),
+        inputFormatters: <TextInputFormatter>[
+          _formatter,
+        ],
+        keyboardType: TextInputType.number,
       ),
-      onChanged: (val) => _changePriceFunction(val),
-      inputFormatters: <TextInputFormatter>[
-        _formatter,
-      ],
-      keyboardType: TextInputType.number,
     );
   }
 }

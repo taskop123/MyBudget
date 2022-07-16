@@ -159,7 +159,7 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
       body: Form(
         key: _formKey,
         child: Container(
-          margin: const EdgeInsets.all(24),
+          margin: const EdgeInsets.fromLTRB(30, 0, 30, 10),
           alignment: Alignment.center,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -172,15 +172,8 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                   _setExpenseCategory, _expenseCategory),
               ExpenseFormLocation(_validateLocation, _expenseAddress,
                   _locationController, _buildContext),
-              FloatingActionButton(
-                onPressed: () {
-                  takePhoto();
-                },
-                child: const Icon(Icons.camera_alt),
-                backgroundColor: Theme.of(_buildContext).primaryColorDark,
-              ),
               ButtonFormField(
-                const EdgeInsets.all(24),
+                const EdgeInsets.all(23),
                 _createNewExpense,
                 Constants.submitButtonPlaceholder,
                 Theme.of(_buildContext).primaryColorDark,

@@ -8,13 +8,17 @@ class ExpenseFormNotes extends StatelessWidget {
   final Function(String) _setExpenseNotesFunction;
 
   /// Creates the notes text input widget.
-  const ExpenseFormNotes(this._setExpenseNotesFunction, {Key? key}) : super(key: key);
+  const ExpenseFormNotes(this._setExpenseNotesFunction, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: const InputDecoration(labelText: Constants.notesPlaceholder),
-      onChanged: (val) => _setExpenseNotesFunction(val),
-    );
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+        child: TextFormField(
+          decoration:
+              const InputDecoration(labelText: Constants.notesPlaceholder),
+          onChanged: (val) => _setExpenseNotesFunction(val),
+        ));
   }
 }

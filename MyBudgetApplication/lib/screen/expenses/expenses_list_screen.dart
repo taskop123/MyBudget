@@ -34,7 +34,7 @@ class ListExpenseScreen extends StatelessWidget {
       itemCount: _expenses.length,
       itemBuilder: (context, index) {
         return Card(
-          margin: const EdgeInsets.all(15),
+          margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

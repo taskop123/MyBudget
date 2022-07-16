@@ -9,10 +9,13 @@ import '../../map/map_dialog.dart';
 class ExpenseFormLocation extends StatelessWidget {
   /// Callback function called each time new location is picked by the user to validate the input.
   final Function(LatLng?) _validateLocationFunction;
+
   /// Defines the address from the selected location from the user.
   final String? _expenseAddress;
+
   /// Defines the controller who manages the input from the user.
   final LatLng? _locationController;
+
   /// Defines the build context of the parent widget.
   final BuildContext _buildContext;
 
@@ -33,14 +36,16 @@ class ExpenseFormLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ButtonFormField(
-      const EdgeInsets.fromLTRB(0, 0, 0, 45),
-      _chooseLocation,
-      (_locationController == null || _expenseAddress == null)
-          ? Constants.locationSelectorPlaceholder
-          : _expenseAddress!,
-      Theme.of(_buildContext).primaryColorDark,
-      Colors.white,
-    );
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+        child: ButtonFormField(
+          const EdgeInsets.fromLTRB(0, 0, 0, 45),
+          _chooseLocation,
+          (_locationController == null || _expenseAddress == null)
+              ? Constants.locationSelectorPlaceholder
+              : _expenseAddress!,
+          Colors.lightBlue,
+          Colors.white,
+        ));
   }
 }

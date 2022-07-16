@@ -34,7 +34,7 @@ class ButtonFormField extends StatelessWidget {
           shape: const StadiumBorder(),
           primary: _backgroundColor,
           padding: const EdgeInsets.all(8.0),
-          minimumSize: const Size(300, 50),
+          minimumSize: const Size(350, 50),
         ),
       ),
     );
