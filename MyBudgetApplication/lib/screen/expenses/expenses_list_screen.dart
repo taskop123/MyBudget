@@ -4,6 +4,7 @@ import 'package:my_budget_application/widget/expense/expense_list.dart';
 import 'package:my_budget_application/widget/expense/expense_list_banner.dart';
 
 import '../../model/expense.dart';
+import 'expenses_details_screen.dart';
 
 /// Displays the expenses that the user has added.
 class ListExpenseScreen extends StatelessWidget {
@@ -33,7 +34,9 @@ class ListExpenseScreen extends StatelessWidget {
       scrollDirection: Axis.vertical,
       itemCount: _expenses.length,
       itemBuilder: (context, index) {
-        return Card(
+        return GestureDetector(
+          onTap: () => _navigateDetailsScreen(context, _expenses[index]),
+          child: Card(
           margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,8 +46,12 @@ class ListExpenseScreen extends StatelessWidget {
               ExpenseList(_expenses[index]),
             ],
           ),
-        );
+        ),);
       },
     );
+  }
+
+  void _navigateDetailsScreen(BuildContext _buildContext, Expense expense) {
+    Navigator.of(_buildContext).pushNamed(ExpenseDetailsScreen.routeName, arguments: expense);
   }
 }

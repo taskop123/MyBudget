@@ -56,9 +56,6 @@ class DisplayPictureScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Display Image'),
-      ),
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,

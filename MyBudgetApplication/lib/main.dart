@@ -6,6 +6,7 @@ import 'package:my_budget_application/screen/auth/profile_screen.dart';
 import 'package:my_budget_application/screen/auth/registration_screen.dart';
 import 'package:my_budget_application/screen/camera/camera_screen.dart';
 import 'package:my_budget_application/screen/expenses/expenses_add_screen.dart';
+import 'package:my_budget_application/screen/expenses/expenses_details_screen.dart';
 import 'package:my_budget_application/screen/expenses/expenses_list_screen.dart';
 import 'package:my_budget_application/screen/info/contact_screen.dart';
 import 'package:my_budget_application/screen/info/help_screen.dart';
@@ -79,6 +80,8 @@ class MyHomePage extends State<MyApp> {
             LocationScreen.routeName: (ctx) => const LocationScreen(),
             ExpenseAddScreen.routeName: (ctx) => const ExpenseAddScreen(),
             ListExpenseScreen.routeName: (ctx) => const ListExpenseScreen([]),
+            ExpenseDetailsScreen.routeName: (ctx) =>
+                const ExpenseDetailsScreen(),
             PieChartScreen.routeName: (ctx) => const PieChartScreen(),
             StatisticsScreen.routeName: (ctx) => const StatisticsScreen(),
             CameraScreen.routeName: (ctx) => const CameraScreen(),

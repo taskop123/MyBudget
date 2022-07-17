@@ -51,6 +51,7 @@ dependencies:
 
   # Pictures
   file_picker: ^4.5.1
+  carousel_slider: ^4.1.1
 
   # Widgets
   cupertino_icons: ^1.0.2
@@ -97,6 +98,9 @@ flutter:
     - assets/images/step-3-confirm-product-listing.png
     - assets/images/step-4-visualisations-statistics.png
     - assets/images/step-5-thank-you.png
+    - assets/images/carousel_banner_1.png
+    - assets/images/carousel_banner_2.png
+    - assets/images/carousel_banner_3.png
 
 dependency_overrides:
   intl: ^0.17.0
