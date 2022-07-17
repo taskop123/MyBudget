@@ -30,6 +30,7 @@ class Constants {
   static const visualisationsTitle = 'Visualisations';
   static const cameraTitle = 'Take a picture';
   static const displayImageTitle = 'Display Image';
+  static const detailsTitle = 'Expense Details';
 
   /// Routes for the navigation through the screens in our app.
   static const loginRoute = '/auth/login';
@@ -41,6 +42,7 @@ class Constants {
   static const helpRoute = '/home/help';
   static const expensesListRoute = '/home/expenses/list';
   static const expensesAddRoute = '/home/expenses/add';
+  static const expensesDetailsRoute = '/home/expenses/details';
   static const cameraRoute = '/home/camera';
   static const displayImageRoute = '/home/camera/display';
   static const statisticsRoute = '/home/statistics';
@@ -157,6 +159,9 @@ class Constants {
   static const expensesTodaySpentPlaceholder = 'Today Spent: ';
   static const expensesEmptySpentPlaceholder = 'No expenses have still been stored';
   static const expensesPieChartPlaceholder = 'There is still no fetched data about expenses';
+  static const carouselItemOneImage = 'assets/images/carousel_banner_1.png';
+  static const carouselItemTwoImage = 'assets/images/carousel_banner_2.png';
+  static const carouselItemThreeImage = 'assets/images/carousel_banner_3.png';
 
   /// Categories used to categorize each expense a user has made.
   static const List<String> categories = [
