@@ -11,7 +11,7 @@ class ProfileScreen extends StatelessWidget {
   static const routeName = Constants.profileRoute;
 
   /// The height of the cover picture in the screen in logical pixels.
-  final double coverHeight = 220;
+  final double coverHeight = 170;
 
   /// The height of the profile picture in the screen in logical pixels.
   final double profileHeight = 200;

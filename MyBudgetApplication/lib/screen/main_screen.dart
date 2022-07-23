@@ -7,6 +7,7 @@ import 'package:my_budget_application/widget/main/main_expanded_list.dart';
 import 'package:my_budget_application/widget/menu/add_expense_menu.dart';
 import 'package:my_budget_application/widget/menu/bottom_bar.dart';
 import 'package:my_budget_application/widget/menu/side_bar.dart';
+import 'package:my_budget_application/widget/profile/monthly_income_dialog.dart';
 import 'package:provider/provider.dart';
 
 import '../model/expense.dart';
@@ -72,8 +73,8 @@ class _MainScreenState extends State<MainScreen> {
   /// with the help of [UserRepository], which makes
   /// a request to the [FirebaseDatabase], given the adequate [userId].
   ///
-  void _fetchCurrentUser(String? userId) async {
-    if (userId != null) {
+  void _fetchCurrentUser(String? userId, BuildContext context) async {
+    if (userId != null && _currentUser == null) {
       UserRepository.getUser(userId)!.listen((event) {
         if (event.snapshot.value == Null) {
           return;
@@ -83,9 +84,19 @@ class _MainScreenState extends State<MainScreen> {
             .first as Map<Object?, Object?>;
         setState(() {
           _currentUser = CustomUser.fromJson(result);
+
+          if (_currentUser?.monthlyIncome == null) {
+            _showMonthlyIncomeDialog(context);
+          }
         });
       });
     }
+  }
+
+  void _showMonthlyIncomeDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) => MonthlyIncomeDialog(_currentUser!));
   }
 
   /// Allows the list of [_expenses] to be fetched again,
@@ -94,6 +105,9 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void didChangeDependencies() {
     _fetchExpenses(context);
+    var currentUser = context.watch<User?>();
+    _fetchCurrentUser(currentUser!.uid, context);
+
     super.didChangeDependencies();
   }
 
@@ -113,9 +127,6 @@ class _MainScreenState extends State<MainScreen> {
   ///
   @override
   Widget build(BuildContext context) {
-    var currentUser = context.watch<User?>();
-    _fetchCurrentUser(currentUser!.uid);
-
     return Scaffold(
       drawer: SideBar(_currentUser, widget._logoutFunction),
       appBar: AppBar(

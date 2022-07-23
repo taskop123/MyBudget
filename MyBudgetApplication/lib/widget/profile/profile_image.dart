@@ -52,7 +52,7 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
     final snapshot = await task.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
 
-    UserRepository.updateUserProfile(widget.currentUser.id, urlDownload);
+    UserRepository.updateUserProfile(widget.currentUser.id, urlDownload, null);
     setState(() {
       profilePicture = urlDownload;
     });

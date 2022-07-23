@@ -9,9 +9,12 @@ class CustomUser {
   /// The URL of the picture of the user.
   String? profilePicture;
 
-  /// Creates a user object with an [id], [username] and [profilePicture] URL.
+  /// The monthly income of the user.
+  String? monthlyIncome;
+
+  /// Creates a user object with an [id], [username], [profilePicture] URL and [monthlyIncome].
   ///
-  CustomUser(this.id, this.username, this.profilePicture);
+  CustomUser(this.id, this.username, this.profilePicture, this.monthlyIncome);
 
   /// Conversion of a JSON [map] of user information gathered from firebase,
   /// to a usable [CustomUser] object.
@@ -23,8 +26,9 @@ class CustomUser {
     var id = map['id'];
     var username = map['username'];
     var profilePicture = map['profilePicture'];
+    var monthlyIncome = map['monthlyIncome'];
 
-    return CustomUser(id, username, profilePicture);
+    return CustomUser(id, username, profilePicture, monthlyIncome);
   }
 
   /// Converts an [CustomUser] .dart object to a
@@ -33,6 +37,7 @@ class CustomUser {
   Map<String, dynamic> toJson() => <String, dynamic>{
         'id': id.toString(),
         'username': username,
-        'profilePicture': profilePicture
+        'profilePicture': profilePicture,
+        'monthlyIncome': monthlyIncome
       };
 }

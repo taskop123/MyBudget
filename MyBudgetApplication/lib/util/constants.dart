@@ -61,6 +61,8 @@ class Constants {
   static const usernameValidation = 'Please enter a valid username.';
   static const passwordValidation = 'Please enter a valid password.';
   static const submitButtonPlaceholder = 'Submit';
+  static const cancelButtonPlaceholder = 'Cancel';
+  static const monthlyIncomePlaceholder = 'Set your monthly income';
 
   /// Image paths that are used in our application.
   static const logoUrl = 'assets/images/logo.jpg';
@@ -120,6 +122,7 @@ class Constants {
   static const contactInstagram = 'https://www.instagram.com/MyBudget';
   static const contactLinkedIn = 'https://www.linkedin.com/in/MyBudget';
   static const profileContentPlaceholder = 'MyBudget User';
+  static const monthlyIncomeTextPlaceholder =  'Monthly Income:';
 
   /// Help variables used as placeholders.
   static const stepOneTitle = 'Step 1: Authentication';

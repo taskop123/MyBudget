@@ -30,20 +30,22 @@ class UserRepository {
   /// filtered out by the [id] with [profileImage]
   /// to the [FirebaseDatabase] db table of [CustomUser].
   ///
-  static void updateUserProfile(String? id, String? profileImage) {
-    if (profileImage != null) {
-      _usersReference.orderByChild('id').equalTo(id).onValue.listen((event) {
-        var resultMap = (event.snapshot.value as Map<Object?, Object?>);
-        var resultValue = resultMap.values.first as Map<Object?, Object?>;
-        var resultKey = resultMap.keys.first as String;
+  static void updateUserProfile(String? id, String? profileImage, String? monthlyIncome) {
+    _usersReference.orderByChild('id').equalTo(id).onValue.listen((event) {
+      var resultMap = (event.snapshot.value as Map<Object?, Object?>);
+      var resultKey = resultMap.keys.first as String;
 
-        var fetchedUser = CustomUser.fromJson(resultValue);
-        fetchedUser!.profilePicture = profileImage;
-        _usersReference
-            .child(resultKey)
-            .child('profilePicture')
-            .set(profileImage);
-      });
-    }
+      if(profileImage != null) {
+        _updateExpenseAttribute('profilePicture', profileImage, resultKey);
+      }
+      if(monthlyIncome != null) {
+        _updateExpenseAttribute('monthlyIncome', monthlyIncome, resultKey);
+      }
+    });
+  }
+
+  static void _updateExpenseAttribute(
+      String name, Object? value, var userId) {
+    _usersReference.child(userId).child(name).set(value);
   }
 }
