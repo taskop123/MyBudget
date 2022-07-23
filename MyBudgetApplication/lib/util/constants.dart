@@ -154,7 +154,7 @@ class Constants {
   static const pricePlaceholder = 'Enter price in';
   static const locationSelectorPlaceholder = 'Select Location';
   static const unknownPlaceholder = 'Unknown';
-  static const newExpensePlaceholder = 'New expense';
+  static const newExpensePlaceholder = 'Add/Edit Expense';
   static const expensesSpentPlaceholder = 'Spent: ';
   static const expensesTodaySpentPlaceholder = 'Today Spent: ';
   static const expensesEmptySpentPlaceholder = 'No expenses have still been stored';

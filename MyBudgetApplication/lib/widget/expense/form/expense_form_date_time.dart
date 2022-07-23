@@ -12,8 +12,12 @@ class ExpenseFormDateTime extends StatelessWidget {
   /// Defines the format used to format the Date and Time input of the user.
   final DateFormat _format;
 
+  final DateTime? _dateAndTime;
+
   /// Creates the dropdown list widget.
-  const ExpenseFormDateTime(this._format, this._setDateTimeFunction, {Key? key})
+  const ExpenseFormDateTime(
+      this._format, this._setDateTimeFunction, this._dateAndTime,
+      {Key? key})
       : super(key: key);
 
   @override
@@ -23,6 +27,7 @@ class ExpenseFormDateTime extends StatelessWidget {
         child: Column(
           children: [
             DateTimeField(
+              initialValue: (_dateAndTime != null) ? _dateAndTime : null,
               decoration: const InputDecoration(
                   labelText: Constants.dateTimePlaceholder),
               format: _format,

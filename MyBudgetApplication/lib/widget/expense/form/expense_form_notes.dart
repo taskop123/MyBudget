@@ -7,8 +7,11 @@ class ExpenseFormNotes extends StatelessWidget {
   /// Callback validation function called each time new input is received by the user.
   final Function(String) _setExpenseNotesFunction;
 
+  final String? _expenseNotes;
+
   /// Creates the notes text input widget.
-  const ExpenseFormNotes(this._setExpenseNotesFunction, {Key? key})
+  const ExpenseFormNotes(this._setExpenseNotesFunction, this._expenseNotes,
+      {Key? key})
       : super(key: key);
 
   @override
@@ -16,6 +19,7 @@ class ExpenseFormNotes extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
         child: TextFormField(
+          initialValue: (_expenseNotes != null && _expenseNotes!.isNotEmpty) ? _expenseNotes : null,
           decoration:
               const InputDecoration(labelText: Constants.notesPlaceholder),
           onChanged: (val) => _setExpenseNotesFunction(val),

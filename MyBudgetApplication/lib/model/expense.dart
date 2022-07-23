@@ -62,14 +62,14 @@ class Expense {
   /// to an [Expense] .dart usable object.
   ///
   factory Expense.fromJson(var data) {
-    var latitude = data['latitude'] == "null" ? "0.0" : data['latitude'];
-    var longitude = data['longitude'] == "null" ? "0.0" : data['longitude'];
+    String? latitude = data['latitude'].toString() == "null" ? null : data['latitude'].toString();
+    String? longitude = data['longitude'].toString() == "null" ? null : data['longitude'].toString();
     return Expense(
       data['id'],
       data['userId'],
       data['price'],
-      double.parse(latitude),
-      double.parse(longitude),
+      (latitude != null) ? double.parse(latitude) : null,
+      (longitude != null) ? double.parse(longitude) : null,
       data['expenseAddress'],
       data['expenseCategory'],
       DateTime.parse(data['dateAndTime']),

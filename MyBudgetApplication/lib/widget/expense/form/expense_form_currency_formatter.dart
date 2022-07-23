@@ -12,9 +12,12 @@ class ExpenseFormCurrencyFormatter extends StatelessWidget {
   /// Defines the format used for formatting the user input.
   final CurrencyTextInputFormatter _formatter;
 
+  final String? price;
+
   /// Creates the price input field widget with the callback function
   /// when input is changed and the format of the user input.
-  const ExpenseFormCurrencyFormatter(this._changePriceFunction, this._formatter,
+  const ExpenseFormCurrencyFormatter(
+      this._changePriceFunction, this._formatter, this.price,
       {Key? key})
       : super(key: key);
 
@@ -22,7 +25,8 @@ class ExpenseFormCurrencyFormatter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 30, 0, 20),
-      child: TextField(
+      child: TextFormField(
+        initialValue: (price != null && price != '0.0') ? price : null,
         decoration: const InputDecoration(
           hintText: '${Constants.pricePlaceholder} \$',
         ),

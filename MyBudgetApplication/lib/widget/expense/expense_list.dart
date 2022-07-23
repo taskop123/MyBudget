@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:my_budget_application/model/expense.dart';
+import 'package:my_budget_application/widget/menu/list_popup_menu.dart';
 
 import '../../util/constants.dart';
 
@@ -7,9 +8,11 @@ import '../../util/constants.dart';
 class ExpenseList extends StatelessWidget {
   /// Defines the expense for which we display the category.
   final Expense _expense;
+  final Function(Expense) _editExpenseFunction;
+  final Function(Expense) _deleteExpenseFunction;
 
   /// Creates the category displaying widget.
-  const ExpenseList(this._expense, {Key? key}) : super(key: key);
+  const ExpenseList(this._expense, this._editExpenseFunction, this._deleteExpenseFunction, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +30,7 @@ class ExpenseList extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
+          PopupMenu(_expense, _editExpenseFunction, _deleteExpenseFunction),
         ],
       ),
     );

@@ -79,7 +79,7 @@ class MyHomePage extends State<MyApp> {
             ContactScreen.routeName: (ctx) => const ContactScreen(),
             LocationScreen.routeName: (ctx) => const LocationScreen(),
             ExpenseAddScreen.routeName: (ctx) => const ExpenseAddScreen(),
-            ListExpenseScreen.routeName: (ctx) => const ListExpenseScreen([]),
+            ListExpenseScreen.routeName: (ctx) => const ListExpenseScreen([], null),
             ExpenseDetailsScreen.routeName: (ctx) =>
                 const ExpenseDetailsScreen(),
             PieChartScreen.routeName: (ctx) => const PieChartScreen(),

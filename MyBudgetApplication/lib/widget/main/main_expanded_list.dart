@@ -9,14 +9,16 @@ class MainExpandedList extends StatelessWidget {
   /// The list of [Expense] objects that are shown in the widget.
   final List<Expense> _expenses;
 
+  final BuildContext _buildContext;
+
   /// Creates an instance of [MainExpandedList] with [_expenses].
-  const MainExpandedList(this._expenses, {Key? key}) : super(key: key);
+  const MainExpandedList(this._expenses, this._buildContext, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: _expenses.isNotEmpty
-          ? ListExpenseScreen(_expenses)
+          ? ListExpenseScreen(_expenses, _buildContext)
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
