@@ -87,6 +87,7 @@ class Constants {
   static RegExp passwordRegex =
       RegExp(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$");
   static RegExp numbersRegex = RegExp('[^0-9.]+');
+  static RegExp lettersRegex = RegExp(r'[^0-9]');
 
   /// Notifications placeholders.
   static const channelId = 'channel id';
@@ -122,7 +123,10 @@ class Constants {
   static const contactInstagram = 'https://www.instagram.com/MyBudget';
   static const contactLinkedIn = 'https://www.linkedin.com/in/MyBudget';
   static const profileContentPlaceholder = 'MyBudget User';
-  static const monthlyIncomeTextPlaceholder =  'Monthly Income:';
+  static const monthlyIncomeTextPlaceholder =  '[Monthly Income]';
+  static const monthlyPlaceholder =  'Monthly';
+  static const dailyPlaceholder =  'Daily';
+  static const allTimePlaceholder =  'All Time';
 
   /// Help variables used as placeholders.
   static const stepOneTitle = 'Step 1: Authentication';

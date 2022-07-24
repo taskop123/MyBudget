@@ -128,7 +128,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SideBar(_currentUser, widget._logoutFunction),
+      drawer: SideBar(_currentUser, widget._logoutFunction, _expenses),
       appBar: AppBar(
         title: const Text(Constants.applicationTitle),
         actions: _buildActionButtons(),

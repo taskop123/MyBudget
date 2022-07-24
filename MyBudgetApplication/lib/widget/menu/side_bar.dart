@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_budget_application/model/expense.dart';
 import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/screen/auth/profile_screen.dart';
 import 'package:my_budget_application/screen/info/help_screen.dart';
@@ -18,9 +19,11 @@ class SideBar extends StatefulWidget {
   /// Defines the current user.
   final CustomUser? _customUser;
 
+  final List<Expense> _expenses;
+
   /// Creates the side bar widget with the given logout function
   /// and the current user.
-  const SideBar(this._customUser, this._logout, {Key? key}) : super(key: key);
+  const SideBar(this._customUser, this._logout, this._expenses, {Key? key}) : super(key: key);
 
   @override
   State<SideBar> createState() => _SideBarState();
@@ -44,7 +47,7 @@ class _SideBarState extends State<SideBar> {
   /// Navigates to the profile screen in our application.
   void _navigateToProfileScreen() {
     Navigator.of(_buildContext)
-        .pushNamed(ProfileScreen.routeName, arguments: widget._customUser);
+        .pushNamed(ProfileScreen.routeName, arguments: [widget._customUser, widget._expenses]);
   }
 
   @override

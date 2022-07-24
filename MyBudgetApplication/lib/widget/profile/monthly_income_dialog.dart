@@ -33,8 +33,7 @@ class _MonthlyIncomeDialogState extends State<MonthlyIncomeDialog> {
 
     return AlertDialog(
       title: const Text(Constants.monthlyIncomePlaceholder),
-      content:
-      ExpenseFormCurrencyFormatter(_changePrice, formatter, _price),
+      content: ExpenseFormCurrencyFormatter(_changePrice, formatter, _price),
       actions: [
         TextButton(
             onPressed: () {
@@ -43,9 +42,10 @@ class _MonthlyIncomeDialogState extends State<MonthlyIncomeDialog> {
             child: const Text(Constants.cancelButtonPlaceholder)),
         TextButton(
             onPressed: () {
-              UserRepository.updateUserProfile(widget._currentUser.id, null, _price);
-              Navigator.pop(context);
+              UserRepository.updateUserProfile(
+                  widget._currentUser.id, null, _price);
               setState(() {});
+              Navigator.pop(context);
             },
             child: const Text(Constants.submitButtonPlaceholder)),
       ],
