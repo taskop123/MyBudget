@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:my_budget_application/model/expense.dart';
+import 'package:my_budget_application/screen/visualizations/pie_chart_screen.dart';
+import 'package:my_budget_application/screen/visualizations/statistics_screen.dart';
 
 import '../../util/constants.dart';
 
-class BottomBar extends StatefulWidget {
-  const BottomBar({Key? key}) : super(key: key);
+/// Defines the bottom navigation bar widget in our application.
+class BottomBar extends StatelessWidget {
+  /// Defines the expenses of the user that need to be displayed.
+  final List<Expense> _expenses;
+  /// Defines the current index of the selected screen in the bottom bar.
+  final int _currentIndex;
 
-  @override
-  State<BottomBar> createState() => _BottomBarState();
-}
-
-class _BottomBarState extends State<BottomBar> {
-  var _currentIndex = 0;
+  /// Creates a bottom navigation bar widget
+  /// with the given current selected index of the navigation bar 
+  /// and the expenses of the current user.
+  const BottomBar(this._currentIndex, this._expenses, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +38,19 @@ class _BottomBarState extends State<BottomBar> {
             icon: Icon(Icons.pie_chart), label: Constants.visualisationsTitle),
       ],
       onTap: (index) {
-        setState(() {
-          _currentIndex = index;
-          // TODO: Implement the navigation through screens
-        });
+        if (_currentIndex != index) {
+          if (index == 0) {
+            Navigator.of(context).popUntil((route) => route.isFirst);
+          }
+          if (index == 1) {
+            Navigator.of(context).pushNamed(StatisticsScreen.routeName,
+                arguments: {"expenses": _expenses});
+          }
+          if (index == 2) {
+            Navigator.of(context).pushNamed(PieChartScreen.routeName,
+                arguments: {"expenses": _expenses});
+          }
+        }
       },
     );
   }

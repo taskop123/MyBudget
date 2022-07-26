@@ -1,12 +1,21 @@
 import 'package:flutter/cupertino.dart';
+import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/widget/profile/profile_cover_image.dart';
 import 'package:my_budget_application/widget/profile/profile_image.dart';
 
+/// Defines the profile top widget for displaying the image of the current user.
 class ProfileTopWidget extends StatelessWidget {
+  /// Defines the height of the cover image.
   final double coverHeight;
+  /// Defines the height of the profile image.
   final double profileHeight;
+  /// Defines the current user.
+  final CustomUser currentUser;
 
-  const ProfileTopWidget(this.coverHeight, this.profileHeight, {Key? key})
+  /// Creates new profile top widget with the given current user, 
+  /// cover and profile image heights.
+  const ProfileTopWidget(this.currentUser, this.coverHeight, this.profileHeight,
+      {Key? key})
       : super(key: key);
 
   @override
@@ -21,7 +30,7 @@ class ProfileTopWidget extends StatelessWidget {
         ),
         Positioned(
           top: (coverHeight - profileHeight / 2),
-          child: ProfileImageWidget(profileHeight),
+          child: ProfileImageWidget(currentUser, profileHeight),
         ),
       ],
     );

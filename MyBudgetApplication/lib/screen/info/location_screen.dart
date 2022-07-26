@@ -10,23 +10,38 @@ import '../../widget/map/map_field.dart';
 import '../../widget/map/map_info.dart';
 import '../../widget/menu/popup_menu.dart';
 
+/// The location screen which shows the location of the company,
+/// and the directions from the current user location to it.
 class LocationScreen extends StatefulWidget {
+  /// The route name of the location screen.
   static const routeName = Constants.contactLocationRoute;
 
+  /// Creates an instance of the [LocationScreen].
   const LocationScreen({Key? key}) : super(key: key);
 
+  /// Creates the state object for the [LocationScreen].
   @override
   State<LocationScreen> createState() => _LocationScreenState();
 }
 
+/// State class used to display the location screen elements and map.
 class _LocationScreenState extends State<LocationScreen> {
-  List<String> locationNotifications = <String>[];
-
+  /// Keeps the state of the values on the [GoogleMap],
+  /// such as markers, polyline points, camera location, as well as directions.
   late GoogleMapController _googleMapController;
+
+  /// The current user's location marker on the map.
   Marker? _origin;
+
+  /// The company's location marker on the map.
   Marker? _destination;
+
+  /// The directions from the current user location to the company's location.
   Directions? _info;
 
+  /// Sets the origin marker on the map,
+  /// given the [position] pair of latitude and longitude.
+  ///
   void _setOriginMarker(LatLng? position) {
     if (position != null && mounted) {
       setState(() {
@@ -42,6 +57,9 @@ class _LocationScreenState extends State<LocationScreen> {
     }
   }
 
+  /// Sets the destination marker on the map,
+  /// given the [position] pair of latitude and longitude.
+  ///
   void _setDestinationMarker(LatLng? position) {
     if (position != null && mounted) {
       setState(() {
@@ -57,7 +75,10 @@ class _LocationScreenState extends State<LocationScreen> {
     }
   }
 
-  void _setDistance(LatLng? origin, LatLng? destination) async {
+  /// Sets the directions and polyline points on the map,
+  /// given the [origin] and [destination] pairs of latitude and longitude.
+  ///
+  void _setDirections(LatLng? origin, LatLng? destination) async {
     if (mounted) {
       var directions = await MapsService.getDirections(origin!, destination!);
       if (directions == null) {
@@ -73,6 +94,9 @@ class _LocationScreenState extends State<LocationScreen> {
     }
   }
 
+  /// Sets the markers on the map, given the [origin]
+  /// and [destination] pairs of latitude and longitude.
+  ///
   void _setMarkers(LatLng? origin, LatLng? destination) {
     if (_origin == null &&
         _destination == null &&
@@ -81,10 +105,13 @@ class _LocationScreenState extends State<LocationScreen> {
       _setOriginMarker(origin);
       _setDestinationMarker(destination);
 
-      _setDistance(origin, destination);
+      _setDirections(origin, destination);
     }
   }
 
+  /// Listens fo a change of location, which, if happens,
+  /// updates the markers and directions on the map adequately.
+  ///
   void _listenForLocation() {
     MapsService.location.onLocationChanged
         .listen((LocationData currentLocation) {
@@ -92,16 +119,23 @@ class _LocationScreenState extends State<LocationScreen> {
           LatLng(currentLocation.latitude!, currentLocation.longitude!);
       if (_origin!.position.latitude != newOriginPosition.latitude ||
           _origin!.position.longitude != newOriginPosition.longitude) {
-        _setDistance(newOriginPosition, _destination!.position);
+        _setDirections(newOriginPosition, _destination!.position);
         _setOriginMarker(newOriginPosition);
       }
     });
   }
 
+  /// Sets the the current [_googleMapController],
+  /// given the adequate [controller] value.
+  ///
   void _setController(GoogleMapController controller) {
     _googleMapController = controller;
   }
 
+  /// Builds the UI elements for the contact screen,
+  /// including the [appBar], [floatingActionButton] and a [body]
+  /// with a [context] of the adequate location [GoogleMap] content.
+  ///
   @override
   Widget build(BuildContext context) {
     final _originLngLat = ModalRoute.of(context)!.settings.arguments as LatLng?;
@@ -112,7 +146,7 @@ class _LocationScreenState extends State<LocationScreen> {
       appBar: AppBar(
         title: const Tooltip(
           message: Constants.locationTitle,
-          child: Text(Constants.locationPlaceholder),
+          child: Text(Constants.directionsPlaceholder),
         ),
         actions: const [
           PopupMenu(),
@@ -140,6 +174,9 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 
+  /// Disposes the [_googleMapController],
+  /// in order for it to avoid memory leakage.
+  ///
   @override
   void dispose() {
     _googleMapController.dispose();

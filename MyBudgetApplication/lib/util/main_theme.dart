@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Represents the main theme of the application.
 class MainTheme {
   static ThemeData getMainTheme() {
     return ThemeData(

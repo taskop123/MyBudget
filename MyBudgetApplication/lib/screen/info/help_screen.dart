@@ -2,21 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:my_budget_application/widget/help/help_page_button.dart';
 import 'package:my_budget_application/widget/help/help_view_page.dart';
-import 'package:my_budget_application/widget/menu/popup_menu.dart';
 
 import '../../util/constants.dart';
 
+/// The help screen which shows guide to using the application.
 class HelpScreen extends StatelessWidget {
+  /// The route name of the help screen.
   static const routeName = Constants.helpRoute;
 
+  /// Creates an instance of the [HelpScreen].
   const HelpScreen({Key? key}) : super(key: key);
 
+  /// Builds the UI elements for the help screen,
+  /// including the [appBar] and a [body]
+  /// with a [context] of the adequate help pages with content.
+  ///
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(Constants.helpTitle),
-        actions: const [PopupMenu()],
       ),
       body: SafeArea(
         child: IntroductionScreen(
