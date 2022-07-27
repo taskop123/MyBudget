@@ -8,7 +8,6 @@ import 'package:my_budget_application/util/string_utils.dart';
 import '../../model/directions.dart';
 import '../../widget/map/map_field.dart';
 import '../../widget/map/map_info.dart';
-import '../../widget/menu/popup_menu.dart';
 
 /// The location screen which shows the location of the company,
 /// and the directions from the current user location to it.
@@ -148,9 +147,6 @@ class _LocationScreenState extends State<LocationScreen> {
           message: Constants.locationTitle,
           child: Text(Constants.directionsPlaceholder),
         ),
-        actions: const [
-          PopupMenu(),
-        ],
       ),
       body: Stack(
         alignment: Alignment.center,

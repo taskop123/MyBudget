@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import '../model/expense.dart';
 import '../service/firebase/expenses_repository.dart';
 import '../service/firebase/users_repository.dart';
+import '../service/notification_service.dart';
 import '../util/constants.dart';
 import '../widget/action_button.dart';
 import '../widget/menu/side_bar.dart';
@@ -119,6 +120,16 @@ class _MainScreenState extends State<MainScreen> {
     _actionButtons.add(ActionButton(Icons.logout, widget._logoutFunction!));
 
     return _actionButtons;
+  }
+
+  @override
+  void initState() {
+    if (_currentUser != null) {
+      NotificationService.toggleExpenseNotifications(
+          _expenses, _currentUser!, context);
+    }
+
+    super.initState();
   }
 
   /// Builds the UI elements for the main screen,

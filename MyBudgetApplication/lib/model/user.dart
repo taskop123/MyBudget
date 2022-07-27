@@ -12,9 +12,15 @@ class CustomUser {
   /// The monthly income of the user.
   String? monthlyIncome;
 
-  /// Creates a user object with an [id], [username], [profilePicture] URL and [monthlyIncome].
+  /// The notifications the user has received for his income by month.
+  List<String> monthlyNotifications;
+
+  /// The notifications the user has received for his income by year.
+  List<String> yearlyNotifications;
+
+  /// Creates a user object with an [id], [username], [profilePicture] URL,[monthlyIncome], [monthlyNotifications] and [yearlyNotifications].
   ///
-  CustomUser(this.id, this.username, this.profilePicture, this.monthlyIncome);
+  CustomUser(this.id, this.username, this.profilePicture, this.monthlyIncome, this.monthlyNotifications, this.yearlyNotifications);
 
   /// Conversion of a JSON [map] of user information gathered from firebase,
   /// to a usable [CustomUser] object.
@@ -28,7 +34,7 @@ class CustomUser {
     var profilePicture = map['profilePicture'];
     var monthlyIncome = map['monthlyIncome'];
 
-    return CustomUser(id, username, profilePicture, monthlyIncome);
+    return CustomUser(id, username, profilePicture, monthlyIncome, List.empty(growable: true), List.empty(growable: true));
   }
 
   /// Converts an [CustomUser] .dart object to a

@@ -1,9 +1,8 @@
-import 'dart:math';
-
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/expense.dart';
 import 'package:my_budget_application/model/user.dart';
+import 'package:my_budget_application/service/expenses_service.dart';
 import 'package:my_budget_application/util/constants.dart';
 
 class ProfileNumbersWidget extends StatelessWidget {
@@ -58,17 +57,20 @@ class ProfileNumbersWidget extends StatelessWidget {
     final CurrencyTextInputFormatter formatter =
         CurrencyTextInputFormatter(locale: locale.toString());
 
-    var monthlySpending = _monthlySpending();
-    var dailySpending = _dailySpending();
+    DateTime dateTimeNow = DateTime.now();
+    var monthlySpending = ExpenseService.monthlySpending(
+        _expenses, dateTimeNow.year, dateTimeNow.month);
+    var dailySpending = ExpenseService.dailySpending(
+        _expenses, dateTimeNow.year, dateTimeNow.month, dateTimeNow.day);
     var monthlyIncome = (_currentUser.monthlyIncome != null)
-        ? double.parse(
-            _currentUser.monthlyIncome!.replaceAll(Constants.lettersRegex, ''))
+        ? double.parse(_currentUser.monthlyIncome!
+            .replaceAll(Constants.lettersRegex, Constants.blankString))
         : 0.0;
     return Column(children: [
       Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
         buildButton(
             text: Constants.allTimePlaceholder,
-            value: _allTimeSpending(),
+            value: ExpenseService.allTimeSpending(_expenses),
             color: Colors.black,
             fontSize: 24,
             formatter: formatter),
@@ -97,42 +99,5 @@ class ProfileNumbersWidget extends StatelessWidget {
         buildDivider(),
       ]),
     ]);
-  }
-
-  double _allTimeSpending() {
-    return _calculateIncome(_expenses);
-  }
-
-  double _monthlySpending() {
-    var nowDateTime = DateTime.now();
-    List<Expense> filteredExpenses = _expenses.where((element) =>
-        (element.dateAndTime != null)
-            ? (element.dateAndTime!.month == nowDateTime.month &&
-                element.dateAndTime!.year == nowDateTime.year)
-            : false).toList();
-
-    return _calculateIncome(filteredExpenses);
-  }
-
-  double _dailySpending() {
-    var nowDateTime = DateTime.now();
-    List<Expense> filteredExpenses = _expenses.where((element) =>
-        (element.dateAndTime != null)
-            ? (element.dateAndTime!.month == nowDateTime.month &&
-                element.dateAndTime!.year == nowDateTime.year &&
-                element.dateAndTime!.day == nowDateTime.day)
-            : false).toList();
-
-    return _calculateIncome(filteredExpenses);
-  }
-
-  double _calculateIncome(List<Expense> expenses) {
-    return (expenses.isNotEmpty) ? expenses.map((element) {
-      if (element.price != null) {
-        String price = element.price!.replaceAll(Constants.lettersRegex, '');
-        return double.parse(price);
-      }
-      return 0.0;
-    }).reduce((a, b) => a + b) : 0.0;
   }
 }

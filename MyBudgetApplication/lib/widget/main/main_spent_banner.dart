@@ -14,6 +14,8 @@ class MainSpentBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var dateTimeNow = DateTime.now();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -27,7 +29,7 @@ class MainSpentBanner extends StatelessWidget {
           style: TextStyle(color: Colors.white, fontSize: 20),
         ),
         Text(
-          "${ExpenseService.todaySpend(_expenses).toStringAsFixed(2)}\$",
+          "${ExpenseService.dailySpending(_expenses, dateTimeNow.year, dateTimeNow.month, dateTimeNow.day).toStringAsFixed(2)}\$",
           style: const TextStyle(
               color: Colors.white, fontSize: 30, fontWeight: FontWeight.w700),
         )

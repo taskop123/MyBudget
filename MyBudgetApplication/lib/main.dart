@@ -17,6 +17,7 @@ import 'package:my_budget_application/screen/visualizations/pie_chart_screen.dar
 import 'package:my_budget_application/screen/visualizations/statistics_screen.dart';
 import 'package:my_budget_application/service/firebase/authentication_service.dart';
 import 'package:my_budget_application/service/firebase/database_service.dart';
+import 'package:my_budget_application/service/notification_service.dart';
 import 'package:my_budget_application/util/constants.dart';
 import 'package:my_budget_application/util/main_theme.dart';
 import 'package:provider/provider.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatefulWidget {
 class MyHomePage extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    NotificationService.init();
     return MultiProvider(
       providers: [
         Provider<AuthenticationService>(

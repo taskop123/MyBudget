@@ -11,6 +11,8 @@ class Constants {
   static const zero = '0.0';
   static const statusString = 'status';
   static const okStatus = 'OK';
+  static const monthPlaceholder = 'month';
+  static const yearPlaceholder = 'year';
 
   /// Titles for the screens in our app.
   static const applicationTitle = "MyBudget";
@@ -93,6 +95,8 @@ class Constants {
   static const channelId = 'channel id';
   static const channelName = 'channel name';
   static const channelDescription = 'channel description';
+  static const negativeAdviceMessage = 'Try to keep down your spending and keep track of your expenses!';
+  static const positiveAdviceMessage = 'You are on your track! You do good job keeping tracking of your expenses!';
 
   /// Location and Maps variables for the Google Maps API
   static const googleAPIKey = 'AIzaSyBGXGVfNRITc74ApP-elhp9gPj9GasUBjI';

@@ -30,7 +30,8 @@ class UserRepository {
   /// filtered out by the [id] with [profileImage]
   /// to the [FirebaseDatabase] db table of [CustomUser].
   ///
-  static void updateUserProfile(String? id, String? profileImage, String? monthlyIncome) {
+  static void updateUserProfile(String? id, String? profileImage, String? monthlyIncome,
+      List<String>? monthlyNotifications, List<String>? yearlyNotifications) {
     _usersReference.orderByChild('id').equalTo(id).onValue.listen((event) {
       var resultMap = (event.snapshot.value as Map<Object?, Object?>);
       var resultKey = resultMap.keys.first as String;
@@ -40,6 +41,12 @@ class UserRepository {
       }
       if(monthlyIncome != null) {
         _updateExpenseAttribute('monthlyIncome', monthlyIncome, resultKey);
+      }
+      if(monthlyNotifications != null) {
+        _updateExpenseAttribute('monthlyNotifications', monthlyNotifications, resultKey);
+      }
+      if(yearlyNotifications != null) {
+        _updateExpenseAttribute('yearlyNotifications', yearlyNotifications, resultKey);
       }
     });
   }

@@ -46,7 +46,8 @@ class AuthenticationService {
       var userCredentials = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
       CustomUser customUser =
-          CustomUser(userCredentials.user!.uid, username, null, null);
+          CustomUser(userCredentials.user!.uid, username, null, null,
+              List.empty(growable: true), List.empty(growable: true));
       UserRepository.addUser(customUser);
       signOut();
       return Constants.registerSuccessMessage;
