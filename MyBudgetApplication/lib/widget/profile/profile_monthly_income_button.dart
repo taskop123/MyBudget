@@ -31,7 +31,11 @@ class MonthlyIncomeButton extends StatelessWidget {
           context: context,
           builder: (context) => MonthlyIncomeDialog(_currentUser!),
         );
-        setState() {};
+
+        var count = 0;
+        Navigator.popUntil(context, (route) {
+          return count++ == 2;
+        });
       },
     );
   }

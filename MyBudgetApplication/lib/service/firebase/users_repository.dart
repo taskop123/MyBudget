@@ -19,10 +19,6 @@ class UserRepository {
   /// consisting of [CustomUser] object filtered by a [userId].
   ///
   static Stream<DatabaseEvent>? getUser(String? userId) {
-    if (userId == null || userId.isEmpty) {
-      return null;
-    }
-
     return _usersReference.orderByChild('id').equalTo(userId).onValue;
   }
 
@@ -32,7 +28,7 @@ class UserRepository {
   ///
   static void updateUserProfile(String? id, String? profileImage, String? monthlyIncome,
       List<String>? monthlyNotifications, List<String>? yearlyNotifications) {
-    _usersReference.orderByChild('id').equalTo(id).onValue.listen((event) {
+    _usersReference.orderByChild('id').equalTo(id).once().then((event) {
       var resultMap = (event.snapshot.value as Map<Object?, Object?>);
       var resultKey = resultMap.keys.first as String;
 

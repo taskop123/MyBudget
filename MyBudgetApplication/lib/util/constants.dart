@@ -13,6 +13,7 @@ class Constants {
   static const okStatus = 'OK';
   static const monthPlaceholder = 'month';
   static const yearPlaceholder = 'year';
+  static const dollarPlaceholder = 'USD';
 
   /// Titles for the screens in our app.
   static const applicationTitle = "MyBudget";
@@ -65,6 +66,7 @@ class Constants {
   static const submitButtonPlaceholder = 'Submit';
   static const cancelButtonPlaceholder = 'Cancel';
   static const monthlyIncomePlaceholder = 'Set your monthly income';
+  static const progressDialogPlaceholder = 'Uploading...';
 
   /// Image paths that are used in our application.
   static const logoUrl = 'assets/images/logo.jpg';
@@ -89,7 +91,7 @@ class Constants {
   static RegExp passwordRegex =
       RegExp(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$");
   static RegExp numbersRegex = RegExp('[^0-9.]+');
-  static RegExp lettersRegex = RegExp(r'[^0-9]');
+  static RegExp lettersRegex = RegExp(r'[^0-9.]');
 
   /// Notifications placeholders.
   static const channelId = 'channel id';

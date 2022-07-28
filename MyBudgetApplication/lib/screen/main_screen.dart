@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/service/expenses_service.dart';
@@ -43,6 +46,9 @@ class _MainScreenState extends State<MainScreen> {
   /// The currently authenticated [CustomUser] user.
   CustomUser? _currentUser;
 
+  StreamSubscription? _readUserEvent;
+  StreamSubscription? _readExpensesEvent;
+
   /// Fetches the list of the expenses for the [_currentUser],
   /// given the adequate [buildContext], with the help of
   /// [ExpenseRepository] which makes a request to the [FirebaseDatabase].
@@ -52,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
     var _eventInstance = ExpenseRepository.getExpensesByUser(currentUser!.uid);
 
     if (_eventInstance != null) {
-      _eventInstance.listen((event) {
+      _readExpensesEvent = _eventInstance.listen((event) {
         if (event.snapshot.value == Null) {
           return;
         }
@@ -75,8 +81,8 @@ class _MainScreenState extends State<MainScreen> {
   /// a request to the [FirebaseDatabase], given the adequate [userId].
   ///
   void _fetchCurrentUser(String? userId, BuildContext context) async {
-    if (userId != null && _currentUser == null) {
-      UserRepository.getUser(userId)!.listen((event) {
+    if (userId != null) {
+      _readUserEvent = UserRepository.getUser(userId)!.listen((event) {
         if (event.snapshot.value == Null) {
           return;
         }
@@ -153,5 +159,16 @@ class _MainScreenState extends State<MainScreen> {
       floatingActionButton: AddExpenseMenu(context),
       bottomNavigationBar: BottomBar(0, _expenses),
     );
+  }
+
+  @override
+  void dispose() {
+    if (_readUserEvent != null) {
+      _readUserEvent!.cancel();
+    }
+    if (_readExpensesEvent != null) {
+      _readExpensesEvent!.cancel();
+    }
+    super.dispose();
   }
 }
