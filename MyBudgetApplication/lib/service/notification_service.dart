@@ -67,7 +67,7 @@ class NotificationService {
   }
 
   static scheduleNotification() {
-    // TODO: Implement logic for scheduling notifications.
+    // TODO: Implement logic for scheduling settings.
 
     // _showScheduledNotification(
     //   id: notificationCounter++,
@@ -96,7 +96,8 @@ class NotificationService {
   static Future _showYearlyNotification(List<Expense> _expenses,
       CustomUser _currentUser, DateTime creationDateMonth) async {
     var timeNow = DateTime.now();
-    if (creationDateMonth.year < timeNow.year) {
+    if (creationDateMonth.year < timeNow.year &&
+        _currentUser.yearlyNotificationsEnabled) {
       var yearlyNotificationEntry = '${timeNow.year - 1}';
       if (!_currentUser.yearlyNotifications.contains(yearlyNotificationEntry)) {
         double yearlySpending =
@@ -110,11 +111,16 @@ class NotificationService {
             yearlySpending, monthlyIncome * 12.0, Constants.yearPlaceholder);
         _currentUser.monthlyNotifications.add(yearlyNotificationEntry);
         UserRepository.updateUserProfile(
+            _currentUser.updateProfileEnabled,
             _currentUser.id,
             _currentUser.profilePicture,
             _currentUser.monthlyIncome,
             _currentUser.monthlyNotifications,
-            _currentUser.yearlyNotifications);
+            _currentUser.yearlyNotifications,
+            _currentUser.monthlyNotificationsEnabled,
+            _currentUser.yearlyNotificationsEnabled,
+            _currentUser.updateProfileEnabled,
+            _currentUser.themeDarkEnabled);
       }
     }
   }
@@ -122,7 +128,8 @@ class NotificationService {
   static Future _showMonthlyNotification(List<Expense> _expenses,
       CustomUser _currentUser, DateTime creationDateMonth) async {
     var timeNow = DateTime.now();
-    if (creationDateMonth.month < timeNow.month) {
+    if (creationDateMonth.month < timeNow.month &&
+        _currentUser.monthlyNotificationsEnabled) {
       var monthlyNotificationEntry = '${timeNow.month - 1}-${timeNow.year}';
       if (!_currentUser.monthlyNotifications
           .contains(monthlyNotificationEntry)) {
@@ -137,11 +144,16 @@ class NotificationService {
             monthlySpending, monthlyIncome, Constants.monthPlaceholder);
         _currentUser.monthlyNotifications.add(monthlyNotificationEntry);
         UserRepository.updateUserProfile(
+            _currentUser.updateProfileEnabled,
             _currentUser.id,
             _currentUser.profilePicture,
             _currentUser.monthlyIncome,
             _currentUser.monthlyNotifications,
-            _currentUser.yearlyNotifications);
+            _currentUser.yearlyNotifications,
+            _currentUser.monthlyNotificationsEnabled,
+            _currentUser.yearlyNotificationsEnabled,
+            _currentUser.updateProfileEnabled,
+            _currentUser.themeDarkEnabled);
       }
     }
   }

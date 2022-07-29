@@ -1,10 +1,10 @@
 import 'dart:math';
+
 import 'package:intl/intl.dart';
 
 /// Class for all constant variables used in our application.
 /// Each of the variable names are descriptive for their purpose.
 class Constants {
-
   /// Default values placeholders.
   static const blankString = '';
   static const keyString = 'key';
@@ -14,11 +14,14 @@ class Constants {
   static const monthPlaceholder = 'month';
   static const yearPlaceholder = 'year';
   static const dollarPlaceholder = 'USD';
+  static const warningPlaceholder = 'Warning';
 
   /// Titles for the screens in our app.
   static const applicationTitle = "MyBudget";
   static const loginTitle = "Sign In";
   static const registrationTitle = "Sign up";
+  static const signOutTitle = "Sign Out";
+  static const logoutTitle = 'Logout';
   static const profileTitle = "Profile";
   static const settingsTitle = "Settings";
   static const privacyPolicyTitle = "Privacy Policy";
@@ -50,6 +53,7 @@ class Constants {
   static const displayImageRoute = '/home/camera/display';
   static const statisticsRoute = '/home/statistics';
   static const pieChartRoute = '/home/pie-chart';
+  static const settingsRoute = '/home/settings';
 
   /// Config variables.
   static const databaseUrl =
@@ -67,6 +71,8 @@ class Constants {
   static const cancelButtonPlaceholder = 'Cancel';
   static const monthlyIncomePlaceholder = 'Set your monthly income';
   static const progressDialogPlaceholder = 'Uploading...';
+  static const areYouSurePlaceholder = 'Toggling this feature will make significant changes to the application flow. Are you sure you want to proceed?';
+  static const snackBarPlaceholder = 'Please allow user profile modification to change this data';
 
   /// Image paths that are used in our application.
   static const logoUrl = 'assets/images/logo.jpg';
@@ -97,8 +103,10 @@ class Constants {
   static const channelId = 'channel id';
   static const channelName = 'channel name';
   static const channelDescription = 'channel description';
-  static const negativeAdviceMessage = 'Try to keep down your spending and keep track of your expenses!';
-  static const positiveAdviceMessage = 'You are on your track! You do good job keeping tracking of your expenses!';
+  static const negativeAdviceMessage =
+      'Try to keep down your spending and keep track of your expenses!';
+  static const positiveAdviceMessage =
+      'You are on your track! You do good job keeping tracking of your expenses!';
 
   /// Location and Maps variables for the Google Maps API
   static const googleAPIKey = 'AIzaSyBGXGVfNRITc74ApP-elhp9gPj9GasUBjI';
@@ -122,6 +130,13 @@ class Constants {
   static const destinationPlaceholder = 'destination';
   static const directionsPlaceholder = 'Directions to our location';
 
+  /// Settings variables
+  static const notificationsPlaceholder = 'Notifications';
+  static const monthlyNotificationsPlaceholder = 'Enable monthly settings';
+  static const yearlyNotificationsPlaceholder = 'Enable yearly settings';
+  static const updateProfilePlaceholder = 'Update profile';
+  static const themeDarkPlaceholder = 'Theme Dark';
+
   /// Contact variables used as placeholders.
   static const contactTextPlaceholder = 'Get in touch with us:';
   static const contactEmail = 'mybudget@info.com';
@@ -129,10 +144,10 @@ class Constants {
   static const contactInstagram = 'https://www.instagram.com/MyBudget';
   static const contactLinkedIn = 'https://www.linkedin.com/in/MyBudget';
   static const profileContentPlaceholder = 'MyBudget User';
-  static const monthlyIncomeTextPlaceholder =  '[Monthly Income]';
-  static const monthlyPlaceholder =  'Monthly';
-  static const dailyPlaceholder =  'Daily';
-  static const allTimePlaceholder =  'All Time';
+  static const monthlyIncomeTextPlaceholder = '[Monthly Income]';
+  static const monthlyPlaceholder = 'Monthly';
+  static const dailyPlaceholder = 'Daily';
+  static const allTimePlaceholder = 'All Time';
 
   /// Help variables used as placeholders.
   static const stepOneTitle = 'Step 1: Authentication';
@@ -170,8 +185,10 @@ class Constants {
   static const newExpensePlaceholder = 'Add/Edit Expense';
   static const expensesSpentPlaceholder = 'Spent: ';
   static const expensesTodaySpentPlaceholder = 'Today Spent: ';
-  static const expensesEmptySpentPlaceholder = 'No expenses have still been stored';
-  static const expensesPieChartPlaceholder = 'There is still no fetched data about expenses';
+  static const expensesEmptySpentPlaceholder =
+      'No expenses have still been stored';
+  static const expensesPieChartPlaceholder =
+      'There is still no fetched data about expenses';
   static const carouselItemOneImage = 'assets/images/carousel_banner_1.png';
   static const carouselItemTwoImage = 'assets/images/carousel_banner_2.png';
   static const carouselItemThreeImage = 'assets/images/carousel_banner_3.png';

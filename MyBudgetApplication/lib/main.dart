@@ -11,6 +11,7 @@ import 'package:my_budget_application/screen/expenses/expenses_list_screen.dart'
 import 'package:my_budget_application/screen/info/contact_screen.dart';
 import 'package:my_budget_application/screen/info/help_screen.dart';
 import 'package:my_budget_application/screen/info/location_screen.dart';
+import 'package:my_budget_application/screen/info/settings_screen.dart';
 import 'package:my_budget_application/screen/main_screen.dart';
 import 'package:my_budget_application/screen/splash_screen.dart';
 import 'package:my_budget_application/screen/visualizations/pie_chart_screen.dart';
@@ -88,6 +89,7 @@ class MyHomePage extends State<MyApp> {
             StatisticsScreen.routeName: (ctx) => const StatisticsScreen(),
             CameraScreen.routeName: (ctx) => const CameraScreen(),
             HelpScreen.routeName: (ctx) => const HelpScreen(),
+            SettingsScreen.routeName: (ctx) => const SettingsScreen(),
           },
           home: const SplashScreen()),
     );

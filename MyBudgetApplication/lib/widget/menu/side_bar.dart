@@ -4,6 +4,7 @@ import 'package:my_budget_application/model/expense.dart';
 import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/screen/auth/profile_screen.dart';
 import 'package:my_budget_application/screen/info/help_screen.dart';
+import 'package:my_budget_application/screen/info/settings_screen.dart';
 import 'package:my_budget_application/widget/menu/list_menu_tile.dart';
 import 'package:provider/provider.dart';
 
@@ -50,6 +51,12 @@ class _SideBarState extends State<SideBar> {
         .pushNamed(ProfileScreen.routeName, arguments: [widget._customUser, widget._expenses]);
   }
 
+  /// Navigates to the settings screen in our application.
+  void _navigateToSettingsScreen() {
+    Navigator.of(_buildContext)
+        .pushNamed(SettingsScreen.routeName, arguments: [widget._customUser, widget._logout]);
+  }
+
   @override
   Widget build(BuildContext context) {
     _buildContext = context;
@@ -78,26 +85,32 @@ class _SideBarState extends State<SideBar> {
           ),
           ListMenuTile(
             Icons.people,
-            'Contact',
+            Constants.contactTitle,
             _navigateToContactScreen,
             null,
           ),
           ListMenuTile(
             Icons.help,
-            'Help',
+            Constants.helpTitle,
             _navigateToHelpScreen,
+            null,
+          ),
+          ListMenuTile(
+            Icons.settings,
+            Constants.settingsTitle,
+            _navigateToSettingsScreen,
             null,
           ),
           const Divider(),
           ListMenuTile(
             Icons.account_circle,
-            'Profile',
+            Constants.profileTitle,
             _navigateToProfileScreen,
             null,
           ),
           ListMenuTile(
             Icons.logout,
-            'Logout',
+            Constants.logoutTitle,
             widget._logout,
             null,
           ),

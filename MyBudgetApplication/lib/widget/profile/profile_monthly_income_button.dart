@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/user.dart';
 
 import '../../util/constants.dart';
+import '../custom_snack_bar.dart';
 import 'monthly_income_dialog.dart';
 
 class MonthlyIncomeButton extends StatelessWidget {
@@ -27,15 +28,19 @@ class MonthlyIncomeButton extends StatelessWidget {
             fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
       ),
       onPressed: () async {
-        await showDialog(
-          context: context,
-          builder: (context) => MonthlyIncomeDialog(_currentUser!),
-        );
-
-        var count = 0;
-        Navigator.popUntil(context, (route) {
-          return count++ == 2;
-        });
+        if(_currentUser!.updateProfileEnabled) {
+          await showDialog(
+            context: context,
+            builder: (context) => MonthlyIncomeDialog(_currentUser!),
+          );
+          var count = 0;
+          Navigator.popUntil(context, (route) {
+            return count++ == 2;
+          });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const CustomSnackBar(Constants.snackBarPlaceholder).build());
+        }
       },
     );
   }

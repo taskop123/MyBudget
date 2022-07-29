@@ -43,7 +43,9 @@ class _MonthlyIncomeDialogState extends State<MonthlyIncomeDialog> {
         TextButton(
             onPressed: () {
               UserRepository.updateUserProfile(
-                  widget._currentUser.id, null, _price, null, null);
+                  widget._currentUser.updateProfileEnabled,
+                  widget._currentUser.id, null,
+                  _price, null, null, null, null, null, null);
               setState(() {});
               Navigator.pop(context);
             },
