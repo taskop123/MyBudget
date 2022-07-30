@@ -14,10 +14,6 @@ class MonthlyIncomeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
-        backgroundColor: Colors.lightBlue,
-        side: const BorderSide(
-          color: Colors.blue,
-        ),
         padding: const EdgeInsets.all(15.0),
       ),
       child: Text(
@@ -25,7 +21,7 @@ class MonthlyIncomeButton extends StatelessWidget {
             ? _currentUser!.monthlyIncome!
             : Constants.monthlyIncomeTextPlaceholder,
         style: const TextStyle(
-            fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
+            fontSize: 22, fontWeight: FontWeight.bold),
       ),
       onPressed: () async {
         if(_currentUser!.updateProfileEnabled) {

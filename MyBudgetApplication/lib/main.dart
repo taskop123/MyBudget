@@ -20,7 +20,7 @@ import 'package:my_budget_application/service/firebase/authentication_service.da
 import 'package:my_budget_application/service/firebase/database_service.dart';
 import 'package:my_budget_application/service/notification_service.dart';
 import 'package:my_budget_application/util/constants.dart';
-import 'package:my_budget_application/util/main_theme.dart';
+import 'package:my_budget_application/util/theme_manager.dart';
 import 'package:provider/provider.dart';
 
 /// The initialization of listeners and services for the application,
@@ -29,23 +29,19 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   RealtimeDatabaseService.init();
+  NotificationService.init();
 
   /// Initializes the application.
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider<ThemeNotifier>(
+    create: (_) => ThemeNotifier(),
+    child: const MyApp(),
+  ));
 }
 
 /// The main application widget.
 class MyApp extends StatefulWidget {
   /// Creates instance of the [MyApp] widget.
   const MyApp({Key? key}) : super(key: key);
-
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: Constants.applicationTitle,
-      theme: MainTheme.getMainTheme(),
-    );
-  }
 
   /// Creates the state object for the [MyApp] widget.
   @override
@@ -58,7 +54,6 @@ class MyApp extends StatefulWidget {
 class MyHomePage extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    NotificationService.init();
     return MultiProvider(
       providers: [
         Provider<AuthenticationService>(
@@ -70,28 +65,31 @@ class MyHomePage extends State<MyApp> {
           initialData: null,
         )
       ],
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: Constants.applicationTitle,
-          theme: MainTheme.getMainTheme(),
-          routes: {
-            MainScreen.routeName: (ctx) => const MainScreen(null),
-            RegistrationScreen.routeName: (ctx) => const RegistrationScreen(),
-            LoginScreen.routeName: (ctx) => const LoginScreen(null),
-            ProfileScreen.routeName: (ctx) => const ProfileScreen(),
-            ContactScreen.routeName: (ctx) => const ContactScreen(),
-            LocationScreen.routeName: (ctx) => const LocationScreen(),
-            ExpenseAddScreen.routeName: (ctx) => const ExpenseAddScreen(),
-            ListExpenseScreen.routeName: (ctx) => const ListExpenseScreen([], null),
-            ExpenseDetailsScreen.routeName: (ctx) =>
-                const ExpenseDetailsScreen(),
-            PieChartScreen.routeName: (ctx) => const PieChartScreen(),
-            StatisticsScreen.routeName: (ctx) => const StatisticsScreen(),
-            CameraScreen.routeName: (ctx) => const CameraScreen(),
-            HelpScreen.routeName: (ctx) => const HelpScreen(),
-            SettingsScreen.routeName: (ctx) => const SettingsScreen(),
-          },
-          home: const SplashScreen()),
+      child: Consumer<ThemeNotifier>(
+        builder: (context, theme, child) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: Constants.applicationTitle,
+            theme: theme.getTheme(),
+            routes: {
+              MainScreen.routeName: (ctx) => MainScreen(null, theme),
+              RegistrationScreen.routeName: (ctx) => const RegistrationScreen(),
+              LoginScreen.routeName: (ctx) => const LoginScreen(null),
+              ProfileScreen.routeName: (ctx) => const ProfileScreen(),
+              ContactScreen.routeName: (ctx) => const ContactScreen(),
+              LocationScreen.routeName: (ctx) => const LocationScreen(),
+              ExpenseAddScreen.routeName: (ctx) => const ExpenseAddScreen(),
+              ListExpenseScreen.routeName: (ctx) =>
+                  const ListExpenseScreen([], null, null),
+              ExpenseDetailsScreen.routeName: (ctx) =>
+                  const ExpenseDetailsScreen(),
+              PieChartScreen.routeName: (ctx) => const PieChartScreen(),
+              StatisticsScreen.routeName: (ctx) => const StatisticsScreen(),
+              CameraScreen.routeName: (ctx) => const CameraScreen(),
+              HelpScreen.routeName: (ctx) => const HelpScreen(),
+              SettingsScreen.routeName: (ctx) => SettingsScreen(theme),
+            },
+            home: SplashScreen(theme)),
+      ),
     );
   }
 }

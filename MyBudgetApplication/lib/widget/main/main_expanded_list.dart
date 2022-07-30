@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:my_budget_application/model/expense.dart';
+import 'package:my_budget_application/model/user.dart';
 
 import '../../screen/expenses/expenses_list_screen.dart';
 import '../../util/constants.dart';
@@ -9,16 +10,18 @@ class MainExpandedList extends StatelessWidget {
   /// The list of [Expense] objects that are shown in the widget.
   final List<Expense> _expenses;
 
+  final CustomUser? _currentUser;
+
   final BuildContext _buildContext;
 
   /// Creates an instance of [MainExpandedList] with [_expenses].
-  const MainExpandedList(this._expenses, this._buildContext, {Key? key}) : super(key: key);
+  const MainExpandedList(this._expenses, this._buildContext, this._currentUser, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: _expenses.isNotEmpty
-          ? ListExpenseScreen(_expenses, _buildContext)
+          ? ListExpenseScreen(_expenses, _buildContext, _currentUser)
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

@@ -47,7 +47,8 @@ class AuthenticationService {
           email: email, password: password);
       CustomUser customUser =
           CustomUser(userCredentials.user!.uid, username, null, null,
-              List.empty(growable: true), List.empty(growable: true));
+              List.empty(growable: true), List.empty(growable: true),
+          true, true, true, false);
       UserRepository.addUser(customUser);
       signOut();
       return Constants.registerSuccessMessage;

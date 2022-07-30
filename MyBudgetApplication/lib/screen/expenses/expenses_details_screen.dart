@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/widget/carousel_image_item.dart';
 
 import '../../model/expense.dart';
@@ -17,11 +18,14 @@ class ExpenseDetailsScreen extends StatefulWidget {
 
 class _ExpenseDetailsScreenState extends State<ExpenseDetailsScreen> {
   Expense? _selectedExpense;
+  CustomUser? _currentUser;
 
   @override
   Widget build(BuildContext context) {
-    final expense = ModalRoute.of(context)?.settings.arguments as Expense;
-    _selectedExpense = expense;
+    final arguments = (ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as List;
+    _selectedExpense = arguments[0] as Expense;
+    _currentUser = arguments[1] as CustomUser;
 
     return Scaffold(
       appBar: AppBar(
@@ -62,10 +66,13 @@ class _ExpenseDetailsScreenState extends State<ExpenseDetailsScreen> {
                     children: [
                       InfoText(
                         _selectedExpense!.price.toString(),
-                        const TextStyle(
+                        TextStyle(
                             fontSize: 35,
                             fontWeight: FontWeight.bold,
-                            color: Color.fromRGBO(0, 0, 0, 1.0)),
+                            color: (_currentUser != null &&
+                                    _currentUser!.themeDarkEnabled)
+                                ? Colors.white
+                                : Colors.black),
                       ),
                     ],
                   ),
@@ -73,30 +80,42 @@ class _ExpenseDetailsScreenState extends State<ExpenseDetailsScreen> {
                 if (_selectedExpense!.expenseAddress != null)
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 6),
-                    child: InfoText(
-                        _selectedExpense!.expenseAddress.toString(),
-                        const TextStyle(
-                            fontSize: 20, color: Color.fromRGBO(0, 0, 0, 1.0))),
+                    child: InfoText(_selectedExpense!.expenseAddress.toString(),
+                        const TextStyle(fontSize: 20)),
                   ),
                 InfoText(
                     _selectedExpense!.dateAndTime.toString(),
-                    const TextStyle(
-                        fontSize: 19, color: Color.fromRGBO(0, 0, 0, 1.0))),
+                    TextStyle(
+                        fontSize: 19,
+                        color: (_currentUser != null &&
+                                _currentUser!.themeDarkEnabled)
+                            ? Colors.white
+                            : Colors.black)),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                   child: InfoText(
                       'Category: ' +
                           _selectedExpense!.expenseCategory.toString(),
-                      const TextStyle(
-                          fontSize: 24, color: Color.fromRGBO(0, 0, 0, 1.0))),
+                      TextStyle(
+                          fontSize: 24,
+                          color: (_currentUser != null &&
+                                  _currentUser!.themeDarkEnabled)
+                              ? Colors.white
+                              : Colors.black)),
                 ),
                 if (_selectedExpense!.expenseNotes != null)
-                  Padding(padding: const EdgeInsets.fromLTRB(7, 0, 7, 0), child: InfoText(
-                    _selectedExpense!.expenseNotes.toString(),
-                    const TextStyle(
-                        fontSize: 15, color: Color.fromRGBO(0, 0, 0, 1.0)),
-                  ),),
-
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(7, 0, 7, 0),
+                    child: InfoText(
+                      _selectedExpense!.expenseNotes.toString(),
+                      TextStyle(
+                          fontSize: 15,
+                          color: (_currentUser != null &&
+                                  _currentUser!.themeDarkEnabled)
+                              ? Colors.white
+                              : Colors.black),
+                    ),
+                  ),
               ]),
         ),
       ),

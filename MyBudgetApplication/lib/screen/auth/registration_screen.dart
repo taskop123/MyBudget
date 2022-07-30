@@ -124,13 +124,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           FormTextField(_passwordController, Constants.passwordPlaceholder,
               const EdgeInsets.fromLTRB(0, 5, 0, 40), true, null),
           ButtonFormField(const EdgeInsets.fromLTRB(0, 10, 0, 0), _registerUser,
-              Constants.registrationTitle, Colors.white, Colors.blue),
+              Constants.registrationTitle, Colors.white, Colors.blueGrey),
           CustomTextButton(
-              Constants.loginButtonPlaceholder,
-              Constants.loginTitle,
-              const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              Colors.white,
-              _navigateLoginUser)
+            Constants.loginButtonPlaceholder,
+            Constants.loginTitle,
+            const EdgeInsets.fromLTRB(0, 10, 0, 0),
+            Colors.blue,
+            _navigateLoginUser,
+          )
         ]),
       ),
     );

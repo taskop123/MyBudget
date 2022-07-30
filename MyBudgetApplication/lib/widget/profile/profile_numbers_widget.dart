@@ -39,7 +39,7 @@ class ProfileNumbersWidget extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 text,
-                style: const TextStyle(fontSize: 14, color: Colors.black54),
+                style: const TextStyle(fontSize: 14),
               ),
             ],
           ),
@@ -71,7 +71,7 @@ class ProfileNumbersWidget extends StatelessWidget {
         buildButton(
             text: Constants.allTimePlaceholder,
             value: ExpenseService.allTimeSpending(_expenses),
-            color: Colors.black,
+            color: _currentUser.themeDarkEnabled ? Colors.white : Colors.black,
             fontSize: 24,
             formatter: formatter),
         buildDivider(),

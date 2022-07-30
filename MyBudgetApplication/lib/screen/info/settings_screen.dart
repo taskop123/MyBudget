@@ -3,14 +3,16 @@ import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/service/firebase/users_repository.dart';
 
 import '../../util/constants.dart';
+import '../../util/theme_manager.dart';
 import '../../widget/settings/notification_option.dart';
 import '../../widget/settings/notification_row.dart';
 import '../../widget/settings/sign_out_button.dart';
 
 class SettingsScreen extends StatefulWidget {
   static const routeName = Constants.settingsRoute;
+  final ThemeNotifier _themeNotifier;
 
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen(this._themeNotifier, {Key? key}) : super(key: key);
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -81,10 +83,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     UserRepository.updateUserProfile(
         _currentUser!.updateProfileEnabled,
         _currentUser!.id,
-        _currentUser!.profilePicture,
-        _currentUser!.monthlyIncome,
-        _currentUser!.monthlyNotifications,
-        _currentUser!.yearlyNotifications,
+        null,
+        null,
+        null,
+        null,
         value,
         null,
         null,
@@ -98,10 +100,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     UserRepository.updateUserProfile(
         _currentUser!.updateProfileEnabled,
         _currentUser!.id,
-        _currentUser!.profilePicture,
-        _currentUser!.monthlyIncome,
-        _currentUser!.monthlyNotifications,
-        _currentUser!.yearlyNotifications,
+        null,
+        null,
+        null,
+        null,
         null,
         value,
         null,
@@ -115,10 +117,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     UserRepository.updateUserProfile(
         value,
         _currentUser!.id,
-        _currentUser!.profilePicture,
-        _currentUser!.monthlyIncome,
-        _currentUser!.monthlyNotifications,
-        _currentUser!.yearlyNotifications,
+        null,
+        null,
+        null,
+        null,
         null,
         null,
         value,
@@ -132,10 +134,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     UserRepository.updateUserProfile(
         _currentUser!.updateProfileEnabled,
         _currentUser!.id,
-        _currentUser!.profilePicture,
-        _currentUser!.monthlyIncome,
-        _currentUser!.monthlyNotifications,
-        _currentUser!.yearlyNotifications,
+        null,
+        null,
+        null,
+        null,
         null,
         null,
         null,
@@ -143,5 +145,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     setState(() {
       _currentUser!.themeDarkEnabled = value;
     });
+    (value)
+        ? widget._themeNotifier.setDarkMode()
+        : widget._themeNotifier.setLightMode();
   }
 }

@@ -44,8 +44,8 @@ class ExpenseFormLocation extends StatelessWidget {
           (_locationController == null || _expenseAddress == null)
               ? Constants.locationSelectorPlaceholder
               : _expenseAddress!,
-          Colors.lightBlue,
-          Colors.white,
+          null,
+          null
         ));
   }
 }

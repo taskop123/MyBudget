@@ -79,9 +79,6 @@ class _SideBarState extends State<SideBar> {
                 ),
               ),
             ),
-            decoration: const BoxDecoration(
-              color: Colors.blue,
-            ),
           ),
           ListMenuTile(
             Icons.people,

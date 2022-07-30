@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:my_budget_application/model/pie_data.dart';
 
-/// Defines the indicator widget for describing the data 
+/// Defines the indicator widget for describing the data
 /// displayed on the pie chart screen.
 class IndicatorsWidget extends StatelessWidget {
   /// Defines the pie chart data.
@@ -30,13 +30,11 @@ class IndicatorsWidget extends StatelessWidget {
   }
 
   /// Creates indicator widget for displaying the data in the pie chart.
-  Widget buildIndicator({
-    required Color color,
-    required String text,
-    bool isSquare = false,
-    double size = 16,
-    Color textColor = const Color(0xff505050),
-  }) {
+  Widget buildIndicator(
+      {required Color color,
+      required String text,
+      bool isSquare = false,
+      double size = 16}) {
     return Row(
       children: <Widget>[
         Container(
@@ -52,10 +50,9 @@ class IndicatorsWidget extends StatelessWidget {
         ),
         Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: textColor,
           ),
         )
       ],

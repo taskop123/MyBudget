@@ -157,8 +157,6 @@ class _LocationScreenState extends State<LocationScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Colors.white,
         onPressed: () => _googleMapController.animateCamera(
           _info != null
               ? CameraUpdate.newLatLngBounds(_info!.bounds, 100.00)

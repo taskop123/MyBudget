@@ -107,6 +107,7 @@ class Constants {
       'Try to keep down your spending and keep track of your expenses!';
   static const positiveAdviceMessage =
       'You are on your track! You do good job keeping tracking of your expenses!';
+  static const darkModeEnabled = 'isDarkMode';
 
   /// Location and Maps variables for the Google Maps API
   static const googleAPIKey = 'AIzaSyBGXGVfNRITc74ApP-elhp9gPj9GasUBjI';

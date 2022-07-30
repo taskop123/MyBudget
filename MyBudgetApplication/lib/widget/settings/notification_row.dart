@@ -12,8 +12,7 @@ class NotificationRow extends StatelessWidget {
       children: [
         const Padding(padding: EdgeInsets.fromLTRB(10, 0, 10, 0)),
         Icon(
-          _icon,
-          color: Colors.blue,
+          _icon
         ),
         const SizedBox(
           width: 10,

@@ -6,6 +6,7 @@ import 'package:my_budget_application/widget/menu/bottom_bar.dart';
 import 'package:my_budget_application/widget/visualizations/indicators_widget.dart';
 import 'package:my_budget_application/widget/visualizations/pie_chart_sections.dart';
 
+import '../../model/user.dart';
 import '../../util/constants.dart';
 
 /// Defines the pie chart screen for displaying the expenses sorted by category.
@@ -32,8 +33,9 @@ class _PieChartScreenState extends State<PieChartScreen> {
   @override
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
-        <String, dynamic>{}) as Map;
-    List<Expense> _expenses = arguments['expenses'];
+        <String, dynamic>{}) as List;
+    List<Expense> _expenses = arguments[0] as List<Expense>;
+    CustomUser _currentUser = arguments[1] as CustomUser;
 
     var data = PieData(expenses: _expenses).getData();
 
@@ -70,7 +72,7 @@ class _PieChartScreenState extends State<PieChartScreen> {
                 child: Text(Constants.expensesPieChartPlaceholder),
               ),
       ),
-      bottomNavigationBar: BottomBar(2, _expenses),
+      bottomNavigationBar: BottomBar(2, _expenses, _currentUser),
     );
   }
 }

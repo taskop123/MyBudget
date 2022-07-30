@@ -5,6 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/service/expenses_service.dart';
+import 'package:my_budget_application/util/theme_manager.dart';
 import 'package:my_budget_application/widget/main/main_banner.dart';
 import 'package:my_budget_application/widget/main/main_expanded_list.dart';
 import 'package:my_budget_application/widget/menu/add_expense_menu.dart';
@@ -30,8 +31,11 @@ class MainScreen extends StatefulWidget {
   /// to log out the current user and redirect him to the [LoginScreen].
   final Function()? _logoutFunction;
 
+  final ThemeNotifier _themeNotifier;
+
   /// Creates an instance of the [MainScreen] with a [_logoutFunction].
-  const MainScreen(this._logoutFunction, {Key? key}) : super(key: key);
+  const MainScreen(this._logoutFunction, this._themeNotifier, {Key? key})
+      : super(key: key);
 
   /// Creates the state object for the [MainScreen].
   @override
@@ -91,9 +95,13 @@ class _MainScreenState extends State<MainScreen> {
             .first as Map<Object?, Object?>;
         setState(() {
           _currentUser = CustomUser.fromJson(result);
-
-          if (_currentUser?.monthlyIncome == null) {
-            _showMonthlyIncomeDialog(context);
+          if (_currentUser != null) {
+            (_currentUser!.themeDarkEnabled)
+                ? widget._themeNotifier.setDarkMode()
+                : widget._themeNotifier.setLightMode();
+            if (_currentUser!.monthlyIncome == null) {
+              _showMonthlyIncomeDialog(context);
+            }
           }
         });
       });
@@ -115,6 +123,11 @@ class _MainScreenState extends State<MainScreen> {
     var currentUser = context.watch<User?>();
     _fetchCurrentUser(currentUser!.uid, context);
 
+    if (_currentUser != null) {
+      NotificationService.toggleExpenseNotifications(
+          _expenses, currentUser, _currentUser!, context);
+    }
+
     super.didChangeDependencies();
   }
 
@@ -128,22 +141,13 @@ class _MainScreenState extends State<MainScreen> {
     return _actionButtons;
   }
 
-  @override
-  void initState() {
-    if (_currentUser != null) {
-      NotificationService.toggleExpenseNotifications(
-          _expenses, _currentUser!, context);
-    }
-
-    super.initState();
-  }
-
   /// Builds the UI elements for the main screen,
   /// including the [bottomNavigationBar], [appBar], [drawer] and a [body]
   /// with a [context] of the adequate [_expenses] listing.
   ///
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       drawer: SideBar(_currentUser, widget._logoutFunction, _expenses),
       appBar: AppBar(
@@ -152,12 +156,14 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: Column(
         children: [
-          MainBanner(_expenses),
-          MainExpandedList(_expenses, context),
+          MainBanner(_expenses, _currentUser),
+          MainExpandedList(_expenses, context, _currentUser),
         ],
       ),
       floatingActionButton: AddExpenseMenu(context),
-      bottomNavigationBar: BottomBar(0, _expenses),
+      bottomNavigationBar: (_currentUser != null)
+          ? BottomBar(0, _expenses, _currentUser!)
+          : null,
     );
   }
 

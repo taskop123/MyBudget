@@ -31,7 +31,7 @@ class ProfileContentWidget extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           currentUser!.email!,
-          style: const TextStyle(fontSize: 20, color: Colors.black),
+          style: const TextStyle(fontSize: 20),
         ),
         const SizedBox(height: 10),
         const Divider(),

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/screen/main_screen.dart';
+import 'package:my_budget_application/util/theme_manager.dart';
 import 'package:provider/provider.dart';
 
 import '../service/firebase/authentication_service.dart';
@@ -10,8 +11,10 @@ import 'auth/login_screen.dart';
 /// from the authentication screens to the other screens,
 /// which the user can access after authentication.
 class SplashScreen extends StatefulWidget {
+  final ThemeNotifier _themeNotifier;
+
   /// Creates an instance of the [SplashScreen].
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen(this._themeNotifier, {Key? key}) : super(key: key);
 
   /// Creates the state object for the [SplashScreen].
   @override
@@ -41,6 +44,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
-    return (firebaseUser != null) ? MainScreen(_logout) : LoginScreen(_login);
+    return (firebaseUser != null)
+        ? MainScreen(_logout, widget._themeNotifier)
+        : LoginScreen(_login);
   }
 }

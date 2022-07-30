@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/util/constants.dart';
 import 'package:my_budget_application/widget/menu/bottom_bar.dart';
 import 'package:my_budget_application/widget/visualizations/line_chart_widget.dart';
@@ -30,8 +31,9 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
   @override
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
-        <String, dynamic>{}) as Map;
-    List<Expense> _expenses = arguments['expenses'];
+        <String, dynamic>{}) as List;
+    List<Expense> _expenses = arguments[0] as List<Expense>;
+    CustomUser _currentUser = arguments[1] as CustomUser;
 
     return Scaffold(
       appBar: AppBar(
@@ -42,13 +44,12 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(32),
         ),
-        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(22, 0, 0, 22),
           child: LineChartWidget(_expenses),
         ),
       ),
-      bottomNavigationBar: BottomBar(1, _expenses),
+      bottomNavigationBar: BottomBar(1, _expenses, _currentUser),
     );
   }
 }

@@ -16,11 +16,13 @@ class SignOutButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             )),
-        onPressed: _logoutFunction,
+        onPressed: () {
+          Navigator.pop(context);
+          _logoutFunction!();
+        },
         child: Text(
           _title,
-          style: const TextStyle(
-              fontSize: 20, letterSpacing: 2.2, color: Colors.black),
+          style: const TextStyle(fontSize: 20, letterSpacing: 2.2),
         ),
       ),
     );

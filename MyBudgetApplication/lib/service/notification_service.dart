@@ -7,7 +7,6 @@ import 'package:my_budget_application/service/expenses_service.dart';
 import 'package:my_budget_application/service/firebase/users_repository.dart';
 import 'package:provider/provider.dart';
 import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 
 import '../util/constants.dart';
 
@@ -41,47 +40,8 @@ class NotificationService {
     );
   }
 
-  static Future _showScheduledNotification({
-    int id = 0,
-    String? title,
-    String? body,
-    String? payload,
-    required DateTime scheduledDate,
-  }) async {
-    if (DateTime.now().isBefore(scheduledDate) ||
-        DateTime.now().isAtSameMomentAs(scheduledDate)) {
-      _notifications.zonedSchedule(
-          id,
-          title,
-          body,
-          tz.TZDateTime.from(
-            scheduledDate,
-            tz.local,
-          ),
-          await _notificationDetails(),
-          payload: payload,
-          androidAllowWhileIdle: true,
-          uiLocalNotificationDateInterpretation:
-              UILocalNotificationDateInterpretation.absoluteTime);
-    }
-  }
-
-  static scheduleNotification() {
-    // TODO: Implement logic for scheduling settings.
-
-    // _showScheduledNotification(
-    //   id: notificationCounter++,
-    //   title: notificationTitle,
-    //   body:
-    //       'An exam is starting in 30 minutes for the subject ${exam.subjectName}, which will last ${exam.time}',
-    //   payload: notificationPayload,
-    //   scheduledDate: examDate.subtract(const Duration(minutes: 30)),
-    // );
-  }
-
   static Future toggleExpenseNotifications(List<Expense> _expenses,
-      CustomUser _currentUser, BuildContext context) async {
-    var user = context.watch<User?>();
+      User? user, CustomUser _currentUser, BuildContext context) async {
     if (user != null) {
       var profileCreationTime = user.metadata.creationTime;
       if (profileCreationTime != null) {

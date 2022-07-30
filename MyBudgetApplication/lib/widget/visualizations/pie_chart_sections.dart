@@ -15,7 +15,6 @@ List<PieChartSectionData> getSections(List<Data> data) {
           titleStyle: const TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
           ),
         );
         return MapEntry(index, value);

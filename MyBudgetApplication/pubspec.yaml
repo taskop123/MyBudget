@@ -30,13 +30,14 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # Firebase
+  # Data
   firebase_core: ^1.13.1
   firebase_auth: ^3.3.10
   provider: ^6.0.2
   firebase_database: ^9.0.8
   firebase_storage: ^10.2.9
   cloud_firestore: ^3.1.8
+  shared_preferences: ^2.0.15
 
   # Notifications
   flutter_local_notifications: ^9.3.2
@@ -58,14 +59,12 @@ dependencies:
   introduction_screen: ^3.0.0
   sn_progress_dialog: ^1.0.8
 
-  # Date time picker
+  # Form
   intl: ^0.17.0
   datetime_picker_formfield: ^2.0.0
-
-  # Currency form field
   currency_text_input_formatter: ^2.1.5
 
-  # Camera dependencies
+  # Camera
   camera: any
   path_provider: any
   path: any

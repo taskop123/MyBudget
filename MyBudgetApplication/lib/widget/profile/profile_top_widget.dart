@@ -26,7 +26,7 @@ class ProfileTopWidget extends StatelessWidget {
       children: [
         Container(
           margin: EdgeInsets.only(bottom: (profileHeight / 2)),
-          child: ProfileCoverImageWidget(coverHeight),
+          child: ProfileCoverImageWidget(coverHeight, currentUser),
         ),
         Positioned(
           top: (coverHeight - profileHeight / 2),

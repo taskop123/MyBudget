@@ -21,21 +21,20 @@ class NotificationOption extends StatelessWidget {
         children: [
           Text(
             _title,
-            style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey[600]),
+            style: const TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           Transform.scale(
             scale: 0.7,
             child: CupertinoSwitch(
-              activeColor: Colors.blue,
-              trackColor: Colors.grey,
               value: _value,
               onChanged: (bool newValue) {
                 showDialog(
                     context: context,
-                    builder: (ctx) => NotificationAlertDialog(newValue, _onChangeMethod));
+                    builder: (ctx) =>
+                        NotificationAlertDialog(newValue, _onChangeMethod));
               },
             ),
           ),

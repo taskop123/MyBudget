@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/util/constants.dart';
 import 'package:my_budget_application/widget/expense/expense_list.dart';
 import 'package:my_budget_application/widget/expense/expense_list_banner.dart';
@@ -16,10 +17,12 @@ class ListExpenseScreen extends StatefulWidget {
   /// The expenses that the current user has added.
   final List<Expense> _expenses;
 
+  final CustomUser? _currentUser;
+
   final BuildContext? _buildContext;
 
   /// Creates new list expense screen with the [_expenses].
-  const ListExpenseScreen(this._expenses, this._buildContext, {Key? key})
+  const ListExpenseScreen(this._expenses, this._buildContext, this._currentUser, {Key? key})
       : super(key: key);
 
   @override
@@ -65,7 +68,7 @@ class _ListExpenseScreenState extends State<ListExpenseScreen> {
   void _navigateDetailsScreen(Expense expense) {
     if(widget._buildContext != null) {
       Navigator.of(widget._buildContext!)
-          .pushNamed(ExpenseDetailsScreen.routeName, arguments: expense);
+          .pushNamed(ExpenseDetailsScreen.routeName, arguments: [expense, widget._currentUser]);
     }
 
   }

@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geocode/geocode.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:my_budget_application/screen/camera/camera_screen.dart';
 import 'package:my_budget_application/service/firebase/expenses_repository.dart';
 import 'package:my_budget_application/util/constants.dart';
 import 'package:my_budget_application/util/location_utils.dart';
@@ -129,20 +128,14 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
     });
   }
 
-  /// This method is called whenever the user captures a new photo of the receipt for the corresponding expense.
-  ///
-  /// It navigates to the screen where it can take a new photo.
-  void takePhoto() {
-    Navigator.of(context).pushNamed(CameraScreen.routeName);
-  }
-
   /// Builds the UI elements for the adding of a new expense form screen,
   /// including the [appBar] and [body] with a [context],
   /// with the adequate form elements.
   ///
   @override
   Widget build(BuildContext context) {
-    if(_expenseToEdit == null && ModalRoute.of(context)!.settings.arguments != null) {
+    if (_expenseToEdit == null &&
+        ModalRoute.of(context)!.settings.arguments != null) {
       WidgetsBinding.instance!.addPostFrameCallback((_) => _setExpenseValues());
     }
 
@@ -176,14 +169,13 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
                     ExpenseFormLocation(_validateLocation, _expenseAddress,
                         _locationController, _buildContext),
                     ButtonFormField(
-                      const EdgeInsets.all(23),
-                      (_expenseToEdit != null)
-                          ? _editExpense
-                          : _createNewExpense,
-                      Constants.submitButtonPlaceholder,
-                      Theme.of(_buildContext).primaryColorDark,
-                      Colors.white,
-                    ),
+                        const EdgeInsets.all(23),
+                        (_expenseToEdit != null)
+                            ? _editExpense
+                            : _createNewExpense,
+                        Constants.submitButtonPlaceholder,
+                        null,
+                        null),
                   ],
                 ),
               ),

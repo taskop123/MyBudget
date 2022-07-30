@@ -26,12 +26,17 @@ class CustomUser {
 
   /// Creates a user object with an [id], [username], [profilePicture] URL,[monthlyIncome], [monthlyNotifications] and [yearlyNotifications].
   ///
-  CustomUser(this.id, this.username, this.profilePicture, this.monthlyIncome,
-      this.monthlyNotifications, this.yearlyNotifications,
-      [this.monthlyNotificationsEnabled = true,
-      this.yearlyNotificationsEnabled = true,
-      this.updateProfileEnabled = true,
-      this.themeDarkEnabled = false]);
+  CustomUser(
+      this.id,
+      this.username,
+      this.profilePicture,
+      this.monthlyIncome,
+      this.monthlyNotifications,
+      this.yearlyNotifications,
+      this.monthlyNotificationsEnabled,
+      this.yearlyNotificationsEnabled,
+      this.updateProfileEnabled,
+      this.themeDarkEnabled);
 
   /// Conversion of a JSON [map] of user information gathered from firebase,
   /// to a usable [CustomUser] object.
@@ -44,6 +49,10 @@ class CustomUser {
     var username = map['username'];
     var profilePicture = map['profilePicture'];
     var monthlyIncome = map['monthlyIncome'];
+    var monthlyNotificationsEnabled = map['monthlyNotificationsEnabled'];
+    var yearlyNotificationsEnabled = map['yearlyNotificationsEnabled'];
+    var updateProfileEnabled = map['updateProfileEnabled'];
+    var themeDarkEnabled = map['themeDarkEnabled'];
 
     return CustomUser(
         id,
@@ -52,10 +61,10 @@ class CustomUser {
         monthlyIncome,
         List.empty(growable: true),
         List.empty(growable: true),
-        true,
-        true,
-        true,
-        false);
+        monthlyNotificationsEnabled,
+        yearlyNotificationsEnabled,
+        updateProfileEnabled,
+        themeDarkEnabled);
   }
 
   /// Converts an [CustomUser] .dart object to a
@@ -65,6 +74,10 @@ class CustomUser {
         'id': id.toString(),
         'username': username,
         'profilePicture': profilePicture,
-        'monthlyIncome': monthlyIncome
+        'monthlyIncome': monthlyIncome,
+        'monthlyNotificationsEnabled': monthlyNotificationsEnabled,
+        'yearlyNotificationsEnabled': yearlyNotificationsEnabled,
+        'updateProfileEnabled': updateProfileEnabled,
+        'themeDarkEnabled': themeDarkEnabled
       };
 }

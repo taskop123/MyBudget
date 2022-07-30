@@ -9,7 +9,7 @@ class HelpPageButton extends StatelessWidget {
   const HelpPageButton(this._buttonText, {Key? key}) : super(key: key);
 
   TextStyle _getTextStyle() =>
-      const TextStyle(fontWeight: FontWeight.bold, color: Colors.black);
+      const TextStyle(fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
