@@ -1,4 +1,4 @@
-/// State class used for keeping information about user expenses.
+ /// State class used for keeping information about user expenses.
 class Expense {
   /// The id of the expense.
   String? id;

@@ -56,7 +56,7 @@ class ExpenseService {
   static double _calculateIncome(List<Expense> expenses) {
     return (expenses.isNotEmpty) ? expenses.map((element) {
       if (element.price != null) {
-        String price = element.price!.replaceAll(Constants.lettersRegex, '');
+        String price = element.price!.replaceAll(Constants.lettersRegex, Constants.blankString);
         return double.parse(price);
       }
       return 0.0;

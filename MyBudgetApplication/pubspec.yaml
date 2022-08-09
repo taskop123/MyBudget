@@ -38,6 +38,8 @@ dependencies:
   firebase_storage: ^10.2.9
   cloud_firestore: ^3.1.8
   shared_preferences: ^2.0.15
+  collection: ^1.14.13
+  uuid: ^3.0.6
 
   # Notifications
   flutter_local_notifications: ^9.3.2
@@ -72,8 +74,9 @@ dependencies:
   # Visualizations
   fl_chart: any
 
-  # Collections
-  collection: ^1.14.13
+  #Export
+  pdf: ^3.8.2
+  open_file: ^3.2.1
 
   # Action buttons
   flutter_speed_dial: ^6.0.0

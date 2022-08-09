@@ -9,14 +9,15 @@ import 'package:my_budget_application/widget/menu/list_menu_tile.dart';
 import 'package:provider/provider.dart';
 
 import '../../screen/info/contact_screen.dart';
+import '../../service/document_generator_service.dart';
 import '../../util/constants.dart';
 
-
-/// Defines the side bar widget used to help the user quickly 
+/// Defines the side bar widget used to help the user quickly
 /// access key actions in our application.
 class SideBar extends StatefulWidget {
-  /// Defines the logout function. 
+  /// Defines the logout function.
   final Function()? _logout;
+
   /// Defines the current user.
   final CustomUser? _customUser;
 
@@ -24,7 +25,8 @@ class SideBar extends StatefulWidget {
 
   /// Creates the side bar widget with the given logout function
   /// and the current user.
-  const SideBar(this._customUser, this._logout, this._expenses, {Key? key}) : super(key: key);
+  const SideBar(this._customUser, this._logout, this._expenses, {Key? key})
+      : super(key: key);
 
   @override
   State<SideBar> createState() => _SideBarState();
@@ -34,6 +36,7 @@ class SideBar extends StatefulWidget {
 class _SideBarState extends State<SideBar> {
   /// Defines the current build context.
   late BuildContext _buildContext;
+  late User? _user;
 
   /// Navigates to the help screen in our application.
   void _navigateToHelpScreen() {
@@ -44,23 +47,32 @@ class _SideBarState extends State<SideBar> {
   void _navigateToContactScreen() {
     Navigator.of(_buildContext).pushNamed(ContactScreen.routeName);
   }
-  
+
   /// Navigates to the profile screen in our application.
   void _navigateToProfileScreen() {
-    Navigator.of(_buildContext)
-        .pushNamed(ProfileScreen.routeName, arguments: [widget._customUser, widget._expenses]);
+    Navigator.of(_buildContext).pushNamed(ProfileScreen.routeName,
+        arguments: [widget._customUser, widget._expenses]);
   }
 
   /// Navigates to the settings screen in our application.
   void _navigateToSettingsScreen() {
-    Navigator.of(_buildContext)
-        .pushNamed(SettingsScreen.routeName, arguments: [widget._customUser, widget._logout]);
+    Navigator.of(_buildContext).pushNamed(SettingsScreen.routeName,
+        arguments: [widget._customUser, widget._logout]);
+  }
+
+  /// Navigates to the settings screen in our application.
+  void _exportPDFInvoice() async {
+    if (widget._customUser != null && _user != null) {
+      final pdfFile = await DocumentGenerator.generatePDF(
+          widget._expenses, widget._customUser!, _user!);
+      await DocumentGenerator.openFile(pdfFile);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     _buildContext = context;
-    var user = context.watch<User?>();
+    _user = context.watch<User?>();
 
     return Drawer(
       child: ListView(
@@ -68,7 +80,7 @@ class _SideBarState extends State<SideBar> {
         children: [
           UserAccountsDrawerHeader(
             accountName: Text(widget._customUser!.username!),
-            accountEmail: Text(user!.email!),
+            accountEmail: Text(_user!.email!),
             currentAccountPicture: GestureDetector(
               onTap: () => _navigateToProfileScreen(),
               child: CircleAvatar(
@@ -96,6 +108,13 @@ class _SideBarState extends State<SideBar> {
             Icons.settings,
             Constants.settingsTitle,
             _navigateToSettingsScreen,
+            null,
+          ),
+          const Divider(),
+          ListMenuTile(
+            Icons.picture_as_pdf,
+            Constants.exportPdfPlaceholder,
+            _exportPDFInvoice,
             null,
           ),
           const Divider(),
