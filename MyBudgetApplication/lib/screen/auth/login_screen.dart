@@ -104,13 +104,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _loginUserFacebook() async {
-    // String result =
-    //     await _buildContext.read<AuthenticationService>().loginWithFacebook();
-    // ScaffoldMessenger.of(_buildContext).showSnackBar(SnackBar(
-    //   content: Text(result.toString()),
-    //   duration: const Duration(seconds: 3),
-    // ));
-    // widget._loginFunction!();
+    String result =
+        await _buildContext.read<AuthenticationService>().loginWithFacebook();
+    ScaffoldMessenger.of(_buildContext).showSnackBar(SnackBar(
+      content: Text(result.toString()),
+      duration: const Duration(seconds: 3),
+    ));
+    widget._loginFunction!();
   }
 
   /// Builds the UI elements for the authentication screen,

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:my_budget_application/service/firebase/users_repository.dart';
 import 'package:my_budget_application/util/constants.dart';
@@ -80,7 +81,8 @@ class AuthenticationService {
       idToken: googleAuth.idToken,
     );
 
-    final userCredentials = await _firebaseAuth.signInWithCredential(credential);
+    final userCredentials =
+        await _firebaseAuth.signInWithCredential(credential);
     CustomUser customUser = CustomUser(
         userCredentials.user!.uid,
         userCredentials.user!.displayName,
@@ -98,22 +100,31 @@ class AuthenticationService {
   }
 
   Future<String> loginWithFacebook() async {
+    try {
+      final facebookLoginResult = await FacebookAuth.instance.login();
 
-    // final userCredentials = await _firebaseAuth.signInWithCredential(credential);
-    // CustomUser customUser = CustomUser(
-    //     userCredentials.user!.uid,
-    //     userCredentials.user!.displayName,
-    //     null,
-    //     null,
-    //     List.empty(growable: true),
-    //     List.empty(growable: true),
-    //     true,
-    //     true,
-    //     true,
-    //     false);
-    // UserRepository.addUser(customUser);
+      final credential = FacebookAuthProvider.credential(
+          facebookLoginResult.accessToken!.token);
+      final userCredentials =
+          await _firebaseAuth.signInWithCredential(credential);
 
-    return Constants.loginErrorMessage;
+      CustomUser customUser = CustomUser(
+          userCredentials.user!.uid,
+          userCredentials.user!.displayName,
+          null,
+          null,
+          List.empty(growable: true),
+          List.empty(growable: true),
+          true,
+          true,
+          true,
+          false);
+      UserRepository.addUser(customUser);
+
+      return Constants.loginErrorMessage;
+    } on FirebaseAuthException catch (e) {
+      return (e.message != null) ? e.message! : Constants.blankString;
+    }
   }
 
   /// Signs out the existing user, if there is one,
