@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_budget_application/model/user.dart';
-import 'package:my_budget_application/util/formatter_utils.dart';
 import 'package:my_budget_application/widget/document/document_header.dart';
 import 'package:my_budget_application/widget/document/document_list.dart';
 import 'package:my_budget_application/widget/document/document_title.dart';
@@ -22,7 +21,10 @@ class DocumentGenerator {
   static Future<File> generatePDF(
       List<Expense> _expenses, CustomUser _currentUser, User _user) async {
     final pdf = pdf_widgets.Document();
-    final documentData = DocumentData.build(_expenses, _currentUser, _user);
+    final documentUuid = const Uuid().v1();
+
+    final documentData =
+        DocumentData.build(_expenses, _currentUser, _user, documentUuid);
 
     pdf.addPage(pdf_widgets.MultiPage(
       build: (context) => [
@@ -36,7 +38,7 @@ class DocumentGenerator {
       footer: (context) => DocumentFooter(documentData).build(),
     ));
 
-    return saveDocument(name: '${const Uuid().v1()}.pdf', pdf: pdf);
+    return saveDocument(name: '$documentUuid.pdf', pdf: pdf);
   }
 
   static Future<File> saveDocument({

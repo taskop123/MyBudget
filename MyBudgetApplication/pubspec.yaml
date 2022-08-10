@@ -37,6 +37,7 @@ dependencies:
   firebase_database: ^9.0.8
   firebase_storage: ^10.2.9
   cloud_firestore: ^3.1.8
+  google_sign_in: ^5.4.1
   shared_preferences: ^2.0.15
   collection: ^1.14.13
   uuid: ^3.0.6
@@ -104,6 +105,8 @@ flutter:
     - assets/images/carousel_banner_1.png
     - assets/images/carousel_banner_2.png
     - assets/images/carousel_banner_3.png
+    - assets/images/google_logo.png
+    - assets/images/facebook_logo.png
 
 dependency_overrides:
   intl: ^0.17.0

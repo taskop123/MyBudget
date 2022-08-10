@@ -19,8 +19,8 @@ class DocumentData {
     required this.items,
   });
 
-  static DocumentData build(
-      List<Expense> _expenses, CustomUser _currentUser, User _firebaseUser) {
+  static DocumentData build(List<Expense> _expenses, CustomUser _currentUser,
+      User _firebaseUser, String uuid) {
     final date = DateTime.now();
 
     return DocumentData(
@@ -42,6 +42,7 @@ class DocumentData {
             : Constants.blankString,
       ),
       info: DocumentInfo(
+        number: uuid,
         date: date,
         description: Constants.contactDescription,
       ),
@@ -63,10 +64,12 @@ class DocumentData {
 }
 
 class DocumentInfo {
+  final String number;
   final String description;
   final DateTime date;
 
-  const DocumentInfo({required this.description, required this.date});
+  const DocumentInfo(
+      {required this.number, required this.description, required this.date});
 }
 
 class DocumentItem {

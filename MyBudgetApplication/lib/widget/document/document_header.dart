@@ -68,7 +68,7 @@ class DocumentHeader {
               width: 50,
               child: BarcodeWidget(
                 barcode: Barcode.qrCode(),
-                data: _documentData.customer.email,
+                data: _documentData.info.number.toString(),
               ),
             ),
           ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_budget_application/screen/auth/registration_screen.dart';
 import 'package:my_budget_application/util/validation_utils.dart';
 import 'package:my_budget_application/widget/form/button_form_field.dart';
+import 'package:my_budget_application/widget/form/button_icon_form_field.dart';
 import 'package:my_budget_application/widget/form/form_field.dart';
 import 'package:my_budget_application/widget/form/text_form_field.dart';
 import 'package:my_budget_application/widget/text_button.dart';
@@ -92,6 +93,26 @@ class _LoginScreenState extends State<LoginScreen> {
     widget._loginFunction!();
   }
 
+  void _loginUserGoogle() async {
+    String result =
+        await _buildContext.read<AuthenticationService>().loginWithGoogle();
+    ScaffoldMessenger.of(_buildContext).showSnackBar(SnackBar(
+      content: Text(result.toString()),
+      duration: const Duration(seconds: 3),
+    ));
+    widget._loginFunction!();
+  }
+
+  void _loginUserFacebook() async {
+    // String result =
+    //     await _buildContext.read<AuthenticationService>().loginWithFacebook();
+    // ScaffoldMessenger.of(_buildContext).showSnackBar(SnackBar(
+    //   content: Text(result.toString()),
+    //   duration: const Duration(seconds: 3),
+    // ));
+    // widget._loginFunction!();
+  }
+
   /// Builds the UI elements for the authentication screen,
   /// including the [appBar] and [body] with a [context],
   /// with the adequate form elements.
@@ -113,15 +134,37 @@ class _LoginScreenState extends State<LoginScreen> {
           FormTextField(_emailController, Constants.emailPlaceholder,
               const EdgeInsets.fromLTRB(0, 40, 0, 15), false, null),
           FormTextField(_passwordController, Constants.passwordPlaceholder,
-              const EdgeInsets.fromLTRB(0, 10, 0, 40), true, null),
+              const EdgeInsets.fromLTRB(0, 10, 0, 30), true, null),
           ButtonFormField(const EdgeInsets.fromLTRB(0, 10, 0, 0), _loginUser,
               Constants.loginTitle, Colors.white, Colors.blueGrey),
           CustomTextButton(
-              Constants.registerButtonPlaceholder,
-              Constants.registrationTitle,
-              const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              Colors.white,
-              _navigateRegisterUser,
+            Constants.registerButtonPlaceholder,
+            Constants.registrationTitle,
+            const EdgeInsets.fromLTRB(0, 10, 0, 0),
+            Colors.white,
+            _navigateRegisterUser,
+          ),
+          Row(
+            children: [
+              ButtonIconFormField(
+                  const EdgeInsets.fromLTRB(0, 20, 20, 0),
+                  _loginUserGoogle,
+                  Image.asset(
+                    Constants.googleLogoUrl,
+                    height: 25,
+                    width: 40,
+                  ),
+                  Colors.white),
+              ButtonIconFormField(
+                  const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  _loginUserFacebook,
+                  Image.asset(
+                    Constants.facebookLogoUrl,
+                    height: 38,
+                    width: 45,
+                  ),
+                  Colors.white),
+            ],
           ),
         ]),
       ),

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:my_budget_application/service/firebase/users_repository.dart';
 import 'package:my_budget_application/util/constants.dart';
 
@@ -45,10 +46,17 @@ class AuthenticationService {
     try {
       var userCredentials = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      CustomUser customUser =
-          CustomUser(userCredentials.user!.uid, username, null, null,
-              List.empty(growable: true), List.empty(growable: true),
-          true, true, true, false);
+      CustomUser customUser = CustomUser(
+          userCredentials.user!.uid,
+          username,
+          null,
+          null,
+          List.empty(growable: true),
+          List.empty(growable: true),
+          true,
+          true,
+          true,
+          false);
       UserRepository.addUser(customUser);
       signOut();
       return Constants.registerSuccessMessage;
@@ -58,6 +66,54 @@ class AuthenticationService {
           ? errorMessage
           : "${Constants.registerErrorMessage} $email";
     }
+  }
+
+  Future<String> loginWithGoogle() async {
+    final GoogleSignInAccount? googleUser =
+        await GoogleSignIn(scopes: <String>['email']).signIn();
+
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser!.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    final userCredentials = await _firebaseAuth.signInWithCredential(credential);
+    CustomUser customUser = CustomUser(
+        userCredentials.user!.uid,
+        userCredentials.user!.displayName,
+        null,
+        null,
+        List.empty(growable: true),
+        List.empty(growable: true),
+        true,
+        true,
+        true,
+        false);
+    UserRepository.addUser(customUser);
+
+    return Constants.loginErrorMessage;
+  }
+
+  Future<String> loginWithFacebook() async {
+
+    // final userCredentials = await _firebaseAuth.signInWithCredential(credential);
+    // CustomUser customUser = CustomUser(
+    //     userCredentials.user!.uid,
+    //     userCredentials.user!.displayName,
+    //     null,
+    //     null,
+    //     List.empty(growable: true),
+    //     List.empty(growable: true),
+    //     true,
+    //     true,
+    //     true,
+    //     false);
+    // UserRepository.addUser(customUser);
+
+    return Constants.loginErrorMessage;
   }
 
   /// Signs out the existing user, if there is one,

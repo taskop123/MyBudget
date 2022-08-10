@@ -19,6 +19,7 @@ class Constants {
   /// Titles for the screens in our app.
   static const applicationTitle = "MyBudget";
   static const loginTitle = "Sign In";
+  static const loginGoogleTitle = "Google";
   static const registrationTitle = "Sign up";
   static const signOutTitle = "Sign Out";
   static const logoutTitle = 'Logout';
@@ -76,6 +77,8 @@ class Constants {
 
   /// Image paths that are used in our application.
   static const logoUrl = 'assets/images/logo.jpg';
+  static const googleLogoUrl = 'assets/images/google_logo.png';
+  static const facebookLogoUrl = 'assets/images/facebook_logo.png';
   static const avatarUrl = 'assets/images/profile-avatar.jpg';
   static const launcherUrl = '@mipmap/ic_launcher';
 
