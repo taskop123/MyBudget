@@ -1,4 +1,4 @@
- /// State class used for keeping information about user expenses.
+/// State class used for keeping information about user expenses.
 class Expense {
   /// The id of the expense.
   String? id;
@@ -31,7 +31,6 @@ class Expense {
   /// total [price], [latitude] and [longitude] of the location of the expense,
   /// as well as the [expenseAddress], [expenseCategory],
   /// [expenseNotes] and [dateAndTime].
-  ///
   Expense(
       this.id,
       this.userId,
@@ -62,8 +61,15 @@ class Expense {
   /// to an [Expense] .dart usable object.
   ///
   factory Expense.fromJson(var data) {
-    String? latitude = data['latitude'].toString() == "null" ? null : data['latitude'].toString();
-    String? longitude = data['longitude'].toString() == "null" ? null : data['longitude'].toString();
+    String? latitude = data['latitude'].toString() == "null"
+        ? null
+        : data['latitude'].toString();
+    String? longitude = data['longitude'].toString() == "null"
+        ? null
+        : data['longitude'].toString();
+    String? dateAndTime = data['dateAndTime'].toString() == "null"
+        ? null
+        : data['dateAndTime'].toString();
     return Expense(
       data['id'],
       data['userId'],
@@ -72,7 +78,7 @@ class Expense {
       (longitude != null) ? double.parse(longitude) : null,
       data['expenseAddress'],
       data['expenseCategory'],
-      DateTime.parse(data['dateAndTime']),
+      (dateAndTime != null) ? DateTime.parse(dateAndTime) : null,
       data['expenseNotes'],
     );
   }

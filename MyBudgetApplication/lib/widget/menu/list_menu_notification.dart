@@ -7,7 +7,7 @@ class ListMenuNotification extends StatelessWidget {
   final int _numberNotifications;
 
   /// Creates new list menu notification widget with the notification number
-  /// that is going to be displayed.
+  /// that is going to be displayed with the specified [_numberNotifications].
   const ListMenuNotification(this._numberNotifications, {Key? key})
       : super(key: key);
 

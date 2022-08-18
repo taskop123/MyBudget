@@ -24,10 +24,9 @@ class PieChartScreen extends StatefulWidget {
 
 /// State class used to display the pie chart screen.
 class _PieChartScreenState extends State<PieChartScreen> {
-
   /// Builds the UI elements for pie chart screen,
   /// including the [appBar] and [body] with a [context],
-  /// with the adequate pie chart which depicts the expenses 
+  /// with the adequate pie chart which depicts the expenses
   /// grouped by the expense category.
   ///
   @override

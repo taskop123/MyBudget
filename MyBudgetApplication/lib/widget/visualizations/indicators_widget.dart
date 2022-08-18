@@ -8,28 +8,12 @@ class IndicatorsWidget extends StatelessWidget {
   /// Defines the pie chart data.
   final List<Data> _data;
 
-  /// Creates new indicators widget with the given data.
+  /// Creates new indicators widget with the given [_data].
   const IndicatorsWidget(this._data, {Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: _data
-          .map(
-            (e) => Container(
-              padding: const EdgeInsets.symmetric(vertical: 2),
-              child: buildIndicator(
-                color: e.color,
-                text: e.name,
-              ),
-            ),
-          )
-          .toList(),
-    );
-  }
-
-  /// Creates indicator widget for displaying the data in the pie chart.
+  /// Creates indicator widget for displaying the data in the pie chart
+  /// with a specified [color], [text], [size] and a boolean flag [isSquare].
+  ///
   Widget buildIndicator(
       {required Color color,
       required String text,
@@ -56,6 +40,24 @@ class IndicatorsWidget extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: _data
+          .map(
+            (e) => Container(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: buildIndicator(
+                color: e.color,
+                text: e.name,
+              ),
+            ),
+          )
+          .toList(),
     );
   }
 }

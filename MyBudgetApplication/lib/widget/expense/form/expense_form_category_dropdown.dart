@@ -12,8 +12,8 @@ class ExpenseFormCategoryDropdown extends StatelessWidget {
   /// When null, then the hint is displayed.
   final String? _expenseCategory;
 
-  /// Creates the dropdown list widget with the callback function
-  /// and the initial category.
+  /// Creates the dropdown list widget with the [_setExpenseCategoryFunction]
+  /// and the initial [_expenseCategory].
   const ExpenseFormCategoryDropdown(
       this._setExpenseCategoryFunction, this._expenseCategory,
       {Key? key})
@@ -34,7 +34,7 @@ class ExpenseFormCategoryDropdown extends StatelessWidget {
               .map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(value: value, child: Text(value));
           }).toList(),
-          hint: const Text(Constants.categoryPlaceholder),
+          hint: const Text(Constants.chooseCategoryPlaceholder),
         ));
   }
 }

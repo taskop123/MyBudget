@@ -8,20 +8,34 @@ import '../../widget/settings/notification_option.dart';
 import '../../widget/settings/notification_row.dart';
 import '../../widget/settings/sign_out_button.dart';
 
+/// Defines the screen for configuration of the current user's preferences.
 class SettingsScreen extends StatefulWidget {
+  /// The route name of the settings screen.
   static const routeName = Constants.settingsRoute;
+
+  /// The notifier class used to change the state of the screen UI theme.
   final ThemeNotifier _themeNotifier;
 
+  /// Creates an instance of the [SettingsScreen]
+  /// with the specific [_themeNotifier].
   const SettingsScreen(this._themeNotifier, {Key? key}) : super(key: key);
 
+  /// Creates the state object for the [SettingsScreen].
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
+/// State class used to display the settings screen elements and its functionalities.
 class _SettingsScreenState extends State<SettingsScreen> {
+  /// The currently logged in user.
   CustomUser? _currentUser;
+
+  /// The function to be called on user logout.
   Function()? _logoutFunction;
 
+  /// Builds the UI elements for the user settings screen,
+  /// including the [appBar] and the [body] with a [context].
+  ///
   @override
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
@@ -79,69 +93,50 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  /// The method is called when disabling/enabling monthly notifications.
+  ///
+  /// Notifies the application that user wants to enable or disable the
+  /// monthly notifications which are automatically generated.
   void _monthlyNotificationsToggle(bool value) {
-    UserRepository.updateUserProfile(
-        _currentUser!.updateProfileEnabled,
-        _currentUser!.id,
-        null,
-        null,
-        null,
-        null,
-        value,
-        null,
-        null,
-        null);
+    UserRepository.updateUserProfile(_currentUser!.updateProfileEnabled,
+        _currentUser!.id, null, null, null, null, value, null, null, null);
     setState(() {
       _currentUser!.monthlyNotificationsEnabled = value;
     });
   }
 
+  /// The method is called when disabling/enabling yearly notifications.
+  ///
+  /// Notifies the application that user wants to enable or disable the
+  /// yearly notifications which are automatically generated.
   void _yearlyNotificationsToggle(bool value) {
-    UserRepository.updateUserProfile(
-        _currentUser!.updateProfileEnabled,
-        _currentUser!.id,
-        null,
-        null,
-        null,
-        null,
-        null,
-        value,
-        null,
-        null);
+    UserRepository.updateUserProfile(_currentUser!.updateProfileEnabled,
+        _currentUser!.id, null, null, null, null, null, value, null, null);
     setState(() {
       _currentUser!.yearlyNotificationsEnabled = value;
     });
   }
 
+  /// The method is called when disabling/enabling the ability
+  /// to update the user profile.
+  ///
+  /// Notifies the application that user wants to enable or disable the
+  /// ability of configuring and changing existing user data information.
   void _updateProfileToggle(bool value) {
-    UserRepository.updateUserProfile(
-        value,
-        _currentUser!.id,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        value,
-        null);
+    UserRepository.updateUserProfile(value, _currentUser!.id, null, null, null,
+        null, null, null, value, null);
     setState(() {
       _currentUser!.updateProfileEnabled = value;
     });
   }
 
+  /// The method is called when disabling/enabling dark theme.
+  ///
+  /// Notifies the application that user wants to enable or disable
+  /// the dark UI theme, and enable/disable the light theme.
   void _themeDarkToggle(bool value) {
-    UserRepository.updateUserProfile(
-        _currentUser!.updateProfileEnabled,
-        _currentUser!.id,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        value);
+    UserRepository.updateUserProfile(_currentUser!.updateProfileEnabled,
+        _currentUser!.id, null, null, null, null, null, null, null, value);
     setState(() {
       _currentUser!.themeDarkEnabled = value;
     });

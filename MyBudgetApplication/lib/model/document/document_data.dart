@@ -3,15 +3,27 @@ import 'package:my_budget_application/util/constants.dart';
 
 import '../expense.dart';
 import '../user.dart';
+import 'data/document_info.dart';
+import 'data/document_item.dart';
 import 'document_customer.dart';
 import 'document_supplier.dart';
 
+/// State class used for keeping data and information about document exports.
 class DocumentData {
+  /// Document's basic general information.
   final DocumentInfo info;
+
+  /// Document's information about the supplier. (MyBudget)
   final Supplier supplier;
+
+  /// Document's information about the customer. (MyBudget)
   final Customer customer;
+
+  /// Document's items which are displayed in the 'Expenses' table.
   final List<DocumentItem> items;
 
+  /// Creates a document with [info], [supplier],
+  /// [customer], and the [items] it is consisted of.
   const DocumentData({
     required this.info,
     required this.supplier,
@@ -19,6 +31,12 @@ class DocumentData {
     required this.items,
   });
 
+  /// Factory method supplied with the appropriate logic,
+  /// used for creating a new [DocumentData] object,
+  /// with the help of a list of [_expenses], the currently logged in user,
+  /// [_currentUser], along with the information about the [_firebaseUser],
+  /// as well as the [uuid] of the document which is to be created.
+  ///
   static DocumentData build(List<Expense> _expenses, CustomUser _currentUser,
       User _firebaseUser, String uuid) {
     final date = DateTime.now();
@@ -61,29 +79,4 @@ class DocumentData {
           .toList(growable: true),
     );
   }
-}
-
-class DocumentInfo {
-  final String number;
-  final String description;
-  final DateTime date;
-
-  const DocumentInfo(
-      {required this.number, required this.description, required this.date});
-}
-
-class DocumentItem {
-  final String expenseCategory;
-  final String expenseAddress;
-  final DateTime expenseDateTime;
-  final String expensePrice;
-  final String expenseNotes;
-
-  const DocumentItem({
-    required this.expenseCategory,
-    required this.expenseAddress,
-    required this.expenseDateTime,
-    required this.expensePrice,
-    required this.expenseNotes,
-  });
 }

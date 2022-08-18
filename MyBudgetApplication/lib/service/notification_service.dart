@@ -5,17 +5,29 @@ import 'package:my_budget_application/model/expense.dart';
 import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/service/expenses_service.dart';
 import 'package:my_budget_application/service/firebase/users_repository.dart';
-import 'package:provider/provider.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 import '../util/constants.dart';
 
+/// A service used for displaying and scheduling notifications.
 class NotificationService {
+  /// The title of the notifications.
   static const String notificationTitle = Constants.applicationTitle;
+
+  /// The body/payload of the notifications.
   static const String notificationPayload = Constants.notificationTitle;
+
+  /// An instance of the [FlutterLocalNotificationsPlugin]
+  /// used for displaying and scheduling notifications on the user's device.
   static final _notifications = FlutterLocalNotificationsPlugin();
+
+  /// The number of notifications the user has received
+  /// on the currently opened device state.
   static var notificationCounter = 0;
 
+  /// Initializes the android and IOS settings to enable
+  /// the user to receive notifications on his device.
+  ///
   static init() {
     const android = AndroidInitializationSettings(Constants.launcherUrl);
     const ios = IOSInitializationSettings();
@@ -25,6 +37,9 @@ class NotificationService {
     tz.initializeTimeZones();
   }
 
+  /// Constructs a [NotificationDetails] object consisting of
+  /// the details about the specific notification being sent.
+  ///
   static Future _notificationDetails() async {
     return const NotificationDetails(
       android: AndroidNotificationDetails(
@@ -40,8 +55,13 @@ class NotificationService {
     );
   }
 
-  static Future toggleExpenseNotifications(List<Expense> _expenses,
-      User? user, CustomUser _currentUser, BuildContext context) async {
+  /// Checks whether the monthly and/or yearly notifications
+  /// for the currently logged in user should be displayed, and does so,
+  /// if the condition is true based on the specified information
+  /// for [_expenses], [user], [_currentUser] and [context].
+  ///
+  static Future toggleExpenseNotifications(List<Expense> _expenses, User? user,
+      CustomUser _currentUser, BuildContext context) async {
     if (user != null) {
       var profileCreationTime = user.metadata.creationTime;
       if (profileCreationTime != null) {
@@ -53,6 +73,9 @@ class NotificationService {
     }
   }
 
+  /// Shows the yearly notifications for the [_currentUser],
+  /// based on his [_expenses] and the [creationDateMonth].
+  ///
   static Future _showYearlyNotification(List<Expense> _expenses,
       CustomUser _currentUser, DateTime creationDateMonth) async {
     var timeNow = DateTime.now();
@@ -69,7 +92,7 @@ class NotificationService {
 
         _showNotification(
             yearlySpending, monthlyIncome * 12.0, Constants.yearPlaceholder);
-        _currentUser.monthlyNotifications.add(yearlyNotificationEntry);
+        _currentUser.yearlyNotifications.add(yearlyNotificationEntry);
         UserRepository.updateUserProfile(
             _currentUser.updateProfileEnabled,
             _currentUser.id,
@@ -85,6 +108,9 @@ class NotificationService {
     }
   }
 
+  /// Shows the monthly notifications for the [_currentUser],
+  /// based on his [_expenses] and the [creationDateMonth].
+  ///
   static Future _showMonthlyNotification(List<Expense> _expenses,
       CustomUser _currentUser, DateTime creationDateMonth) async {
     var timeNow = DateTime.now();
@@ -118,6 +144,10 @@ class NotificationService {
     }
   }
 
+  /// Shows a notification to the currently logged in user with
+  /// a specific information regarding his [spending], [income],
+  /// based on the [notificationType].
+  ///
   static Future _showNotification(
       double spending, double income, String notificationType) async {
     String adviceMessage = (spending > income)
@@ -134,5 +164,7 @@ class NotificationService {
     );
   }
 
+  /// Cancels all scheduled notifications on the device.
+  ///
   static void cancelNotifications() => _notifications.cancelAll();
 }

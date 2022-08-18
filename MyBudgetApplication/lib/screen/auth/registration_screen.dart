@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_budget_application/screen/auth/login_screen.dart';
 import 'package:my_budget_application/util/constants.dart';
 import 'package:my_budget_application/util/validation_utils.dart';
 import 'package:my_budget_application/widget/form/button_form_field.dart';
@@ -113,30 +114,37 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         backgroundColor: Colors.lightBlue,
       ),
       backgroundColor: Colors.blue,
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(40, 10, 40, 30),
-        child: FormControl(_formKey, [
-          const ImageBanner(Constants.logoUrl),
-          FormTextField(_usernameController, Constants.usernamePlaceholder,
-              const EdgeInsets.fromLTRB(0, 30, 0, 15), false, null),
-          FormTextField(_emailController, Constants.emailPlaceholder,
-              const EdgeInsets.fromLTRB(0, 10, 0, 15), false, null),
-          FormTextField(_passwordController, Constants.passwordPlaceholder,
-              const EdgeInsets.fromLTRB(0, 5, 0, 40), true, null),
-          ButtonFormField(const EdgeInsets.fromLTRB(0, 10, 0, 0), _registerUser,
-              Constants.registrationTitle, Colors.white, Colors.blueGrey),
-          CustomTextButton(
-            Constants.loginButtonPlaceholder,
-            Constants.loginTitle,
-            const EdgeInsets.fromLTRB(0, 10, 0, 0),
-            Colors.blue,
-            _navigateLoginUser,
-          )
-        ]),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(40, 10, 40, 30),
+          child: FormControl(_formKey, [
+            const ImageBanner(Constants.logoUrl),
+            FormTextField(_usernameController, Constants.usernamePlaceholder,
+                const EdgeInsets.fromLTRB(0, 30, 0, 15), false, null),
+            FormTextField(_emailController, Constants.emailPlaceholder,
+                const EdgeInsets.fromLTRB(0, 10, 0, 15), false, null),
+            FormTextField(_passwordController, Constants.passwordPlaceholder,
+                const EdgeInsets.fromLTRB(0, 5, 0, 40), true, null),
+            ButtonFormField(
+                const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                _registerUser,
+                Constants.registrationTitle,
+                Colors.white,
+                Colors.blueGrey),
+            CustomTextButton(
+              Constants.loginButtonPlaceholder,
+              Constants.loginTitle,
+              const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              Colors.blue,
+              _navigateLoginUser,
+            )
+          ]),
+        ),
       ),
     );
   }
 
+  /// Navigates the user from the [RegistrationScreen] to the [LoginScreen].
   void _navigateLoginUser() {
     Navigator.pop(_buildContext);
   }

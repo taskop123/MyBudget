@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
+/// Defines the image item to be displayed on the carousel widget.
 class CarouselImageItem extends StatelessWidget {
+  /// The path of the image to be displayed.
   final String _imagePath;
 
+  /// Creates a new instance of the [CarouselImageItem]
+  /// with the given [_imagePath].
   const CarouselImageItem(this._imagePath, {Key? key}) : super(key: key);
 
   @override

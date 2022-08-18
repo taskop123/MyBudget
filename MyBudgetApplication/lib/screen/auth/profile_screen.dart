@@ -14,11 +14,13 @@ class ProfileScreen extends StatefulWidget {
   /// Creates an instance of the [ProfileScreen].
   const ProfileScreen({Key? key}) : super(key: key);
 
+  /// Creates the state object for the [ProfileScreen].
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  /// The list of the expenses the currently logged in user has.
   List<Expense>? _expenses;
 
   /// The height of the cover picture in the screen in logical pixels.
@@ -36,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as List;
-    var currentUser =  arguments[0] as CustomUser;
+    var currentUser = arguments[0] as CustomUser;
     List<Expense> expenses = arguments[1] as List<Expense>;
     _expenses = expenses;
 

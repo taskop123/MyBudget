@@ -11,9 +11,10 @@ import 'auth/login_screen.dart';
 /// from the authentication screens to the other screens,
 /// which the user can access after authentication.
 class SplashScreen extends StatefulWidget {
+  /// The notifier class used to change the state of the screen UI theme.
   final ThemeNotifier _themeNotifier;
 
-  /// Creates an instance of the [SplashScreen].
+  /// Creates an instance of the [SplashScreen] with the [_themeNotifier].
   const SplashScreen(this._themeNotifier, {Key? key}) : super(key: key);
 
   /// Creates the state object for the [SplashScreen].

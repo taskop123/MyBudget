@@ -69,36 +69,48 @@ class AuthenticationService {
     }
   }
 
+  /// Authenticates a new user with the help o [GoogleSignIn]
+  /// object instance to the 'Google' OAuth provider.
+  ///
+  /// Returns an adequate error message if the OAuth login is not successful.
   Future<String> loginWithGoogle() async {
-    final GoogleSignInAccount? googleUser =
-        await GoogleSignIn(scopes: <String>['email']).signIn();
+    try {
+      final GoogleSignInAccount? googleUser =
+          await GoogleSignIn(scopes: <String>['email']).signIn();
 
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
 
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
 
-    final userCredentials =
-        await _firebaseAuth.signInWithCredential(credential);
-    CustomUser customUser = CustomUser(
-        userCredentials.user!.uid,
-        userCredentials.user!.displayName,
-        null,
-        null,
-        List.empty(growable: true),
-        List.empty(growable: true),
-        true,
-        true,
-        true,
-        false);
-    UserRepository.addUser(customUser);
+      final userCredentials =
+          await _firebaseAuth.signInWithCredential(credential);
+      CustomUser customUser = CustomUser(
+          userCredentials.user!.uid,
+          userCredentials.user!.displayName,
+          null,
+          null,
+          List.empty(growable: true),
+          List.empty(growable: true),
+          true,
+          true,
+          true,
+          false);
+      UserRepository.addUser(customUser);
 
-    return Constants.loginErrorMessage;
+      return Constants.loginErrorMessage;
+    } on FirebaseAuthException catch (e) {
+      return (e.message != null) ? e.message! : Constants.loginErrorMessage;
+    }
   }
 
+  /// Authenticates a new user with the help o [FacebookAuthProvider]
+  /// object instance to the 'Google' OAuth provider.
+  ///
+  /// Returns an adequate error message if the OAuth login is not successful.
   Future<String> loginWithFacebook() async {
     try {
       final facebookLoginResult = await FacebookAuth.instance.login();
@@ -123,7 +135,7 @@ class AuthenticationService {
 
       return Constants.loginErrorMessage;
     } on FirebaseAuthException catch (e) {
-      return (e.message != null) ? e.message! : Constants.blankString;
+      return (e.message != null) ? e.message! : Constants.loginErrorMessage;
     }
   }
 

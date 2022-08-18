@@ -19,12 +19,16 @@ class ExpenseFormLocation extends StatelessWidget {
   /// Defines the build context of the parent widget.
   final BuildContext _buildContext;
 
-  /// Creates the location picker widget.
+  /// Creates the location picker widget with
+  /// the [_validateLocationFunction], [_expenseAddress],
+  /// [_locationController] and the specified [_buildContext].
   const ExpenseFormLocation(this._validateLocationFunction,
       this._expenseAddress, this._locationController, this._buildContext,
       {Key? key})
       : super(key: key);
 
+  /// Displays a the dialog for choosing the expense location.
+  ///
   void _chooseLocation() {
     showDialog(
       context: _buildContext,
@@ -39,13 +43,12 @@ class ExpenseFormLocation extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
         child: ButtonFormField(
-          const EdgeInsets.fromLTRB(0, 0, 0, 45),
-          _chooseLocation,
-          (_locationController == null || _expenseAddress == null)
-              ? Constants.locationSelectorPlaceholder
-              : _expenseAddress!,
-          null,
-          null
-        ));
+            const EdgeInsets.fromLTRB(0, 0, 0, 45),
+            _chooseLocation,
+            (_locationController == null || _expenseAddress == null)
+                ? Constants.locationSelectorPlaceholder
+                : _expenseAddress!,
+            null,
+            null));
   }
 }

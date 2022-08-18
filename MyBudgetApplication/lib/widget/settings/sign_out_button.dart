@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
+/// A button which signs out the currently logged in user.
 class SignOutButton extends StatelessWidget {
+  /// The title of the button to be displayed.
   final String _title;
+
+  /// The function which is to be called after confirming the logout action.
   final Function()? _logoutFunction;
 
+  /// Creates a new instance of the [SignOutButton] object
+  /// with the specified [_title] and [_logoutFunction].
   const SignOutButton(this._title, this._logoutFunction, {Key? key})
       : super(key: key);
 

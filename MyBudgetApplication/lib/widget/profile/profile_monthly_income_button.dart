@@ -5,9 +5,14 @@ import '../../util/constants.dart';
 import '../custom_snack_bar.dart';
 import 'monthly_income_dialog.dart';
 
+/// Defines the button which in which
+/// is displayed the monthly income for the user.
 class MonthlyIncomeButton extends StatelessWidget {
+  /// The currently logged in user.
   final CustomUser? _currentUser;
 
+  /// Creates an instance of the [MonthlyIncomeButton] object
+  /// with the given [_currentUser].
   const MonthlyIncomeButton(this._currentUser, {Key? key}) : super(key: key);
 
   @override
@@ -20,11 +25,10 @@ class MonthlyIncomeButton extends StatelessWidget {
         (_currentUser?.monthlyIncome) != null
             ? _currentUser!.monthlyIncome!
             : Constants.monthlyIncomeTextPlaceholder,
-        style: const TextStyle(
-            fontSize: 22, fontWeight: FontWeight.bold),
+        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
       ),
       onPressed: () async {
-        if(_currentUser!.updateProfileEnabled) {
+        if (_currentUser!.updateProfileEnabled) {
           await showDialog(
             context: context,
             builder: (context) => MonthlyIncomeDialog(_currentUser!),

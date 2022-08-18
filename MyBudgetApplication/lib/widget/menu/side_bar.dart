@@ -21,13 +21,15 @@ class SideBar extends StatefulWidget {
   /// Defines the current user.
   final CustomUser? _customUser;
 
+  /// The list of expenses for the currently logged in user.
   final List<Expense> _expenses;
 
-  /// Creates the side bar widget with the given logout function
-  /// and the current user.
+  /// Creates the side bar widget with the given [_logout] function,
+  /// the [_customUser] and his [_expenses].
   const SideBar(this._customUser, this._logout, this._expenses, {Key? key})
       : super(key: key);
 
+  /// Creates a state object for the side bar.
   @override
   State<SideBar> createState() => _SideBarState();
 }
@@ -36,33 +38,42 @@ class SideBar extends StatefulWidget {
 class _SideBarState extends State<SideBar> {
   /// Defines the current build context.
   late BuildContext _buildContext;
+
+  /// Defines the additional information about the current user.
   late User? _user;
 
   /// Navigates to the help screen in our application.
+  ///
   void _navigateToHelpScreen() {
     Navigator.of(_buildContext).pushNamed(HelpScreen.routeName);
   }
 
   /// Navigates to the contact screen in our application.
+  ///
   void _navigateToContactScreen() {
     Navigator.of(_buildContext).pushNamed(ContactScreen.routeName);
   }
 
   /// Navigates to the profile screen in our application.
+  ///
   void _navigateToProfileScreen() {
     Navigator.of(_buildContext).pushNamed(ProfileScreen.routeName,
         arguments: [widget._customUser, widget._expenses]);
   }
 
   /// Navigates to the settings screen in our application.
+  ///
   void _navigateToSettingsScreen() {
     Navigator.of(_buildContext).pushNamed(SettingsScreen.routeName,
         arguments: [widget._customUser, widget._logout]);
   }
 
   /// Navigates to the settings screen in our application.
+  ///
   void _exportPDFInvoice() async {
-    if (widget._customUser != null && _user != null) {
+    if (widget._customUser != null &&
+        _user != null &&
+        widget._expenses.isNotEmpty) {
       final pdfFile = await DocumentGenerator.generatePDF(
           widget._expenses, widget._customUser!, _user!);
       await DocumentGenerator.openFile(pdfFile);

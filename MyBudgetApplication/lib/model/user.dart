@@ -18,14 +18,27 @@ class CustomUser {
   /// The settings the user has received for his income by year.
   List<String> yearlyNotifications;
 
-  /// Flags for the user's preferences and settings.
+  /// Flag for keeping information whether the user
+  /// has monthly notifications enabled in his private settings or not.
   bool monthlyNotificationsEnabled;
+
+  /// Flag for keeping information whether the user
+  /// has yearly notifications enabled in his private settings or not.
   bool yearlyNotificationsEnabled;
+
+  /// Flag for keeping information whether the user
+  /// has permissions for updating his profile.
   bool updateProfileEnabled;
+
+  /// Flag for keeping information whether the user
+  /// has enabled dark mode, or he is using the light mode.
   bool themeDarkEnabled;
 
-  /// Creates a user object with an [id], [username], [profilePicture] URL,[monthlyIncome], [monthlyNotifications] and [yearlyNotifications].
-  ///
+  /// Creates a user object with an [id], [username], [profilePicture] URL,
+  /// specified [monthlyIncome], list of received [monthlyNotifications] and
+  /// [yearlyNotifications], as well as flags for [monthlyNotificationsEnabled],
+  /// [yearlyNotificationsEnabled], [updateProfileEnabled] and
+  /// [themeDarkEnabled].
   CustomUser(
       this.id,
       this.username,

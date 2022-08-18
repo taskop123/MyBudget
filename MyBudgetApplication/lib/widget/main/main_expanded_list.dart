@@ -10,12 +10,17 @@ class MainExpandedList extends StatelessWidget {
   /// The list of [Expense] objects that are shown in the widget.
   final List<Expense> _expenses;
 
+  /// The currently logged in user.
   final CustomUser? _currentUser;
 
+  /// The build context context which is used in the expanded list.
   final BuildContext _buildContext;
 
-  /// Creates an instance of [MainExpandedList] with [_expenses].
-  const MainExpandedList(this._expenses, this._buildContext, this._currentUser, {Key? key}) : super(key: key);
+  /// Creates an instance of [MainExpandedList]
+  /// with [_expenses], [_buildContext] and the [_currentUser].
+  const MainExpandedList(this._expenses, this._buildContext, this._currentUser,
+      {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

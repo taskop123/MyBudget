@@ -17,7 +17,9 @@ class CustomTextButton extends StatelessWidget {
   /// Defines the color of the text in the button.
   final Color _color;
 
-  /// Creates new custom text button.
+  /// Creates new [CustomTextButton] widget
+  /// with the specified [_text], [_linkText], [_margins],
+  /// [_color] and the [_onPressedFunction].
   const CustomTextButton(this._text, this._linkText, this._margins, this._color,
       this._onPressedFunction,
       {Key? key})

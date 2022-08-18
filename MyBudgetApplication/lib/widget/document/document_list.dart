@@ -4,26 +4,37 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:pdf/widgets.dart' as pdf_widgets;
 
+import '../../util/constants.dart';
+
+/// Widget which implements the table list of the
+/// document's data which is to be exported.
 class DocumentList {
+  /// The data from which the document consists of.
   final DocumentData _documentData;
 
-  const DocumentList(this._documentData);
+  /// Creates a new [DocumentList] object
+  /// with the appropriate [_documentData].
+  DocumentList(this._documentData);
 
-  Widget build() {
-    final headers = ['Category', 'Address', 'Date & Time', 'Notes', 'Price'];
-    final data = _documentData.items.map((item) {
+  /// Generates the data items from which the
+  /// document table will be consisted of.
+  ///
+  List<List<dynamic>> _getDataItems() {
+    return _documentData.items.map((item) {
       return [
         item.expenseCategory,
-        item.expenseAddress,
-        FormatterUtils.formatDate(item.expenseDateTime),
         item.expenseNotes,
+        FormatterUtils.formatDate(item.expenseDateTime),
+        item.expenseAddress,
         item.expensePrice
       ];
     }).toList();
+  }
 
+  Widget build() {
     return pdf_widgets.Table.fromTextArray(
-      headers: headers,
-      data: data,
+      headers: Constants.documentHeaders,
+      data: _getDataItems(),
       border: null,
       headerStyle:
           pdf_widgets.TextStyle(fontWeight: pdf_widgets.FontWeight.bold),

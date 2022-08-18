@@ -6,7 +6,7 @@ import 'package:my_budget_application/widget/visualizations/line_chart_widget.da
 
 import '../../model/expense.dart';
 
-/// Defines the statistics screen which displays the line chart 
+/// Defines the statistics screen which displays the line chart
 /// of user expenses through the months in the current year.
 class StatisticsScreen extends StatefulWidget {
   /// The route name of the statistics screen.
@@ -22,11 +22,10 @@ class StatisticsScreen extends StatefulWidget {
 
 /// State class used to display the line chart statistics screen.
 class _StatisticsScreenState extends State<StatisticsScreen> {
-
   /// Builds the UI elements for line chart statistics screen,
   /// including the [appBar] and [body] with a [context],
-  /// with the adequate line chart which depicts the total amount 
-  /// of expenses throughout each month of the current year. 
+  /// with the adequate line chart which depicts the total amount
+  /// of expenses throughout each month of the current year.
   ///
   @override
   Widget build(BuildContext context) {

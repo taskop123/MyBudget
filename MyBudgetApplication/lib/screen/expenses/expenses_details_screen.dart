@@ -1,25 +1,36 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/user.dart';
-import 'package:my_budget_application/widget/carousel_image_item.dart';
+import 'package:my_budget_application/widget/expense/details/expense_details_carousel.dart';
+import 'package:my_budget_application/widget/expense/details/expense_details_entry.dart';
 
 import '../../model/expense.dart';
 import '../../util/constants.dart';
-import '../../widget/info_text.dart';
 
+/// Defines the screen used for displaying the expense details.
 class ExpenseDetailsScreen extends StatefulWidget {
+  /// The route name of the expense details screen.
   static const routeName = Constants.expensesDetailsRoute;
 
+  /// Creates new screen for displaying screen details.
   const ExpenseDetailsScreen({Key? key}) : super(key: key);
 
+  /// Creates the state object for the [ExpenseDetailsScreen].
   @override
   State<ExpenseDetailsScreen> createState() => _ExpenseDetailsScreenState();
 }
 
+/// State class used to display the details about the selected expense.
 class _ExpenseDetailsScreenState extends State<ExpenseDetailsScreen> {
+  /// The expense for which the details will be presented.
   Expense? _selectedExpense;
+
+  /// The currently logged in user, whose expense is to be presented.
   CustomUser? _currentUser;
 
+  /// Builds the UI elements for displaying the specific expense details
+  /// including the [appBar] and [body] with a [context],
+  /// with the adequate container elements.
+  ///
   @override
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ??
@@ -37,85 +48,25 @@ class _ExpenseDetailsScreenState extends State<ExpenseDetailsScreen> {
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                CarouselSlider(
-                  options: CarouselOptions(
-                    height: 230,
-                    aspectRatio: 16 / 9,
-                    viewportFraction: 0.8,
-                    initialPage: 0,
-                    enableInfiniteScroll: true,
-                    reverse: false,
-                    autoPlay: true,
-                    autoPlayInterval: const Duration(seconds: 3),
-                    autoPlayAnimationDuration:
-                        const Duration(milliseconds: 500),
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enlargeCenterPage: true,
-                    scrollDirection: Axis.horizontal,
-                  ),
-                  items: const [
-                    CarouselImageItem(Constants.carouselItemOneImage),
-                    CarouselImageItem(Constants.carouselItemTwoImage),
-                    CarouselImageItem(Constants.carouselItemThreeImage),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 35, 0, 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      InfoText(
-                        _selectedExpense!.price.toString(),
-                        TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold,
-                            color: (_currentUser != null &&
-                                    _currentUser!.themeDarkEnabled)
-                                ? Colors.white
-                                : Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
+                const ExpenseDetailsCarousel(),
+                ExpenseDetailsEntry(_selectedExpense!.price.toString(),
+                    _currentUser, const EdgeInsets.fromLTRB(0, 35, 0, 10), 35),
                 if (_selectedExpense!.expenseAddress != null)
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 6),
-                    child: InfoText(_selectedExpense!.expenseAddress.toString(),
-                        const TextStyle(fontSize: 20)),
-                  ),
-                InfoText(
-                    _selectedExpense!.dateAndTime.toString(),
-                    TextStyle(
-                        fontSize: 19,
-                        color: (_currentUser != null &&
-                                _currentUser!.themeDarkEnabled)
-                            ? Colors.white
-                            : Colors.black)),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-                  child: InfoText(
-                      'Category: ' +
-                          _selectedExpense!.expenseCategory.toString(),
-                      TextStyle(
-                          fontSize: 24,
-                          color: (_currentUser != null &&
-                                  _currentUser!.themeDarkEnabled)
-                              ? Colors.white
-                              : Colors.black)),
-                ),
+                  ExpenseDetailsEntry(
+                      _selectedExpense!.expenseAddress.toString(),
+                      _currentUser,
+                      const EdgeInsets.fromLTRB(0, 0, 0, 6),
+                      20),
+                ExpenseDetailsEntry(_selectedExpense!.dateAndTime.toString(),
+                    _currentUser, const EdgeInsets.fromLTRB(0, 0, 0, 0), 19),
+                ExpenseDetailsEntry(
+                    '${Constants.categoryPlaceholder}: ${_selectedExpense!.expenseCategory.toString()}',
+                    _currentUser,
+                    const EdgeInsets.fromLTRB(0, 20, 0, 10),
+                    24),
                 if (_selectedExpense!.expenseNotes != null)
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(7, 0, 7, 0),
-                    child: InfoText(
-                      _selectedExpense!.expenseNotes.toString(),
-                      TextStyle(
-                          fontSize: 15,
-                          color: (_currentUser != null &&
-                                  _currentUser!.themeDarkEnabled)
-                              ? Colors.white
-                              : Colors.black),
-                    ),
-                  ),
+                  ExpenseDetailsEntry(_selectedExpense!.expenseNotes.toString(),
+                      _currentUser, const EdgeInsets.fromLTRB(7, 0, 7, 0), 15),
               ]),
         ),
       ),

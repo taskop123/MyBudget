@@ -4,52 +4,50 @@ import 'package:my_budget_application/model/expense.dart';
 import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/service/expenses_service.dart';
 import 'package:my_budget_application/util/constants.dart';
+import 'package:my_budget_application/widget/profile/profile_numbers_button.dart';
 
+/// The widget which displays the statistics for the currently logged in user.
 class ProfileNumbersWidget extends StatelessWidget {
+  /// The currently logged in user.
   final CustomUser _currentUser;
+
+  /// The list of expenses for the currently logged in user.
   final List<Expense> _expenses;
 
+  /// Creates a new instance for the [ProfileNumbersWidget]
+  /// for the given [_currentUser] and his [_expenses].
   const ProfileNumbersWidget(this._expenses, this._currentUser, {Key? key})
       : super(key: key);
 
-  Widget buildButton(
-          {required String text,
-          required Object value,
-          required Color color,
-          required double fontSize,
-          required CurrencyTextInputFormatter formatter}) =>
-      MaterialButton(
-        padding: const EdgeInsets.symmetric(vertical: 4),
-        onPressed: () {},
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                formatter.format(value.toString()),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: fontSize,
-                  color: color,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                text,
-                style: const TextStyle(fontSize: 14),
-              ),
-            ],
-          ),
-        ),
-      );
-
+  /// The divider which is used to separate different statistics numbers.
   Widget buildDivider() => const SizedBox(
         height: 40,
         child: VerticalDivider(),
       );
+
+  /// Calculates the monthly spending of the currently logged in user.
+  ///
+  double monthlySpending() {
+    return ExpenseService.monthlySpending(
+        _expenses, DateTime.now().year, DateTime.now().month);
+  }
+
+  /// Calculates the daily spending of the currently logged in user.
+  ///
+  double dailySpending() {
+    return ExpenseService.dailySpending(_expenses, DateTime.now().year,
+        DateTime.now().month, DateTime.now().day);
+  }
+
+  /// Reads the monthly income of the currently logged in user,
+  ///
+  /// Returns 0.0 dollars ($), if the income was not specified.
+  double monthlyIncome() {
+    return (_currentUser.monthlyIncome != null)
+        ? double.parse(_currentUser.monthlyIncome!
+            .replaceAll(Constants.lettersRegex, Constants.blankString))
+        : 0.0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,45 +55,35 @@ class ProfileNumbersWidget extends StatelessWidget {
     final CurrencyTextInputFormatter formatter =
         CurrencyTextInputFormatter(locale: locale.toString());
 
-    DateTime dateTimeNow = DateTime.now();
-    var monthlySpending = ExpenseService.monthlySpending(
-        _expenses, dateTimeNow.year, dateTimeNow.month);
-    var dailySpending = ExpenseService.dailySpending(
-        _expenses, dateTimeNow.year, dateTimeNow.month, dateTimeNow.day);
-    var monthlyIncome = (_currentUser.monthlyIncome != null)
-        ? double.parse(_currentUser.monthlyIncome!
-            .replaceAll(Constants.lettersRegex, Constants.blankString))
-        : 0.0;
     return Column(children: [
       Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-        buildButton(
-            text: Constants.allTimePlaceholder,
-            value: ExpenseService.allTimeSpending(_expenses),
-            color: _currentUser.themeDarkEnabled ? Colors.white : Colors.black,
-            fontSize: 24,
-            formatter: formatter),
+        ProfileNumbersButton(
+            Constants.allTimePlaceholder,
+            ExpenseService.allTimeSpending(_expenses),
+            _currentUser.themeDarkEnabled ? Colors.white : Colors.black,
+            24,
+            formatter),
         buildDivider(),
       ]),
       const SizedBox(
         height: 7,
       ),
       Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-        buildButton(
-            text: Constants.monthlyPlaceholder,
-            value: monthlySpending,
-            color:
-                (monthlyIncome < monthlySpending) ? Colors.red : Colors.green,
-            fontSize: 18,
-            formatter: formatter),
+        ProfileNumbersButton(
+            Constants.monthlyPlaceholder,
+            monthlySpending(),
+            (monthlyIncome() < monthlySpending()) ? Colors.red : Colors.green,
+            18,
+            formatter),
         buildDivider(),
-        buildButton(
-            text: Constants.dailyPlaceholder,
-            value: dailySpending,
-            color: ((monthlyIncome / 30) < dailySpending)
+        ProfileNumbersButton(
+            Constants.dailyPlaceholder,
+            dailySpending(),
+            ((monthlyIncome() / 30) < dailySpending())
                 ? Colors.red
                 : Colors.green,
-            fontSize: 18,
-            formatter: formatter),
+            18,
+            formatter),
         buildDivider(),
       ]),
     ]);

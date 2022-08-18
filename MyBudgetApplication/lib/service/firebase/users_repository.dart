@@ -22,8 +22,11 @@ class UserRepository {
     return _usersReference.orderByChild('id').equalTo(userId).onValue;
   }
 
-  /// Updates the user's profile picture URL
-  /// filtered out by the [id] with [profileImage]
+  /// Updates the user's details such as
+  /// [id], [profileImage], [monthlyIncome], [monthlyNotifications],
+  /// [yearlyNotifications], as well as the flags for
+  /// [monthlyNotificationsEnabled], [yearlyNotificationsEnabled],
+  /// [updateProfileEnabled] and [themeDarkEnabled]
   /// to the [FirebaseDatabase] db table of [CustomUser].
   ///
   static void updateUserProfile(
@@ -42,42 +45,30 @@ class UserRepository {
       var resultKey = resultMap.keys.first as String;
 
       if (canUpdateProfile) {
-        if (profileImage != null) {
-          _updateExpenseAttribute('profilePicture', profileImage, resultKey);
-        }
-        if (monthlyIncome != null) {
-          _updateExpenseAttribute('monthlyIncome', monthlyIncome, resultKey);
-        }
-        if (monthlyNotifications != null) {
-          _updateExpenseAttribute(
-              'monthlyNotifications', monthlyNotifications, resultKey);
-        }
-        if (yearlyNotifications != null) {
-          _updateExpenseAttribute(
-              'yearlyNotifications', yearlyNotifications, resultKey);
-        }
+        _updateExpenseAttribute('profilePicture', profileImage, resultKey);
+        _updateExpenseAttribute('monthlyIncome', monthlyIncome, resultKey);
+        _updateExpenseAttribute(
+            'monthlyNotifications', monthlyNotifications, resultKey);
+        _updateExpenseAttribute(
+            'yearlyNotifications', yearlyNotifications, resultKey);
       }
 
-      if (monthlyNotificationsEnabled != null) {
-        _updateExpenseAttribute('monthlyNotificationsEnabled',
-            monthlyNotificationsEnabled, resultKey);
-      }
-      if (yearlyNotificationsEnabled != null) {
-        _updateExpenseAttribute('yearlyNotificationsEnabled',
-            yearlyNotificationsEnabled, resultKey);
-      }
-      if (updateProfileEnabled != null) {
-        _updateExpenseAttribute(
-            'updateProfileEnabled', updateProfileEnabled, resultKey);
-      }
-      if (themeDarkEnabled != null) {
-        _updateExpenseAttribute(
-            'themeDarkEnabled', themeDarkEnabled, resultKey);
-      }
+      _updateExpenseAttribute('monthlyNotificationsEnabled',
+          monthlyNotificationsEnabled, resultKey);
+      _updateExpenseAttribute(
+          'yearlyNotificationsEnabled', yearlyNotificationsEnabled, resultKey);
+      _updateExpenseAttribute(
+          'updateProfileEnabled', updateProfileEnabled, resultKey);
+      _updateExpenseAttribute('themeDarkEnabled', themeDarkEnabled, resultKey);
     });
   }
 
+  /// Updates a details attribute of a specific
+  /// expense with a [name], [value] and the [userId].
+  ///
   static void _updateExpenseAttribute(String name, Object? value, var userId) {
-    _usersReference.child(userId).child(name).set(value);
+    if (name.isNotEmpty && value != null) {
+      _usersReference.child(userId).child(name).set(value);
+    }
   }
 }

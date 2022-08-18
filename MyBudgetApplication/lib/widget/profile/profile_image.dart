@@ -16,14 +16,15 @@ class ProfileImageWidget extends StatefulWidget {
   /// Defines the height of the image.
   final double profileHeight;
 
-  /// Defines the current user.
+  /// Defines the currently logged in user.
   final CustomUser currentUser;
 
-  /// Creates new profile image widget with the given current user
-  /// and height of the image.
+  /// Creates new profile image widget
+  /// with the given [profileHeight] and [currentUser].
   const ProfileImageWidget(this.currentUser, this.profileHeight, {Key? key})
       : super(key: key);
 
+  /// Creates the state object for the [ProfileImageWidget] widget.
   @override
   State<ProfileImageWidget> createState() => _ProfileImageWidgetState();
 }
@@ -34,7 +35,7 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
   late String? profilePicture;
 
   /// Uploads image selected from the device that the user is using
-  /// to the FireBase cloud database.
+  /// to the FireBase cloud database for the given [context].
   Future uploadImage(BuildContext context) async {
     final result = await FilePicker.platform
         .pickFiles(allowMultiple: false, type: FileType.image);

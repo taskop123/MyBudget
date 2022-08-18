@@ -17,7 +17,12 @@ import '../model/expense.dart';
 import '../widget/document/document_footer.dart';
 import '../widget/document/document_total.dart';
 
+/// A generator document service used for manipulating with document exports.
 class DocumentGenerator {
+  /// Generates a new document which is exported in a PDF format,
+  /// based on [_expenses], the [_currentUser]
+  /// and other used information in [_user].
+  ///
   static Future<File> generatePDF(
       List<Expense> _expenses, CustomUser _currentUser, User _user) async {
     final pdf = pdf_widgets.Document();
@@ -41,6 +46,9 @@ class DocumentGenerator {
     return saveDocument(name: '$documentUuid.pdf', pdf: pdf);
   }
 
+  /// Saves the document in the file [pdf] in a PDF format,
+  /// with the specified [name].
+  ///
   static Future<File> saveDocument({
     required String name,
     required pdf_widgets.Document pdf,
@@ -53,6 +61,8 @@ class DocumentGenerator {
     return file;
   }
 
+  /// Opens the specified locally existing [file].
+  ///
   static Future openFile(File file) async {
     final url = file.path;
     await OpenFile.open(url);

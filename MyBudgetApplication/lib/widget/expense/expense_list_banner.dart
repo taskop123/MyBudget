@@ -9,7 +9,8 @@ class ExpenseListBanner extends StatelessWidget {
   /// Defines the expense that the widget is showing.
   final Expense _expense;
 
-  /// Creates the listing expense widget.
+  /// Creates the listing expense widget,
+  /// with the specified [_expense].
   const ExpenseListBanner(this._expense, {Key? key}) : super(key: key);
 
   @override
@@ -19,11 +20,11 @@ class ExpenseListBanner extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
+          (_expense.dateAndTime != null) ? Text(
             Constants.formatWithMonthName
                 .format(_expense.dateAndTime as DateTime),
             style: const TextStyle(fontSize: 10),
-          ),
+          ) : Container(),
           Row(
             children: [
               const Text(

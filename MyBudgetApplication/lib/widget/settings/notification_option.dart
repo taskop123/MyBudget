@@ -3,11 +3,19 @@ import 'package:flutter/material.dart';
 
 import 'notification_alert_dialog.dart';
 
+/// Defines a toggle option widget for toggling user settings.
 class NotificationOption extends StatelessWidget {
+  /// The title of the option widget.
   final String _title;
+
+  /// The value of the option widget.
   final bool _value;
+
+  /// The function to be called on change of the value of the toggle.
   final Function _onChangeMethod;
 
+  /// Creates a new instance of a [NotificationOption] object
+  /// with the specified [_title], [_value] and the [_onChangeMethod].
   const NotificationOption(this._title, this._value, this._onChangeMethod,
       {Key? key})
       : super(key: key);

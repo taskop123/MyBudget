@@ -11,14 +11,16 @@ class ButtonFormField extends StatelessWidget {
   /// Defines a callback function that is called whenever the button is clicked.
   final Function() _onPressedFunction;
 
+  /// The background color of the button form widget.
   final Color? _backgroundColor;
 
+  /// The background color of the button form widget.
   final Color? _color;
 
-  /// Creates form button widget with the given margins, a callback function,
-  /// a text to be displayed, a background color and a text color.
-  const ButtonFormField(
-      this._margins, this._onPressedFunction, this._text, this._backgroundColor, this._color,
+  /// Creates form button widget with the given [_margins], an [_onPressedFunction],
+  /// a [_text] to be displayed, a [_backgroundColor] and a text [_color].
+  const ButtonFormField(this._margins, this._onPressedFunction, this._text,
+      this._backgroundColor, this._color,
       {Key? key})
       : super(key: key);
 

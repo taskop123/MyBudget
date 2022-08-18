@@ -6,17 +6,26 @@ import 'package:pdf/widgets.dart';
 
 import '../../util/constants.dart';
 
+/// Widget which implements the total amount
+/// of the document which is to be exported.
 class DocumentTotal {
+  /// The data from which the document consists of.
   final DocumentData _documentData;
 
+  /// Creates a new [DocumentTotal] object
+  /// with the appropriate [_documentData].
   const DocumentTotal(this._documentData);
 
-  Widget build() {
-    final total = _documentData.items
+  /// Calculates the total summed amount of price of the expenses.
+  ///
+  double _calculateDocumentTotal() {
+    return _documentData.items
         .map((item) => double.parse(item.expensePrice
             .replaceAll(Constants.lettersRegex, Constants.blankString)))
         .reduce((item1, item2) => item1 + item2);
+  }
 
+  Widget build() {
     return Container(
       alignment: Alignment.centerRight,
       child: Row(
@@ -28,8 +37,8 @@ class DocumentTotal {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 DocumentText(
-                  'Total amount',
-                  FormatterUtils.formatPrice(total),
+                  Constants.exportTotalAmountPlaceholder,
+                  FormatterUtils.formatPrice(_calculateDocumentTotal()),
                   null,
                   TextStyle(
                     fontSize: 14,

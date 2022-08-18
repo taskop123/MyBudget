@@ -13,15 +13,16 @@ import 'package:my_budget_application/widget/form/button_form_field.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/expense.dart';
+import '../../widget/custom_snack_bar.dart';
 import '../../widget/expense/form/expense_form_currency_formatter.dart';
 import '../../widget/expense/form/expense_form_location.dart';
 
 /// Defines the screen of adding a new expense.
 class ExpenseAddScreen extends StatefulWidget {
-  /// The route name of the add expense screen.
+  /// The route name of the add/edit expense screen.
   static const routeName = Constants.expensesAddRoute;
 
-  /// Creates new add expense screen.
+  /// Creates new add/edit expense screen.
   const ExpenseAddScreen({Key? key}) : super(key: key);
 
   /// Creates the state object for the [ExpenseAddScreen].
@@ -29,12 +30,14 @@ class ExpenseAddScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _ExpenseAddScreenState();
 }
 
-/// State class used to display the adding of a new expense screen.
+/// State class used to display the adding/editing of a new/existing expense screen.
 class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
+  /// The expense which is to be edited,
+  /// if the user has entered the edit mode of the screen.
   Expense? _expenseToEdit;
 
   /// Handles the formatting of the price input field.
-  late CurrencyTextInputFormatter formatter;
+  late CurrencyTextInputFormatter _formatter;
 
   /// The notes assigned to the new expense.
   String _expenseNotes = Constants.blankString;
@@ -128,62 +131,6 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
     });
   }
 
-  /// Builds the UI elements for the adding of a new expense form screen,
-  /// including the [appBar] and [body] with a [context],
-  /// with the adequate form elements.
-  ///
-  @override
-  Widget build(BuildContext context) {
-    if (_expenseToEdit == null &&
-        ModalRoute.of(context)!.settings.arguments != null) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) => _setExpenseValues());
-    }
-
-    _buildContext = context;
-    _currentUser = context.watch<User?>()!;
-    Locale locale = Localizations.localeOf(context);
-    formatter = CurrencyTextInputFormatter(locale: locale.toString());
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(Constants.newExpensePlaceholder),
-      ),
-      body: (ModalRoute.of(context)!.settings.arguments == null ||
-              (_price != '0.0' && _dateAndTime != null))
-          ? Form(
-              key: _formKey,
-              child: Container(
-                margin: const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                alignment: Alignment.center,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    ExpenseFormCurrencyFormatter(
-                        _changePrice, formatter, _price),
-                    ExpenseFormDateTime(
-                        _format, _setDateTimeFunction, _dateAndTime),
-                    ExpenseFormNotes(_setExpenseNotesFunction, _expenseNotes),
-                    ExpenseFormCategoryDropdown(
-                        _setExpenseCategory, _expenseCategory),
-                    ExpenseFormLocation(_validateLocation, _expenseAddress,
-                        _locationController, _buildContext),
-                    ButtonFormField(
-                        const EdgeInsets.all(23),
-                        (_expenseToEdit != null)
-                            ? _editExpense
-                            : _createNewExpense,
-                        Constants.submitButtonPlaceholder,
-                        null,
-                        null),
-                  ],
-                ),
-              ),
-            )
-          : null,
-    );
-  }
-
   /// This method is called whenever a new expense is created.
   ///
   /// It creates new expense with the corresponding user input
@@ -192,36 +139,62 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
   void _createNewExpense() {
     String userId = _currentUser.uid;
 
-    _expenseCategory ??= Constants.unknownPlaceholder;
-    Expense newExpense = Expense(
-      Constants.getRandomString(10),
-      userId,
-      _price,
-      _locationController?.latitude,
-      _locationController?.longitude,
-      _expenseAddress,
-      _expenseCategory,
-      _dateAndTime,
-      _expenseNotes,
-    );
+    if (_checkExpenseValidity()) {
+      _expenseCategory ??= Constants.unknownPlaceholder;
+      Expense newExpense = Expense(
+        Constants.getRandomString(10),
+        userId,
+        _price,
+        _locationController?.latitude,
+        _locationController?.longitude,
+        _expenseAddress,
+        _expenseCategory,
+        _dateAndTime,
+        _expenseNotes,
+      );
 
-    ExpenseRepository.addExpense(newExpense);
-    Navigator.of(_buildContext).pop();
+      ExpenseRepository.addExpense(newExpense);
+      Navigator.of(_buildContext).pop();
+    }
   }
 
+  /// This method checks whether the expense is valid or not,
+  /// based on the price category and date/time which was input.
+  ///
+  bool _checkExpenseValidity() {
+    bool validity = _price != null && _expenseCategory != null && _dateAndTime != null;
+    if(!validity) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const CustomSnackBar(Constants.snackBarValidityPlaceholder).build());
+    }
+    return validity;
+  }
+
+  /// This method updates the specific expense which is to be edited.
+  ///
+  /// It updates all the details and information about the expense
+  /// which were edited and pushes them to the firebase database.
+  /// After the successful operation,
+  /// the user is being redirected to the home screen.
   void _editExpense() {
-    _expenseToEdit!.price = _price;
-    _expenseToEdit!.latitude = _locationController?.latitude;
-    _expenseToEdit!.longitude = _locationController?.longitude;
-    _expenseToEdit!.expenseAddress = _expenseAddress;
-    _expenseToEdit!.expenseCategory = _expenseCategory;
-    _expenseToEdit!.dateAndTime = _dateAndTime;
-    _expenseToEdit!.expenseNotes = _expenseNotes;
+    if (_checkExpenseValidity()) {
+      _expenseToEdit!.price = _price;
+      _expenseToEdit!.latitude = _locationController?.latitude;
+      _expenseToEdit!.longitude = _locationController?.longitude;
+      _expenseToEdit!.expenseAddress = _expenseAddress;
+      _expenseToEdit!.expenseCategory = _expenseCategory;
+      _expenseToEdit!.dateAndTime = _dateAndTime;
+      _expenseToEdit!.expenseNotes = _expenseNotes;
 
-    ExpenseRepository.editExpense(_expenseToEdit!);
-    Navigator.of(_buildContext).pop();
+      ExpenseRepository.editExpense(_expenseToEdit!);
+      Navigator.of(_buildContext).pop();
+    }
   }
 
+  /// This method is called on screen creation for setting the expense values.
+  ///
+  /// The initial values of the expense field inputs are inserted,
+  /// when the user has entered the screen in edit mode.
   void _setExpenseValues() {
     Expense? expenseToEdit =
         ModalRoute.of(context)!.settings.arguments as Expense?;
@@ -238,5 +211,63 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
             LatLng(_expenseToEdit!.latitude!, _expenseToEdit!.longitude!));
       }
     }
+  }
+
+  /// Builds the UI elements for the addition of a new expense form screen,
+  /// including the [appBar] and [body] with a [context],
+  /// with the adequate form elements.
+  ///
+  @override
+  Widget build(BuildContext context) {
+    if (_expenseToEdit == null &&
+        ModalRoute.of(context)!.settings.arguments != null) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) => _setExpenseValues());
+    }
+
+    _buildContext = context;
+    _currentUser = context.watch<User?>()!;
+    Locale locale = Localizations.localeOf(context);
+    _formatter = CurrencyTextInputFormatter(locale: locale.toString());
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(Constants.newExpensePlaceholder),
+      ),
+      body: (ModalRoute.of(context)!.settings.arguments == null ||
+          (_price != '0.0' && _dateAndTime != null))
+          ? SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(30, 0, 30, 10),
+            alignment: Alignment.center,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ExpenseFormCurrencyFormatter(
+                    _changePrice, _formatter, _price),
+                ExpenseFormDateTime(
+                    _format, _setDateTimeFunction, _dateAndTime),
+                ExpenseFormNotes(_setExpenseNotesFunction, _expenseNotes),
+                ExpenseFormCategoryDropdown(
+                    _setExpenseCategory, _expenseCategory),
+                ExpenseFormLocation(_validateLocation, _expenseAddress,
+                    _locationController, _buildContext),
+                ButtonFormField(
+                    const EdgeInsets.all(23),
+                    (_expenseToEdit != null)
+                        ? _editExpense
+                        : _createNewExpense,
+                    Constants.submitButtonPlaceholder,
+                    null,
+                    null),
+              ],
+            ),
+          ),
+        ),
+      )
+          : null,
+    );
   }
 }

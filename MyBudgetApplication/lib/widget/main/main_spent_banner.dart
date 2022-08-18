@@ -10,32 +10,44 @@ class MainSpentBanner extends StatelessWidget {
   /// The list of [Expense] objects to the spent price amount for.
   final List<Expense> _expenses;
 
+  /// The currently logged in user.
   final CustomUser? _currentUser;
 
-  /// Creates an instance for the [MainSpentBanner] with [_expenses].
-  const MainSpentBanner(this._expenses, this._currentUser, {Key? key}) : super(key: key);
+  /// Creates an instance for the [MainSpentBanner]
+  /// with [_expenses] and the [_currentUser].
+  const MainSpentBanner(this._expenses, this._currentUser, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var dateTimeNow = DateTime.now();
-    double dailySpending = ExpenseService.dailySpending(
-        _expenses, dateTimeNow.year, dateTimeNow.month, dateTimeNow.day);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
           Constants.formatter.format(DateTime.now()),
-          style: TextStyle(fontSize: 20, color: (_currentUser != null && !_currentUser!.themeDarkEnabled) ? Colors.white : null),
+          style: TextStyle(
+              fontSize: 20,
+              color: (_currentUser != null && !_currentUser!.themeDarkEnabled)
+                  ? Colors.white
+                  : null),
         ),
         Text(
           Constants.expensesTodaySpentPlaceholder,
-          style: TextStyle(fontSize: 20, color: (_currentUser != null && !_currentUser!.themeDarkEnabled) ? Colors.white : null),
+          style: TextStyle(
+              fontSize: 20,
+              color: (_currentUser != null && !_currentUser!.themeDarkEnabled)
+                  ? Colors.white
+                  : null),
         ),
         Text(
-          "${dailySpending.toString()}\$",
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700, color: (_currentUser != null && !_currentUser!.themeDarkEnabled) ? Colors.white : null),
+          "${ExpenseService.dailySpending(_expenses, DateTime.now().year, DateTime.now().month, DateTime.now().day).toString()}\$",
+          style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w700,
+              color: (_currentUser != null && !_currentUser!.themeDarkEnabled)
+                  ? Colors.white
+                  : null),
         )
       ],
     );

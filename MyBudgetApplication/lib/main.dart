@@ -52,6 +52,9 @@ class MyApp extends StatefulWidget {
 /// creates the authentication providers,
 /// as well as routing throughout the application.
 class MyHomePage extends State<MyApp> {
+  /// Creates the main providers, states, streams, screen routes, UI theme
+  /// and other necessary application components and dependencies,
+  /// and navigates the user to the login screen for authentication.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

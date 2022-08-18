@@ -6,18 +6,28 @@ import '../../service/firebase/users_repository.dart';
 import '../../util/constants.dart';
 import '../expense/form/expense_form_currency_formatter.dart';
 
+/// Defines the dialog which is displayed to the user
+/// so he can enter his monthly income.
 class MonthlyIncomeDialog extends StatefulWidget {
+  /// The currently logged in user.
   final CustomUser _currentUser;
 
+  /// Creates a new instance of the [MonthlyIncomeDialog] object,
+  /// with the [_currentUser] specified.
   const MonthlyIncomeDialog(this._currentUser, {Key? key}) : super(key: key);
 
+  /// Creates the state object for the [MonthlyIncomeDialog].
   @override
   State<MonthlyIncomeDialog> createState() => _MonthlyIncomeDialogState();
 }
 
+/// Defines the state of monthly income dialog widget.
 class _MonthlyIncomeDialogState extends State<MonthlyIncomeDialog> {
+  /// The price which is being entered by the user to the form input.
   String? _price;
 
+  /// Toggles the state of the price, which is being updated in the form input.
+  ///
   void _changePrice(String? newPrice) {
     if (newPrice != null && newPrice.isNotEmpty) {
       setState(() {

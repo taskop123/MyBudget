@@ -31,9 +31,11 @@ class MainScreen extends StatefulWidget {
   /// to log out the current user and redirect him to the [LoginScreen].
   final Function()? _logoutFunction;
 
+  /// The notifier class used to change the state of the screen UI theme.
   final ThemeNotifier _themeNotifier;
 
-  /// Creates an instance of the [MainScreen] with a [_logoutFunction].
+  /// Creates an instance of the [MainScreen]
+  /// with a [_logoutFunction] and a [_themeNotifier].
   const MainScreen(this._logoutFunction, this._themeNotifier, {Key? key})
       : super(key: key);
 
@@ -50,7 +52,10 @@ class _MainScreenState extends State<MainScreen> {
   /// The currently authenticated [CustomUser] user.
   CustomUser? _currentUser;
 
+  /// The event for reading the information about the currently logged user.
   StreamSubscription? _readUserEvent;
+
+  /// The event for reading the information about the logged in user's expenses.
   StreamSubscription? _readExpensesEvent;
 
   /// Fetches the list of the expenses for the [_currentUser],
@@ -84,7 +89,7 @@ class _MainScreenState extends State<MainScreen> {
   /// with the help of [UserRepository], which makes
   /// a request to the [FirebaseDatabase], given the adequate [userId].
   ///
-  void _fetchCurrentUser(String? userId, BuildContext context) async {
+  void _fetchCurrentUser(String? userId, BuildContext context, User user) async {
     if (userId != null) {
       _readUserEvent = UserRepository.getUser(userId)!.listen((event) {
         if (event.snapshot.value == Null) {
@@ -101,6 +106,8 @@ class _MainScreenState extends State<MainScreen> {
                 : widget._themeNotifier.setLightMode();
             if (_currentUser!.monthlyIncome == null) {
               _showMonthlyIncomeDialog(context);
+              NotificationService.toggleExpenseNotifications(
+                  _expenses, user, _currentUser!, context);
             }
           }
         });
@@ -108,6 +115,10 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
+  /// Displays the dialog window for allowing the user to enter
+  /// his monthly income so the application can base it's behaviour based
+  /// on the personalized logged in user's information.
+  ///
   void _showMonthlyIncomeDialog(BuildContext context) {
     showDialog(
         context: context,
@@ -118,15 +129,10 @@ class _MainScreenState extends State<MainScreen> {
   /// when a change to the list has been made in the [FirebaseDatabase].
   ///
   @override
-  void didChangeDependencies() {
+  Future<void> didChangeDependencies() async {
     _fetchExpenses(context);
     var currentUser = context.watch<User?>();
-    _fetchCurrentUser(currentUser!.uid, context);
-
-    if (_currentUser != null) {
-      NotificationService.toggleExpenseNotifications(
-          _expenses, currentUser, _currentUser!, context);
-    }
+    _fetchCurrentUser(currentUser!.uid, context, currentUser);
 
     super.didChangeDependencies();
   }
@@ -147,7 +153,6 @@ class _MainScreenState extends State<MainScreen> {
   ///
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       drawer: SideBar(_currentUser, widget._logoutFunction, _expenses),
       appBar: AppBar(
@@ -167,6 +172,10 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
+  /// This method is called when the widget is disposed
+  /// and the subscription events need to canceled
+  /// in order not to get stuck in an endless 'listen' loop.
+  ///
   @override
   void dispose() {
     if (_readUserEvent != null) {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// Represents the main theme of the application.
+/// Class used for generating the UI themes used in the application.
 class MainTheme {
+  /// Generated the application's light theme.
   static ThemeData lightTheme() {
     return ThemeData(
       primarySwatch: Colors.blue,
@@ -15,6 +16,7 @@ class MainTheme {
     );
   }
 
+  /// Generated the application's dark theme.
   static ThemeData darkTheme() {
     return ThemeData(
       primarySwatch: Colors.blueGrey,

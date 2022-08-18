@@ -12,11 +12,12 @@ class BottomBar extends StatelessWidget {
   final List<Expense> _expenses;
   /// Defines the current index of the selected screen in the bottom bar.
   final int _currentIndex;
+  /// The currently logged in user.
   final CustomUser _currentUser;
 
   /// Creates a bottom navigation bar widget
-  /// with the given current selected index of the navigation bar 
-  /// and the expenses of the current user.
+  /// with the given [_currentIndex] of the navigation bar
+  /// and the [_expenses] of the [_currentUser].
   const BottomBar(this._currentIndex, this._expenses, this._currentUser, {Key? key})
       : super(key: key);
 

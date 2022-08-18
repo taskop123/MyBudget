@@ -79,13 +79,8 @@ class _ContactScreenState extends State<ContactScreen> {
                   TextStyle(fontSize: 16, decoration: TextDecoration.underline),
             ),
             const Padding(padding: EdgeInsets.fromLTRB(0, 3.0, 0, 15.0)),
-            ButtonFormField(
-                const EdgeInsets.fromLTRB(0, 20, 0, 10),
-                _navigateToLocationScreen,
-                Constants.locationTitle,
-              null,
-              null
-            ),
+            ButtonFormField(const EdgeInsets.fromLTRB(0, 20, 0, 10),
+                _navigateToLocationScreen, Constants.locationTitle, null, null),
           ]),
         ),
       ),

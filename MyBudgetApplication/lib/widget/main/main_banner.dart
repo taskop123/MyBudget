@@ -11,9 +11,11 @@ class MainBanner extends StatelessWidget {
   /// The list of [Expense] objects to show the banner for.
   final List<Expense> _expenses;
 
+  /// The currently logged in user.
   final CustomUser? _currentUser;
 
-  /// Creates an instance of [MainBanner] with [_expenses].
+  /// Creates an instance of [MainBanner]
+  /// with [_expenses] and the [_currentUser].
   const MainBanner(this._expenses, this._currentUser, {Key? key}) : super(key: key);
 
   @override
