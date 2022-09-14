@@ -5,7 +5,7 @@ class MapInfo extends StatelessWidget {
   /// Defines the text that should be displayed on the map.
   final String _text;
 
-  /// Creates a map info widget with a given text to be displayed.
+  /// Creates a map info widget with a given [_text] to be displayed.
   const MapInfo(this._text, {Key? key}) : super(key: key);
 
   @override

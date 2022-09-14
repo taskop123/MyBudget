@@ -8,7 +8,8 @@ class ActionButton extends StatelessWidget {
   /// Defines the callback function which is called when the button is clicked.
   final void Function() _clickFunction;
 
-  /// Creates new action button widget with the given icon and a callback function.
+  /// Creates new action button widget with
+  /// the given [_icon] and the [_clickFunction].
   const ActionButton(this._icon, this._clickFunction, {Key? key})
       : super(key: key);
 

@@ -38,14 +38,14 @@ class _CameraScreenState extends State<CameraScreen>
   void initState() {
     super.initState();
     initCamera();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
-  /// This method is called when the widget is disposed and 
+  /// This method is called when the widget is disposed and
   /// therefore we dispose the camera controller.
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     _controller.dispose();
     super.dispose();
   }
@@ -83,10 +83,7 @@ class _CameraScreenState extends State<CameraScreen>
   ///
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(Constants.cameraTitle),
-      ),
+    return (_initController != null) ? Scaffold(
       body: FutureBuilder(
         future: _initController,
         builder: (context, snapshot) {
@@ -102,7 +99,7 @@ class _CameraScreenState extends State<CameraScreen>
                 );
         },
       ),
-    );
+    ) : Container();
   }
 
   /// This method is called at the initialization of the widget in order to
@@ -122,7 +119,7 @@ class _CameraScreenState extends State<CameraScreen>
 
   /// This method is called whenever the user wants to take an image.
   /// It captures the image and stores it into the [imageFile] variable.
-  /// 
+  ///
   /// As a parameter it expects the [context] of the widget.
   captureImage(BuildContext context) {
     _controller.takePicture().then((file) {

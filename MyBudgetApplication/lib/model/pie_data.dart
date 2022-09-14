@@ -11,7 +11,6 @@ class PieData {
   List<Expense> expenses;
 
   /// Creates a pie chart data object for specific [expenses].
-  ///
   PieData({required this.expenses});
 
   /// Creates a list of [Data] pie chart group
@@ -55,6 +54,5 @@ class Data {
 
   /// Creates a pie chart data group for a [PieData] object
   /// consisting of [name], [percent] and [color].
-  ///
   Data({required this.name, required this.percent, required this.color});
 }

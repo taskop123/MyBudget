@@ -19,7 +19,9 @@ class FormTextField extends StatelessWidget {
   /// It validates the user input.
   final Function(String?)? _validatorFunction;
 
-  /// Creates new form text input widget.
+  /// Creates new form text input widget with the specified
+  /// [_controller], [_textHint], [_margins], [_isPassword] flag
+  /// and the [_validatorFunction], as well as the [obscureText] flag.
   const FormTextField(this._controller, this._textHint, this._margins,
       this._isPassword, this._validatorFunction,
       {Key? key, bool obscureText = false})

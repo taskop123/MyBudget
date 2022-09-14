@@ -1,36 +1,80 @@
 import '../model/expense.dart';
+import '../util/constants.dart';
 
 /// Service consisting of business logic for the [Expense] entity.
 class ExpenseService {
-  /// Makes a check whether the id from some of the list of [expenses]
+  /// Makes a check whether the id from some of the list of [_expenses]
   /// match the id of the given [expense].
   ///
-  static bool checkIfExpenseExists(List<Expense> expenses, Expense expense) {
-    for (var element in expenses) {
-      if (element.id == expense.id) {
-        return false;
-      }
-    }
-    return true;
+  static bool checkIfExpenseExists(List<Expense> _expenses, Expense _expense) {
+    return _expenses.where((item) => item.id == _expense.id).isEmpty;
   }
 
-  /// Calculates the total amount of today's spending,
-  /// from the list of [Expense] objects in dollars.
+  /// Calculates the total spent amount for the specified
+  /// list of [_expenses] in dollars ($).
   ///
-  /// Returns 0.0 dollars, if the [List<Expense>] is empty.
-  static double todaySpend(List<Expense> _expenses) {
-    double total = 0.0;
+  /// Returns 0.0 dollars ($), if the [List<Expense>] is empty.
+  static double allTimeSpending(List<Expense> _expenses) {
+    return _calculateIncome(_expenses);
+  }
 
-    for (var element in _expenses) {
-      if (element.dateAndTime?.day == DateTime.now().day &&
-          element.dateAndTime?.month == DateTime.now().month &&
-          element.dateAndTime?.year == DateTime.now().year) {
-        String temp = element.price as String;
-        var amount = double.parse(temp.replaceAll(RegExp('[^0-9.]+'), ''));
-        total += amount;
-      }
-    }
+  /// Calculates the total spent amount for the specified [year]
+  /// from the list of [_expenses] in dollars ($).
+  ///
+  /// Returns 0.0 dollars ($), if the [List<Expense>] is empty.
+  static double yearlySpending(List<Expense> _expenses, int year) {
+    List<Expense> filteredExpenses = _expenses
+        .where((element) => (element.dateAndTime != null)
+            ? (element.dateAndTime!.year == year)
+            : false)
+        .toList();
 
-    return total;
+    return _calculateIncome(filteredExpenses);
+  }
+
+  /// Calculates the total spent amount for the specified [year] and [month]
+  /// from the list of [_expenses] in dollars ($).
+  ///
+  /// Returns 0.0 dollars ($), if the [List<Expense>] is empty.
+  static double monthlySpending(List<Expense> _expenses, int year, int month) {
+    List<Expense> filteredExpenses = _expenses
+        .where((element) => (element.dateAndTime != null)
+            ? (element.dateAndTime!.month == month &&
+                element.dateAndTime!.year == year)
+            : false)
+        .toList();
+
+    return _calculateIncome(filteredExpenses);
+  }
+
+  /// Calculates the total spent amount for the specified
+  /// [year], [month] and [day] from the list of [_expenses] in dollars ($).
+  ///
+  /// Returns 0.0 dollars ($), if the [List<Expense>] is empty.
+  static double dailySpending(
+      List<Expense> _expenses, int year, int month, day) {
+    List<Expense> filteredExpenses = _expenses
+        .where((element) => (element.dateAndTime != null)
+            ? (element.dateAndTime!.month == month &&
+                element.dateAndTime!.year == year &&
+                element.dateAndTime!.day == day)
+            : false)
+        .toList();
+
+    return _calculateIncome(filteredExpenses);
+  }
+
+  /// Calculates the total income for the [expenses] list.
+  ///
+  /// Returns 0.0 dollars ($), if the [List<Expense>] is empty.
+  static double _calculateIncome(List<Expense> expenses) {
+    return (expenses.isNotEmpty)
+        ? expenses.map((element) {
+            return (element.price != null)
+                ? double.parse(element.price!
+                    .replaceAll(Constants.lettersRegex, Constants.blankString))
+                : 0.0;
+          }).reduce((a, b) => a + b)
+        : 0.0;
   }
 }

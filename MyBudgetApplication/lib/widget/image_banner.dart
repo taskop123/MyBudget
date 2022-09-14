@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
-/// Defines the image banned widget that displays the logo of 
+/// Defines the image banned widget that displays the logo of
 /// our application on the main screen.
 class ImageBanner extends StatelessWidget {
   /// Defines the image url that needs to be displayed.
   final String _imageUrl;
 
-  /// Creates new image banner widget with the given image url.
+  /// Creates new [ImageBanner] widget with the given [_imageUrl].
   const ImageBanner(this._imageUrl, {Key? key}) : super(key: key);
 
   @override

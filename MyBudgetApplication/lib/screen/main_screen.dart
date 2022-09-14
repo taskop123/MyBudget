@@ -1,17 +1,23 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/user.dart';
-import 'package:my_budget_application/screen/expenses/expenses_add_screen.dart';
 import 'package:my_budget_application/service/expenses_service.dart';
+import 'package:my_budget_application/util/theme_manager.dart';
 import 'package:my_budget_application/widget/main/main_banner.dart';
 import 'package:my_budget_application/widget/main/main_expanded_list.dart';
+import 'package:my_budget_application/widget/menu/add_expense_menu.dart';
 import 'package:my_budget_application/widget/menu/bottom_bar.dart';
 import 'package:my_budget_application/widget/menu/side_bar.dart';
+import 'package:my_budget_application/widget/profile/monthly_income_dialog.dart';
 import 'package:provider/provider.dart';
 
 import '../model/expense.dart';
 import '../service/firebase/expenses_repository.dart';
 import '../service/firebase/users_repository.dart';
+import '../service/notification_service.dart';
 import '../util/constants.dart';
 import '../widget/action_button.dart';
 import '../widget/menu/side_bar.dart';
@@ -25,8 +31,13 @@ class MainScreen extends StatefulWidget {
   /// to log out the current user and redirect him to the [LoginScreen].
   final Function()? _logoutFunction;
 
-  /// Creates an instance of the [MainScreen] with a [_logoutFunction].
-  const MainScreen(this._logoutFunction, {Key? key}) : super(key: key);
+  /// The notifier class used to change the state of the screen UI theme.
+  final ThemeNotifier _themeNotifier;
+
+  /// Creates an instance of the [MainScreen]
+  /// with a [_logoutFunction] and a [_themeNotifier].
+  const MainScreen(this._logoutFunction, this._themeNotifier, {Key? key})
+      : super(key: key);
 
   /// Creates the state object for the [MainScreen].
   @override
@@ -41,6 +52,12 @@ class _MainScreenState extends State<MainScreen> {
   /// The currently authenticated [CustomUser] user.
   CustomUser? _currentUser;
 
+  /// The event for reading the information about the currently logged user.
+  StreamSubscription? _readUserEvent;
+
+  /// The event for reading the information about the logged in user's expenses.
+  StreamSubscription? _readExpensesEvent;
+
   /// Fetches the list of the expenses for the [_currentUser],
   /// given the adequate [buildContext], with the help of
   /// [ExpenseRepository] which makes a request to the [FirebaseDatabase].
@@ -50,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
     var _eventInstance = ExpenseRepository.getExpensesByUser(currentUser!.uid);
 
     if (_eventInstance != null) {
-      _eventInstance.listen((event) {
+      _readExpensesEvent = _eventInstance.listen((event) {
         if (event.snapshot.value == Null) {
           return;
         }
@@ -72,9 +89,9 @@ class _MainScreenState extends State<MainScreen> {
   /// with the help of [UserRepository], which makes
   /// a request to the [FirebaseDatabase], given the adequate [userId].
   ///
-  void _fetchCurrentUser(String? userId) async {
+  void _fetchCurrentUser(String? userId, BuildContext context, User user) async {
     if (userId != null) {
-      UserRepository.getUser(userId)!.listen((event) {
+      _readUserEvent = UserRepository.getUser(userId)!.listen((event) {
         if (event.snapshot.value == Null) {
           return;
         }
@@ -83,17 +100,40 @@ class _MainScreenState extends State<MainScreen> {
             .first as Map<Object?, Object?>;
         setState(() {
           _currentUser = CustomUser.fromJson(result);
+          if (_currentUser != null) {
+            (_currentUser!.themeDarkEnabled)
+                ? widget._themeNotifier.setDarkMode()
+                : widget._themeNotifier.setLightMode();
+            if (_currentUser!.monthlyIncome == null) {
+              _showMonthlyIncomeDialog(context);
+              NotificationService.toggleExpenseNotifications(
+                  _expenses, user, _currentUser!, context);
+            }
+          }
         });
       });
     }
+  }
+
+  /// Displays the dialog window for allowing the user to enter
+  /// his monthly income so the application can base it's behaviour based
+  /// on the personalized logged in user's information.
+  ///
+  void _showMonthlyIncomeDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) => MonthlyIncomeDialog(_currentUser!));
   }
 
   /// Allows the list of [_expenses] to be fetched again,
   /// when a change to the list has been made in the [FirebaseDatabase].
   ///
   @override
-  void didChangeDependencies() {
+  Future<void> didChangeDependencies() async {
     _fetchExpenses(context);
+    var currentUser = context.watch<User?>();
+    _fetchCurrentUser(currentUser!.uid, context, currentUser);
+
     super.didChangeDependencies();
   }
 
@@ -113,27 +153,37 @@ class _MainScreenState extends State<MainScreen> {
   ///
   @override
   Widget build(BuildContext context) {
-    var currentUser = context.watch<User?>();
-    _fetchCurrentUser(currentUser!.uid);
-
     return Scaffold(
-      drawer: SideBar(_currentUser, widget._logoutFunction),
+      drawer: SideBar(_currentUser, widget._logoutFunction, _expenses),
       appBar: AppBar(
         title: const Text(Constants.applicationTitle),
         actions: _buildActionButtons(),
       ),
       body: Column(
         children: [
-          MainBanner(_expenses),
-          MainExpandedList(_expenses),
+          MainBanner(_expenses, _currentUser),
+          MainExpandedList(_expenses, context, _currentUser),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () =>
-            Navigator.of(context).pushNamed(ExpenseAddScreen.routeName),
-        child: const Icon(Icons.add),
-      ),
-      bottomNavigationBar: BottomBar(0, _expenses),
+      floatingActionButton: AddExpenseMenu(context),
+      bottomNavigationBar: (_currentUser != null)
+          ? BottomBar(0, _expenses, _currentUser!)
+          : null,
     );
+  }
+
+  /// This method is called when the widget is disposed
+  /// and the subscription events need to canceled
+  /// in order not to get stuck in an endless 'listen' loop.
+  ///
+  @override
+  void dispose() {
+    if (_readUserEvent != null) {
+      _readUserEvent!.cancel();
+    }
+    if (_readExpensesEvent != null) {
+      _readExpensesEvent!.cancel();
+    }
+    super.dispose();
   }
 }

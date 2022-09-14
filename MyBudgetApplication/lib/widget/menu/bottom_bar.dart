@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/expense.dart';
+import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/screen/visualizations/pie_chart_screen.dart';
 import 'package:my_budget_application/screen/visualizations/statistics_screen.dart';
 
@@ -11,11 +12,13 @@ class BottomBar extends StatelessWidget {
   final List<Expense> _expenses;
   /// Defines the current index of the selected screen in the bottom bar.
   final int _currentIndex;
+  /// The currently logged in user.
+  final CustomUser _currentUser;
 
   /// Creates a bottom navigation bar widget
-  /// with the given current selected index of the navigation bar 
-  /// and the expenses of the current user.
-  const BottomBar(this._currentIndex, this._expenses, {Key? key})
+  /// with the given [_currentIndex] of the navigation bar
+  /// and the [_expenses] of the [_currentUser].
+  const BottomBar(this._currentIndex, this._expenses, this._currentUser, {Key? key})
       : super(key: key);
 
   @override
@@ -23,7 +26,7 @@ class BottomBar extends StatelessWidget {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
       type: BottomNavigationBarType.fixed,
-      backgroundColor: Colors.blue,
+      backgroundColor: (!_currentUser.themeDarkEnabled) ? Colors.blue : null,
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.white60,
       showSelectedLabels: false,
@@ -44,11 +47,11 @@ class BottomBar extends StatelessWidget {
           }
           if (index == 1) {
             Navigator.of(context).pushNamed(StatisticsScreen.routeName,
-                arguments: {"expenses": _expenses});
+                arguments: [_expenses, _currentUser]);
           }
           if (index == 2) {
             Navigator.of(context).pushNamed(PieChartScreen.routeName,
-                arguments: {"expenses": _expenses});
+                arguments: [_expenses, _currentUser]);
           }
         }
       },

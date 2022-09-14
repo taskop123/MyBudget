@@ -23,7 +23,6 @@ class Directions {
   /// Creates directions for specific user path with
   /// longitude/latitude [bounds],list of [polylinePoints],
   /// string with the [totalDistance]  and a string with the [totalDuration].
-  ///
   Directions(
       this.bounds, this.polylinePoints, this.totalDistance, this.totalDuration);
 

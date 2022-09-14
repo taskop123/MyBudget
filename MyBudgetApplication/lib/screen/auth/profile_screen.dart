@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_budget_application/model/expense.dart';
 import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/widget/profile/profile_top_widget.dart';
 
@@ -6,18 +7,27 @@ import '../../util/constants.dart';
 import '../../widget/profile/profile_content.dart';
 
 /// Screen used for the profile details of the currently authenticated user.
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   /// The route name of the profile screen.
   static const routeName = Constants.profileRoute;
 
+  /// Creates an instance of the [ProfileScreen].
+  const ProfileScreen({Key? key}) : super(key: key);
+
+  /// Creates the state object for the [ProfileScreen].
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  /// The list of the expenses the currently logged in user has.
+  List<Expense>? _expenses;
+
   /// The height of the cover picture in the screen in logical pixels.
-  final double coverHeight = 220;
+  final double coverHeight = 140;
 
   /// The height of the profile picture in the screen in logical pixels.
   final double profileHeight = 200;
-
-  /// Creates an instance of the [ProfileScreen].
-  const ProfileScreen({Key? key}) : super(key: key);
 
   /// Builds the UI elements for the profile screen,
   /// including the [appBar] and [body] with a [context],
@@ -26,7 +36,11 @@ class ProfileScreen extends StatelessWidget {
   ///
   @override
   Widget build(BuildContext context) {
-    var currentUser = ModalRoute.of(context)!.settings.arguments as CustomUser;
+    final arguments = (ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as List;
+    var currentUser = arguments[0] as CustomUser;
+    List<Expense> expenses = arguments[1] as List<Expense>;
+    _expenses = expenses;
 
     return Scaffold(
       appBar: AppBar(
@@ -36,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           ProfileTopWidget(currentUser, coverHeight, profileHeight),
-          ProfileContentWidget(currentUser),
+          ProfileContentWidget(currentUser, _expenses!),
         ],
       ),
     );

@@ -19,31 +19,56 @@ class UserRepository {
   /// consisting of [CustomUser] object filtered by a [userId].
   ///
   static Stream<DatabaseEvent>? getUser(String? userId) {
-    if (userId == null || userId.isEmpty) {
-      return null;
-    }
-
     return _usersReference.orderByChild('id').equalTo(userId).onValue;
   }
 
-  /// Updates the user's profile picture URL
-  /// filtered out by the [id] with [profileImage]
+  /// Updates the user's details such as
+  /// [id], [profileImage], [monthlyIncome], [monthlyNotifications],
+  /// [yearlyNotifications], as well as the flags for
+  /// [monthlyNotificationsEnabled], [yearlyNotificationsEnabled],
+  /// [updateProfileEnabled] and [themeDarkEnabled]
   /// to the [FirebaseDatabase] db table of [CustomUser].
   ///
-  static void updateUserProfile(String? id, String? profileImage) {
-    if (profileImage != null) {
-      _usersReference.orderByChild('id').equalTo(id).onValue.listen((event) {
-        var resultMap = (event.snapshot.value as Map<Object?, Object?>);
-        var resultValue = resultMap.values.first as Map<Object?, Object?>;
-        var resultKey = resultMap.keys.first as String;
+  static void updateUserProfile(
+      bool canUpdateProfile,
+      String? id,
+      String? profileImage,
+      String? monthlyIncome,
+      List<String>? monthlyNotifications,
+      List<String>? yearlyNotifications,
+      bool? monthlyNotificationsEnabled,
+      bool? yearlyNotificationsEnabled,
+      bool? updateProfileEnabled,
+      bool? themeDarkEnabled) {
+    _usersReference.orderByChild('id').equalTo(id).once().then((event) {
+      var resultMap = (event.snapshot.value as Map<Object?, Object?>);
+      var resultKey = resultMap.keys.first as String;
 
-        var fetchedUser = CustomUser.fromJson(resultValue);
-        fetchedUser!.profilePicture = profileImage;
-        _usersReference
-            .child(resultKey)
-            .child('profilePicture')
-            .set(profileImage);
-      });
+      if (canUpdateProfile) {
+        _updateExpenseAttribute('profilePicture', profileImage, resultKey);
+        _updateExpenseAttribute('monthlyIncome', monthlyIncome, resultKey);
+        _updateExpenseAttribute(
+            'monthlyNotifications', monthlyNotifications, resultKey);
+        _updateExpenseAttribute(
+            'yearlyNotifications', yearlyNotifications, resultKey);
+      }
+
+      _updateExpenseAttribute('monthlyNotificationsEnabled',
+          monthlyNotificationsEnabled, resultKey);
+      _updateExpenseAttribute(
+          'yearlyNotificationsEnabled', yearlyNotificationsEnabled, resultKey);
+      _updateExpenseAttribute(
+          'updateProfileEnabled', updateProfileEnabled, resultKey);
+      _updateExpenseAttribute('themeDarkEnabled', themeDarkEnabled, resultKey);
+    });
+  }
+
+  /// Updates a details attribute of a specific
+  /// expense with a [name], [value] and the [userId].
+  ///
+  static void _updateExpenseAttribute(String name, Object? value, var userId) {
+    if (name.isNotEmpty && value != null) {
+      _usersReference.child(userId).child(name).set(value);
     }
   }
 }

@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/screen/auth/registration_screen.dart';
 import 'package:my_budget_application/util/validation_utils.dart';
 import 'package:my_budget_application/widget/form/button_form_field.dart';
+import 'package:my_budget_application/widget/form/button_icon_form_field.dart';
 import 'package:my_budget_application/widget/form/form_field.dart';
 import 'package:my_budget_application/widget/form/text_form_field.dart';
 import 'package:my_budget_application/widget/text_button.dart';
@@ -71,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
   /// validating the user credentials,
   /// and making a redirect if everything is successful.
   ///
-  /// If the validation is not successful, the login and redirect is not made.
+  /// If the validation is not successful, the login and redirect are not made.
   /// If the login to the [FirebaseAuth] service was not successful,
   /// the adequate error message is displayed.
   void _loginUser() async {
@@ -92,6 +94,40 @@ class _LoginScreenState extends State<LoginScreen> {
     widget._loginFunction!();
   }
 
+  /// Used for the 'Google' oAuth authentication of the user,
+  /// validating the user credentials,
+  /// and making a redirect if everything is successful.
+  ///
+  /// If the validation is not successful, the login and redirect are not made.
+  /// If the login to the [GoogleAuthProvider] service was not successful,
+  /// the adequate error message is displayed.
+  void _loginUserGoogle() async {
+    String result =
+        await _buildContext.read<AuthenticationService>().loginWithGoogle();
+    ScaffoldMessenger.of(_buildContext).showSnackBar(SnackBar(
+      content: Text(result.toString()),
+      duration: const Duration(seconds: 3),
+    ));
+    widget._loginFunction!();
+  }
+
+  /// Used for the 'Facebook' oAuth authentication of the user,
+  /// validating the user credentials,
+  /// and making a redirect if everything is successful.
+  ///
+  /// If the validation is not successful, the login and redirect are not made.
+  /// If the login to the [FacebookAuthProvider] service was not successful,
+  /// the adequate error message is displayed.
+  void _loginUserFacebook() async {
+    String result =
+        await _buildContext.read<AuthenticationService>().loginWithFacebook();
+    ScaffoldMessenger.of(_buildContext).showSnackBar(SnackBar(
+      content: Text(result.toString()),
+      duration: const Duration(seconds: 3),
+    ));
+    widget._loginFunction!();
+  }
+
   /// Builds the UI elements for the authentication screen,
   /// including the [appBar] and [body] with a [context],
   /// with the adequate form elements.
@@ -106,24 +142,48 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.lightBlue,
       ),
       backgroundColor: Colors.blue,
-      body: Padding(
+      body: SingleChildScrollView(
+          child: Padding(
         padding: const EdgeInsets.fromLTRB(40, 10, 40, 30),
         child: FormControl(_formKey, [
           const ImageBanner(Constants.logoUrl),
           FormTextField(_emailController, Constants.emailPlaceholder,
               const EdgeInsets.fromLTRB(0, 40, 0, 15), false, null),
           FormTextField(_passwordController, Constants.passwordPlaceholder,
-              const EdgeInsets.fromLTRB(0, 10, 0, 40), true, null),
+              const EdgeInsets.fromLTRB(0, 10, 0, 30), true, null),
           ButtonFormField(const EdgeInsets.fromLTRB(0, 10, 0, 0), _loginUser,
-              Constants.loginTitle, Colors.white, Colors.blue),
+              Constants.loginTitle, Colors.white, Colors.blueGrey),
           CustomTextButton(
-              Constants.registerButtonPlaceholder,
-              Constants.registrationTitle,
-              const EdgeInsets.fromLTRB(0, 10, 0, 0),
-              Colors.white,
-              _navigateRegisterUser),
+            Constants.registerButtonPlaceholder,
+            Constants.registrationTitle,
+            const EdgeInsets.fromLTRB(0, 10, 0, 0),
+            Colors.white,
+            _navigateRegisterUser,
+          ),
+          Row(
+            children: [
+              ButtonIconFormField(
+                  const EdgeInsets.fromLTRB(0, 20, 20, 0),
+                  _loginUserGoogle,
+                  Image.asset(
+                    Constants.googleLogoUrl,
+                    height: 25,
+                    width: 40,
+                  ),
+                  Colors.white),
+              ButtonIconFormField(
+                  const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  _loginUserFacebook,
+                  Image.asset(
+                    Constants.facebookLogoUrl,
+                    height: 38,
+                    width: 45,
+                  ),
+                  Colors.white),
+            ],
+          ),
         ]),
-      ),
+      )),
     );
   }
 

@@ -7,13 +7,15 @@ import 'package:my_budget_application/widget/profile/profile_image.dart';
 class ProfileTopWidget extends StatelessWidget {
   /// Defines the height of the cover image.
   final double coverHeight;
+
   /// Defines the height of the profile image.
   final double profileHeight;
+
   /// Defines the current user.
   final CustomUser currentUser;
 
-  /// Creates new profile top widget with the given current user, 
-  /// cover and profile image heights.
+  /// Creates new profile top widget with the given [currentUser],
+  /// [coverHeight] and the [profileHeight.
   const ProfileTopWidget(this.currentUser, this.coverHeight, this.profileHeight,
       {Key? key})
       : super(key: key);
@@ -26,7 +28,7 @@ class ProfileTopWidget extends StatelessWidget {
       children: [
         Container(
           margin: EdgeInsets.only(bottom: (profileHeight / 2)),
-          child: ProfileCoverImageWidget(coverHeight),
+          child: ProfileCoverImageWidget(coverHeight, currentUser),
         ),
         Positioned(
           top: (coverHeight - profileHeight / 2),

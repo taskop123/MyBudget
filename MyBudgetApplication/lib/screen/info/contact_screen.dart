@@ -46,7 +46,7 @@ class _ContactScreenState extends State<ContactScreen> {
         title: const Text(Constants.contactTitle),
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(40, 10, 40, 30),
+        padding: const EdgeInsets.fromLTRB(40, 45, 40, 30),
         child: Center(
           child: Column(children: [
             const ImageBanner(Constants.logoUrl),
@@ -79,12 +79,8 @@ class _ContactScreenState extends State<ContactScreen> {
                   TextStyle(fontSize: 16, decoration: TextDecoration.underline),
             ),
             const Padding(padding: EdgeInsets.fromLTRB(0, 3.0, 0, 15.0)),
-            ButtonFormField(
-                const EdgeInsets.fromLTRB(0, 20, 0, 10),
-                _navigateToLocationScreen,
-                Constants.locationTitle,
-                Colors.blue,
-                Colors.white),
+            ButtonFormField(const EdgeInsets.fromLTRB(0, 20, 0, 10),
+                _navigateToLocationScreen, Constants.locationTitle, null, null),
           ]),
         ),
       ),

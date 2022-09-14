@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-/// Widget which implements the button and its behaviour when the button is clicked
+/// Widget which implements the button and its behaviour when the button is clicked.
 class CameraButton extends StatelessWidget {
   /// The build context in which this widget is called from.
   final BuildContext _parentBuildContext;
   /// The function that needs to be called when the button is clicked.
   final Function(BuildContext) _captureImageFunction;
 
-  /// Defines a CameraButton widget with the corresponding
-  /// BuildContext and Callback Function.
+  /// Defines a [CameraButton] widget with the corresponding
+  /// [_parentBuildContext] and a Callback [_captureImageFunction].
   const CameraButton(this._captureImageFunction, this._parentBuildContext, {Key? key}) : super(key: key);
 
   @override

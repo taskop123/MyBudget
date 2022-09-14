@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_budget_application/model/expense.dart';
+import 'package:my_budget_application/model/user.dart';
 import 'package:my_budget_application/service/expenses_service.dart';
 
 import '../../util/constants.dart';
@@ -9,8 +10,13 @@ class MainSpentBanner extends StatelessWidget {
   /// The list of [Expense] objects to the spent price amount for.
   final List<Expense> _expenses;
 
-  /// Creates an instance for the [MainSpentBanner] with [_expenses].
-  const MainSpentBanner(this._expenses, {Key? key}) : super(key: key);
+  /// The currently logged in user.
+  final CustomUser? _currentUser;
+
+  /// Creates an instance for the [MainSpentBanner]
+  /// with [_expenses] and the [_currentUser].
+  const MainSpentBanner(this._expenses, this._currentUser, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +26,28 @@ class MainSpentBanner extends StatelessWidget {
       children: [
         Text(
           Constants.formatter.format(DateTime.now()),
-          style: const TextStyle(color: Colors.white, fontSize: 20),
-        ),
-        const Text(
-          Constants.expensesTodaySpentPlaceholder,
-          style: TextStyle(color: Colors.white, fontSize: 20),
+          style: TextStyle(
+              fontSize: 20,
+              color: (_currentUser != null && !_currentUser!.themeDarkEnabled)
+                  ? Colors.white
+                  : null),
         ),
         Text(
-          "${ExpenseService.todaySpend(_expenses).toStringAsFixed(2)}\$",
-          style: const TextStyle(
-              color: Colors.white, fontSize: 30, fontWeight: FontWeight.w700),
+          Constants.expensesTodaySpentPlaceholder,
+          style: TextStyle(
+              fontSize: 20,
+              color: (_currentUser != null && !_currentUser!.themeDarkEnabled)
+                  ? Colors.white
+                  : null),
+        ),
+        Text(
+          "${ExpenseService.dailySpending(_expenses, DateTime.now().year, DateTime.now().month, DateTime.now().day).toString()}\$",
+          style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w700,
+              color: (_currentUser != null && !_currentUser!.themeDarkEnabled)
+                  ? Colors.white
+                  : null),
         )
       ],
     );

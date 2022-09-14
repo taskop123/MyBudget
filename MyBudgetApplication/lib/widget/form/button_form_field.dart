@@ -2,21 +2,25 @@ import 'package:flutter/material.dart';
 
 /// Defines the button widget used in the forms in our application.
 class ButtonFormField extends StatelessWidget {
-  /// Defines the color of the text displayed on the button.
-  final Color _textColor;
-  /// Defines the background color of the button.
-  final Color _backgroundColor;
   /// Defines the text to be displayed on the button.
   final String _text;
+
   /// Defines the margins that the button widget should have.
   final EdgeInsets _margins;
+
   /// Defines a callback function that is called whenever the button is clicked.
   final Function() _onPressedFunction;
 
-  /// Creates form button widget with the given margins, a callback function,
-  /// a text to be displayed, a background color and a text color.
+  /// The background color of the button form widget.
+  final Color? _backgroundColor;
+
+  /// The background color of the button form widget.
+  final Color? _color;
+
+  /// Creates form button widget with the given [_margins], an [_onPressedFunction],
+  /// a [_text] to be displayed, a [_backgroundColor] and a text [_color].
   const ButtonFormField(this._margins, this._onPressedFunction, this._text,
-      this._backgroundColor, this._textColor,
+      this._backgroundColor, this._color,
       {Key? key})
       : super(key: key);
 
@@ -28,13 +32,13 @@ class ButtonFormField extends StatelessWidget {
         onPressed: () => _onPressedFunction(),
         child: Text(
           _text,
-          style: TextStyle(color: _textColor, fontSize: 17),
+          style: TextStyle(fontSize: 17, color: _color),
         ),
         style: ElevatedButton.styleFrom(
-          shape: const StadiumBorder(),
           primary: _backgroundColor,
+          shape: const StadiumBorder(),
           padding: const EdgeInsets.all(8.0),
-          minimumSize: const Size(300, 50),
+          minimumSize: const Size(350, 50),
         ),
       ),
     );
