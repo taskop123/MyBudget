@@ -162,8 +162,9 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
   /// based on the price category and date/time which was input.
   ///
   bool _checkExpenseValidity() {
-    bool validity = _price != null && _expenseCategory != null && _dateAndTime != null;
-    if(!validity) {
+    bool validity =
+        _price != null && _expenseCategory != null && _dateAndTime != null;
+    if (!validity) {
       ScaffoldMessenger.of(context).showSnackBar(
           const CustomSnackBar(Constants.snackBarValidityPlaceholder).build());
     }
@@ -221,7 +222,7 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
   Widget build(BuildContext context) {
     if (_expenseToEdit == null &&
         ModalRoute.of(context)!.settings.arguments != null) {
-      WidgetsBinding.instance!.addPostFrameCallback((_) => _setExpenseValues());
+      WidgetsBinding.instance.addPostFrameCallback((_) => _setExpenseValues());
     }
 
     _buildContext = context;
@@ -234,39 +235,39 @@ class _ExpenseAddScreenState extends State<ExpenseAddScreen> {
         title: const Text(Constants.newExpensePlaceholder),
       ),
       body: (ModalRoute.of(context)!.settings.arguments == null ||
-          (_price != '0.0' && _dateAndTime != null))
+              (_price != '0.0' && _dateAndTime != null))
           ? SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Container(
-            margin: const EdgeInsets.fromLTRB(30, 0, 30, 10),
-            alignment: Alignment.center,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ExpenseFormCurrencyFormatter(
-                    _changePrice, _formatter, _price),
-                ExpenseFormDateTime(
-                    _format, _setDateTimeFunction, _dateAndTime),
-                ExpenseFormNotes(_setExpenseNotesFunction, _expenseNotes),
-                ExpenseFormCategoryDropdown(
-                    _setExpenseCategory, _expenseCategory),
-                ExpenseFormLocation(_validateLocation, _expenseAddress,
-                    _locationController, _buildContext),
-                ButtonFormField(
-                    const EdgeInsets.all(23),
-                    (_expenseToEdit != null)
-                        ? _editExpense
-                        : _createNewExpense,
-                    Constants.submitButtonPlaceholder,
-                    null,
-                    null),
-              ],
-            ),
-          ),
-        ),
-      )
+              child: Form(
+                key: _formKey,
+                child: Container(
+                  margin: const EdgeInsets.fromLTRB(30, 0, 30, 10),
+                  alignment: Alignment.center,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ExpenseFormCurrencyFormatter(
+                          _changePrice, _formatter, _price),
+                      ExpenseFormDateTime(
+                          _format, _setDateTimeFunction, _dateAndTime),
+                      ExpenseFormNotes(_setExpenseNotesFunction, _expenseNotes),
+                      ExpenseFormCategoryDropdown(
+                          _setExpenseCategory, _expenseCategory),
+                      ExpenseFormLocation(_validateLocation, _expenseAddress,
+                          _locationController, _buildContext),
+                      ButtonFormField(
+                          const EdgeInsets.all(23),
+                          (_expenseToEdit != null)
+                              ? _editExpense
+                              : _createNewExpense,
+                          Constants.submitButtonPlaceholder,
+                          null,
+                          null),
+                    ],
+                  ),
+                ),
+              ),
+            )
           : null,
     );
   }

@@ -51,6 +51,7 @@ class Constants {
   static const helpRoute = '/home/help';
   static const expensesListRoute = '/home/expenses/list';
   static const expensesAddRoute = '/home/expenses/add';
+  static const receiptAddRoute = '/home/receipt/add';
   static const expensesDetailsRoute = '/home/expenses/details';
   static const cameraRoute = '/home/camera';
   static const displayImageRoute = '/home/camera/display';
@@ -101,6 +102,7 @@ class Constants {
       "Error happened when trying to sign up the user:";
   static const dateTimeErrorMessage = 'Date and time field is Required';
   static RegExp usernameRegex = RegExp(r'^[a-zA-Z0-9_.-]*$');
+  static RegExp doubleRegex = RegExp(r'\d+');
   static RegExp emailRegex = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   static RegExp passwordRegex =
@@ -214,6 +216,12 @@ class Constants {
   static const sixPlusThousandGraphPlaceholder = '6k+';
 
   /// Expenses variables used as placeholders.
+  static const companyNamePlaceholder = 'Company name';
+  static const companyAddressPlaceholder = 'Company address';
+  static const storeAddress = 'Store address';
+  static const totalPricePlaceholder = 'Total cost';
+  static const totalPriceInMKDPlaceholder = 'Total in MKD';
+  static const totalPriceInUSDPlaceholder = 'Total in \$';
   static const notesPlaceholder = 'Notes';
   static const dateTimePlaceholder = 'Date and Time';
   static const chooseCategoryPlaceholder = 'Choose category';
@@ -222,6 +230,7 @@ class Constants {
   static const locationSelectorPlaceholder = 'Select Location';
   static const unknownPlaceholder = 'Unknown';
   static const newExpensePlaceholder = 'Add/Edit Expense';
+  static const newReceiptPlaceholder = 'Add Receipt Expense';
   static const expensesSpentPlaceholder = 'Spent: ';
   static const expensesTodaySpentPlaceholder = 'Today Spent: ';
   static const expensesEmptySpentPlaceholder =
@@ -235,6 +244,7 @@ class Constants {
   /// Placeholder lists of UI elements and models.
   static const List<String> categories = [
     'Food',
+    'Groceries',
     'Clothing',
     'Fruits',
     'Shopping',

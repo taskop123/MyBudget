@@ -21,6 +21,7 @@ import 'package:my_budget_application/service/firebase/database_service.dart';
 import 'package:my_budget_application/service/notification_service.dart';
 import 'package:my_budget_application/util/constants.dart';
 import 'package:my_budget_application/util/theme_manager.dart';
+import 'package:my_budget_application/screen/receipt/receipt_form.dart';
 import 'package:provider/provider.dart';
 
 /// The initialization of listeners and services for the application,
@@ -90,6 +91,7 @@ class MyHomePage extends State<MyApp> {
               CameraScreen.routeName: (ctx) => const CameraScreen(),
               HelpScreen.routeName: (ctx) => const HelpScreen(),
               SettingsScreen.routeName: (ctx) => SettingsScreen(theme),
+              ReceiptFormScreen.routeName: (ctx) => ReceiptFormScreen(extractedText: ""),
             },
             home: SplashScreen(theme)),
       ),

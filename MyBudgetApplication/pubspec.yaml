@@ -83,6 +83,9 @@ dependencies:
   # Action buttons
   flutter_speed_dial: ^6.0.0
 
+  # Tesseract OCR
+  flutter_tesseract_ocr: ^0.4.20
+
 
 dev_dependencies:
   flutter_test:
@@ -108,6 +111,8 @@ flutter:
     - assets/images/carousel_banner_3.png
     - assets/images/google_logo.png
     - assets/images/facebook_logo.png
+    - assets/tessdata/
+    - assets/
 
 dependency_overrides:
   intl: ^0.17.0

@@ -38,14 +38,14 @@ class _CameraScreenState extends State<CameraScreen>
   void initState() {
     super.initState();
     initCamera();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   /// This method is called when the widget is disposed and
   /// therefore we dispose the camera controller.
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     _controller.dispose();
     super.dispose();
   }

@@ -2,85 +2,72 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tesseract_ocr/flutter_tesseract_ocr.dart';
 import 'package:my_budget_application/util/constants.dart';
 
+import '../receipt/receipt_form.dart';
+
 /// Screen used for displaying the captured picture using the user's device camera.
-class DisplayPictureScreen extends StatelessWidget {
+class DisplayPictureScreen extends StatefulWidget {
   /// The route name of the display image screen.
   static const routeName = Constants.displayImageRoute;
 
   /// Defines the image that is captured by the user's device camera.
   final XFile image;
 
-  /// Creates new display picture screen with the [image] property.
+  /// Constructor for the [DisplayPictureScreen] screen.
   const DisplayPictureScreen({Key? key, required this.image}) : super(key: key);
 
-  // TODO: Implement the logic for processing the image, receiving the data, and storing it in the firebase data storage, which is already connected for saving profile pictures.
-  // upload(XFile imageFile) async {
-  //   // open a bytestream
-  //   var stream =
-  //       // ignore: deprecated_member_use
-  //       http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
-  //   // get file length
-  //   var length = await imageFile.length();
-  //
-  //   var URL =
-  //       "https://my-budget.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-receipt:analyze?api-version=2021-09-30-preview";
-  //
-  //   // string to uri
-  //   var uri = Uri.parse(URL);
-  //
-  //   // create multipart request
-  //   var request = http.MultipartRequest("POST", uri);
-  //
-  //   Map<String, String> headers = {
-  //     "Content-Type": "image/jpeg",
-  //     "Ocp-Apim-Subscription-Key": "8d5f13f0892848dc879e2c6b3908bb4c"
-  //   };
-  //
-  //   request.headers.addAll(headers);
-  //
-  //   // multipart that takes file
-  //   var multipartFile = http.MultipartFile('image.jpeg', stream, length,
-  //       filename: basename(imageFile.path));
-  //
-  //   // add file to multipart
-  //   request.files.add(multipartFile);
-  //
-  //   // send
-  //   var response = await request.send();
-  //   print(response.statusCode);
-  //
-  //   // listen for response
-  //   response.stream.transform(utf8.decoder).listen((value) {
-  //     print(value);
-  //   });
-  // }
+  /// Creating the state of the widget.
+  @override
+  State<StatefulWidget> createState() => _DisplayPictureScreenState();
+}
 
-  /// Builds the UI elements for displaying the captured image, 
-  /// including the [floatingActionButton] and [body] with a [context],
-  /// with the image displaying elements.
+/// State class for [DisplayPictureScreen].
+class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
+
+  /// This method is called whenever the user makes an capture with the camera.
+  ///
+  /// It reads all of the content from the [image] that the used captures with his camera.
+  /// The [image] is expected to be an receipt image where the content from the receipt
+  /// are scanned using the [FlutterTesseractOcr] object.
+  recognizeTextFromReceipt(File image) async {
+    String _response =
+        await FlutterTesseractOcr.extractText(image.path, language: 'mkd');
+
+    Navigator.of(context)
+        .pushNamed(ReceiptFormScreen.routeName, arguments: _response);
+  }
+
+  /// Method which is called when state is firstly initialized.
+  @override
+  initState(){
+    super.initState();
+
+    recognizeTextFromReceipt(File(widget.image.path));
+  }
+
+  /// Builds the UI elements for the addition of a new receipt processing screen,
+  /// including the [body] with a [CircularProgressIndicator] while the text
+  /// is processed using the [FlutterTesseractOcr] object.
   ///
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Image.file(
-          File(image.path),
-          fit: BoxFit.fill,
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          var count = 0;
-          Navigator.popUntil(context, (route) {
-            return count++ == 2;
-          });
-        },
-        child: const Icon(Icons.send),
-      ),
+      body: Container(
+          alignment: Alignment.center,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              CircularProgressIndicator(),
+              SizedBox(
+                height: 20,
+              ),
+              Text("Processing Receipt")
+            ],
+          )),
     );
   }
 }
